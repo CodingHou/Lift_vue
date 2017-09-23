@@ -13,7 +13,7 @@
     <!--用于拦截请求（url-pattern为 / ，说明拦截所有请求），并交由Spring MVC的后台控制器来处理。这一项配置是必须的-->
     <servlet-mapping>
         <servlet-name>mvc-dispatcher</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>*.action</url-pattern>
     </servlet-mapping>
     <!--处理中文的post请求-->
     <filter>
