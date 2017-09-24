@@ -21,4 +21,10 @@ public class UserController {
         return "index";
     }
 
+    @RequestMapping(value = "/getUser", method = RequestMethod.GET)
+    public String getUser() {
+        return "userInfo";
+    }
+
+
 }

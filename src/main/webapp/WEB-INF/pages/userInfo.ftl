@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-姓名：${user.name}<br/>
-邮箱：${user.email}
+<#--姓名：${user.name}<br/>-->
+<#--邮箱：${user.email}-->
 </body>
 </html>
