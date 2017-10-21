@@ -1,0 +1,335 @@
+*{
+	margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+body{
+	height: 100vh;
+	width: 100vw;
+	/*background: url(background.png);
+	background-size: 100% 100%;*/
+}
+div{
+	/*overflow: hidden;*/
+	float: left;
+}
+a{
+	text-decoration: none;
+}
+#content{
+	/*border: 1px solid #d3d3d3;*/
+	height: 500px;
+	width: 300px;
+	position: absolute;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    
+}
+/*logo*/
+#lift{
+	height: 100px;
+	width: 300px;
+	font-size: 100px;
+	letter-spacing: 20px;
+	line-height: 100px;
+	top: 8px;
+	left: 40px;
+	color: #46B6FD;
+}
+/*登录框*/
+#main{
+	height: 400px;
+	width: 300px;
+}
+/*选项卡*/
+#main ul{
+	height: 80px;
+	width: 300px;
+	padding: 0px 25px;
+}
+#main li{
+	height: 80px;
+	width: 100px;
+	display: inline-block;
+	font-size: 25px;
+	
+	font-weight: 600;
+	line-height: 80px;
+	text-align: center;
+	margin: 0px 10px;
+}
+#main li:hover{
+	cursor: pointer;
+	color: #009cff;
+}
+.cli{
+	color: #46B6FD;
+}
+.no_cli{
+	color: #D3D3D3;
+}
+#space{
+	height: 20px;
+	width: 2px;
+	background: #808080;
+	top: 30px;
+	left: 125px;
+}
+
+/*登录*/
+#signIn{
+	/*display: none;*/
+}
+.inputDiv{
+	height: 60px;
+	width: 300px;
+}
+/*输入框*/
+.inputText{
+	height: 40px;
+	width: 250px;
+	margin: 5px 25px;
+	padding: 0px 0px 0px 40px ;
+	border-radius: 5px;
+	font-size: 15px;
+	border: 1px solid #D3D3D3;
+}
+#name{
+	background: url(../icon/name.png) no-repeat;
+	background-size: 25px 25px;
+	background-position: 7px 7px;
+}
+#password{
+	background: url(../icon/password.png) no-repeat;
+	background-size: 25px 25px;
+	background-position: 7px 7px;
+}
+
+/*记住密码和前边的框*/
+#remember{
+	height: 50px;
+	width: 300px;
+}
+#remember input{
+	top: 2px;
+	left: 30px;
+}
+#remember label{
+	color: grey;
+	left: 30px;
+}
+#remember label:hover{
+	color: black;
+	cursor: pointer;
+}
+/*忘记密码*/
+#forget{
+	color: #808080;
+	left: 110px;
+}
+#forget:hover{
+	color: black;
+}
+/*登录按钮*/
+#signInBtn{
+	height: 35px;
+	width: 240px;
+	margin: 7px 30px;
+	background: #46B6FD;
+	border: 1px solid #46B6FD;
+	border-radius: 3px;
+	cursor: pointer;
+	color: #FFFFFF;
+}
+#signInBtn:hover{
+	background: #009cff;
+}
+
+/*关联登录*/
+#other{
+	height: 50px;
+	width: 300px;
+	padding: 10px 50px;
+}
+#qq a{
+	background: url(../icon/qq.png) no-repeat;
+}
+#weixin a{
+	background: url(../icon/weixin.png) no-repeat;
+}
+#pay a{
+	background: url(../icon/pay.png) no-repeat;
+}
+#other a{
+	display: block;
+	height: 40px;
+	width: 40px;
+	margin: 0px 13px;
+	background-size: 80px 40px;
+}
+#other a:hover{
+	background-position: -40px 0px;
+}
+/*注册*/
+#signUp{
+	display: none;
+}
+/*提示*/
+.info{
+	float: left;
+	height: 0px;
+	width: 200px;
+	color: red;
+	left: 290px;
+	top: -40px;
+}
+/*绿对勾*/
+.pass{
+	color: green;
+	font-weight: 900;
+	float: left;
+	height: 0px;
+	left: 290px;
+	top: -40px;
+}
+/*密码强度*/
+#strength{
+
+}
+/*强度等级*/
+#strength{
+	display: none;
+}
+#strength span{
+	float: left;
+	margin: -1px;
+	top: 15px;
+}
+#strengthTab{
+	/*上边可耐滴小气泡*/
+	border-radius: 12px;
+	height: 24px;
+	width: 24px;
+	color: #FFFFFF;
+	top: -18px;
+}
+#strengthTab:before{
+	/*小气泡的三角*/
+	content: "";
+	width: 0px;
+	height: 0px;
+	position: relative;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	top: 28px;
+	left: 2px;
+}
+#strengthTab:after{
+	position: absolute;
+	left: 4px;
+}
+/*弱*/
+.change1{
+	background: red;
+	left: -105px;
+}
+.change1:after{
+	content: "弱";
+}
+.change1:before{
+	border-top: 9px solid red;
+}
+/*中*/
+.change2{
+	background: orange;
+	left: -70px;
+}
+.change2:after{
+	content: "中";
+}
+.change2:before{
+	border-top: 9px solid orange;
+}
+/*强*/
+.change3{
+	background: green;
+	left: -35px;
+}
+.change3:after{
+	content: "强";
+}
+.change3:before{
+	border-top: 9px solid green;
+}
+/*强度等级条*/
+#strength1{
+	height: 15px;
+	width: 40px;
+	border: 2px solid #c2c2c2;
+	border-radius: 10px 0px 0px 10px;
+}
+#strength2{
+	height: 15px;
+	width: 40px;
+	border: 2px solid #c2c2c2;
+}
+#strength3{
+	height: 15px;
+	width: 40px;
+	border: 2px solid #c2c2c2;
+	border-radius: 0px 10px 10px 0px;
+}
+.red{
+	background: red;
+}
+.orange{
+	background: orange;
+}
+.green{
+	background: green;
+}
+/*验证码*/
+#verification input{
+	width: 150px;
+	margin-right: 0px;
+}
+#verification img{
+	width: 80px;
+	height: 30px;
+	border: 1px solid #D3D3D3;
+	cursor: pointer;
+}
+/*注册按钮*/
+#signUpBtn{
+	height: 35px;
+	width: 240px;
+	margin: 7px 30px;
+	background: #46B6FD;
+	border: 1px solid #46B6FD;
+	border-radius: 3px;
+	cursor: pointer;
+	color: #FFFFFF;
+}
+#signUpBtn:hover{
+	background: #009cff;
+}
+/*同意注册*/
+#agree{
+	width: 300px;
+	height: 30px;
+	text-align: center;
+	color: #808080;
+}
+#agree a{
+	color: #009CFF;
+}
+/*宽度小于900px时*/
+/*@media screen and (max-width: 900px){
+	
+}*/

@@ -32,7 +32,7 @@ public class UserServiceImpl implements IUserService {
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andUserNameEqualTo(name);
         List<User> userList = userMapper.selectByExample(example);
-        if (userList != null) {
+        if (userList != null&&userList.size()>0) {
             return userList.get(0);
         }
         return null;

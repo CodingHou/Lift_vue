@@ -15,18 +15,25 @@ public class IndexController {
     @Autowired
     private IUserService userService;
 
+    @RequestMapping("/index")
+    public String index() {
+        return "/index";
+    }
     //注册
+    @RequestMapping("/signUp")
     public String signUp(User user, ModelMap modelMap,String repPwd) {
         userService.addUser(user);
         return "/main";
     }
 
     //登录
+    @RequestMapping("signIn")
     public String signIn(User user, ModelMap modelMap) {
         user = userService.getUserByName(user.getUserName());
         if (user != null) {
             return "/main";
         }
+        modelMap.addAttribute("message", "该用户不存在！");
         return "/index";
     }
 

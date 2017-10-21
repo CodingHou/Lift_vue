@@ -1,0 +1,306 @@
+*{
+	margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+div{
+	overflow: hidden;
+}
+a{
+	text-decoration: none;
+}
+body{
+	background: #efefef;
+}
+
+/*主体部分*/
+#content{
+	width: 1000px;
+	top: 100px;
+	margin: 0px auto 50px auto;
+}
+/*标签*/
+#contentTag{
+	width: 1000px;
+}
+#tag-box{
+	height: 50px;
+	padding: 10px;
+	
+}
+.tag{
+	float: right;
+	height: 25px;
+	width: auto;
+	padding: 0px 5px;
+	border-radius: 5px;
+	margin: 5px 5px 5px 15px;
+	cursor: pointer;
+	font-size: 15px;
+	color: #FFFFFF;
+	border: 2px solid #46B6FD;
+	background: #46B6FD;
+}
+.tag:after{
+	content: "";
+	width: 5px;
+	height: 5px;
+	border-radius: 3px;
+	background: #FFFFFF;
+	position: absolute;
+	left: -5px;
+	top: 8px;
+}
+.tag:before{
+	content: "";
+	width: 0;
+    height: 4px;
+    border-top: 10px solid transparent;
+	border-right: 10px solid #46B6FD;
+    border-bottom: 10px solid transparent;
+    position: absolute;
+    left: -9px;
+	top: -2px;
+}
+.allTag .tag{
+	float: left;
+}
+
+
+/*标签悬浮*/
+.allTag{
+	background: #d3d3d3;
+	box-shadow: 0px 0px 5px #d3d3d3;
+	position: absolute;
+	padding: 5px;
+	z-index: 5;
+	top: 60px;
+	right: 10px;
+	overflow: visible;
+	border-radius: 5px;
+	display: none;
+}
+.allTag:after{
+	content: "";
+	border-left:10px solid transparent;
+	border-bottom: 10px solid #d3d3d3;
+	border-right: 10px solid transparent;
+	position: absolute;
+	top: -10px;
+	right: 8px;
+}
+/*列表大盒子*/
+#list-box{
+	width: 400px;
+	float: left;
+	padding: 10px 10px;
+}
+.list{
+	height: 200px;
+	width: 380px;
+	margin: 0px 0px 20px 0px;
+	background: #FFFFFF;
+	border: 1px solid #D3D3D3;
+	box-shadow: 0px 0px 15px #C2C2C2;
+	overflow: visible;
+}
+.list:hover{
+	border: 2px solid #46B6FD;
+	border-radius: 5px;
+}
+.stateBar{
+	height: 50px;
+	margin: 5px 10px;
+}
+/*紧急程度*/
+.grade{
+	height: 20px;
+	width: 20px;
+	left: 15px;
+	top: 20px;
+	border-radius: 10px;
+	float: left;
+	margin: 5px;
+	cursor: pointer;
+}
+.stateBar .tag{
+	top: 15px;
+}
+/*标题*/
+.title{
+	margin: 5px 25px;
+}
+.title input{
+	z-index: 2;
+	height: 20px;
+	width: 200px;
+	border-radius: 5px;
+	border: 1px solid #C2C2C2;
+}
+.day{
+	color: #808080;
+	margin: 5px 25px;
+}
+/*进度条*/
+.rate{
+	height: 10px;
+	width: 325px;
+	background: #D3D3D3;
+	border-radius: 10px;
+	margin: 20px 25px;
+}
+.ratio{
+	height: 10px;
+	width: 325px;
+	background: #46B6FD;
+	border-radius: 10px;
+	text-align: right;
+	left: -195px;
+}
+.rateVal{
+	color: #808080;
+	margin: 0px 25px;
+}
+
+
+/*增加的列表*/
+#addList{
+	/*display: none;*/
+	cursor: pointer;
+}
+#grade1{
+	border: 5px solid red;
+	opacity: 0.1;
+}
+#grade2{
+	border: 5px solid orange;
+	opacity: 0.1;
+}
+#grade3{
+	border: 5px solid green;
+	opacity: 0.1;
+}
+#addList .ratio{
+	left: -325px;
+}
+
+
+/*右边详细内容的大盒子*/
+#item-box{
+	width: 600px;
+	float: left;
+	padding: 10px 10px;
+}
+/*里边还要套一个小一号的盒纸*/
+.item{
+	background: #FFFFFF;
+	width: 580px;
+	border: 1px solid #D3D3D3;
+	box-shadow: 0px 0px 15px #C2C2C2;
+}
+/*不知道这个可不可以算是页眉*/
+.header{
+	height: 80px;
+	border-bottom: 1px solid #D3D3D3;
+	padding: 25px;
+}
+.header div{
+	margin: 0px 20px;
+}
+/*红绿灯*/
+.header .grade{
+	float: left;
+	left: 0px;
+	top: 5px;
+}
+/*更多~~*/
+.more{
+	float: right;
+}
+/*标题要大一点吧*/
+h2{
+	margin: 40px;
+}
+/*每一个小小的项目*/
+.items{
+	border: 1px solid #D3D3D3;
+	width: 500px;
+	height: 50px;
+	line-height: 50px;
+	padding: 0px 30px;
+	margin: 0px 40px;
+	border-radius: 2px;
+	display: block;
+}
+.items:hover{
+	border: 1px solid #46B6FD;
+}
+.items input{
+	background: #FFFFFF;
+	height: 15px;
+	width: 15px;
+}
+/*下划线和改变颜色*/
+.spanChecked{
+	text-decoration: line-through;
+	color: #C2C2C2;
+}
+/*对勾*/
+input[type=checkbox]{
+	display: none;
+}
+.checkBox {
+	height: 30px;
+	width: 30px;
+	border: 5px solid #dcdcdc;
+	border-radius: 5px;
+	position: relative;
+	float: left;
+	margin: 10px 10px;
+	overflow: visible;
+}
+/*.checkBox:after{*/
+	/*content: "";*/
+	/*height: 10px;*/
+	/*width: 10px;*/
+	/*border: 5px solid #46B6FD;*/
+/*}*/
+/*.checkBox:before{*/
+	/*content: "";*/
+	/*height: 10px;*/
+	/*width: 10px;*/
+	/*border: 5px solid #46B6FD;*/
+/*}*/
+/*小列表的标题*/
+.listInput{
+	display: none;
+}
+/*这里要来一个超长夜用的。。*/
+.items label{
+
+}
+.title,.day{
+	height: 25px;
+}
+/*下边还要添加新的项目呢*/
+.add{
+	height: 40px;
+	width: 500px;
+	margin: 30px 40px;
+	background: #dcdcdc;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 5px;
+}
+.add:hover{
+	background: #46B6FD;
+}
+.add img{
+	width: 20px;
+	height: 20px;
+	margin: 10px;
+}
+.newDiv {
+	display: none;
+}
