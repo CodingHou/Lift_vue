@@ -1,8 +1,8 @@
 *{
 	margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    position: relative;
+	padding: 0;
+	box-sizing: border-box;
+	position: relative;
 }
 body{
 	height: 100vh;
@@ -24,12 +24,12 @@ a{
 	position: absolute;
 	transform: translate(-50%,-50%);
 	-webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+
 }
 /*logo*/
 #lift{
@@ -58,7 +58,7 @@ a{
 	width: 100px;
 	display: inline-block;
 	font-size: 25px;
-	
+
 	font-weight: 600;
 	line-height: 80px;
 	text-align: center;
@@ -100,7 +100,7 @@ a{
 	font-size: 15px;
 	border: 1px solid #D3D3D3;
 }
-#name{
+#userName{
 	background: url(../icon/name.png) no-repeat;
 	background-size: 25px 25px;
 	background-position: 7px 7px;
@@ -237,7 +237,7 @@ a{
 /*弱*/
 .change1{
 	background: red;
-	left: -105px;
+	/*left: -105px;*/
 }
 .change1:after{
 	content: "弱";
@@ -248,7 +248,7 @@ a{
 /*中*/
 .change2{
 	background: orange;
-	left: -70px;
+	/*left: -70px;*/
 }
 .change2:after{
 	content: "中";
@@ -259,7 +259,7 @@ a{
 /*强*/
 .change3{
 	background: green;
-	left: -35px;
+	/*left: -35px;*/
 }
 .change3:after{
 	content: "强";
