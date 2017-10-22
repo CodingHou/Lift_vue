@@ -1,12 +1,10 @@
 package com.hou.lift.controller;
 
+import com.hou.lift.cons.Constants;
 import com.hou.lift.model.User;
 import com.hou.lift.service.IUserService;
 import com.hou.lift.util.BaseResult;
-import com.hou.lift.util.JsonUtil;
 import com.hou.lift.util.JsonUtils;
-import com.hou.lift.util.Result;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -46,16 +44,28 @@ public class IndexController {
 
     @ResponseBody
     @RequestMapping("/checkUser")
-    public String checkUser(String userName) {
+    public String checkUser(String userName,Integer checkType) {
         BaseResult baseResult = new BaseResult();
         User user = userService.getUserByName(userName);
         if (user != null) {
-            baseResult.setMsg("用户存在");
-            baseResult.setStatus(true);
+            if (checkType == Constants.CHECK_EXIST) {
+                baseResult.setMsg("用户存在");
+                baseResult.setStatus(true);
+            } else if (checkType == Constants.CHECK_REPEAT) {
+                baseResult.setMsg("用户名已经存在");
+                baseResult.setStatus(false);
+            }
         } else {
-            baseResult.setStatus(false);
-            baseResult.setMsg("用户不存在");
+            if (checkType == Constants.CHECK_EXIST) {
+                baseResult.setMsg("用户不存在");
+                baseResult.setStatus(false);
+            } else if (checkType == Constants.CHECK_REPEAT) {
+                baseResult.setMsg("用户名未注册");
+                baseResult.setStatus(true);
+            }
+
         }
         return String.valueOf(JsonUtils.toHashMap(baseResult));
     }
+
 }
