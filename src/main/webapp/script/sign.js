@@ -26,7 +26,7 @@ $(function () {
         }
     }
 
-    // 邮箱
+    // 注册页面邮箱判断
     $("#email").blur(function () {
         // 判空
         checkNull("email", "emailInfo", "邮箱");
@@ -38,13 +38,35 @@ $(function () {
             if (!pattern.test(emailVal)) {
                 info.html("邮箱格式不正确").attr('class', 'info');
             } else {
-                info.html("√").attr('class', 'pass');
+                $.ajax({
+                    url:"/index/checkUser.action",    //请求的url地址
+                    dataType:"json",   //返回格式为json
+                    async:false,//请求是否异步，默认为异步，这也是ajax重要特性
+                    data:{"userName":$(this).val(),
+                        "checkType":2},    //参数值
+                    type:"POST",   //请求方式
+                    success:function(data){
+                        if (data.status){
+                            // 对的
+                            $("#emailInfo").html("请勿重复注册").attr('class', 'info');
+                        }else {
+                            $("#emailInfo").html("");
+                            $("#emailInfo").append("<img class='ok' src='/icon/ok.png'>");
+                        }
+                    },
+                    error:function(){
+                        //请求出错处理
+                        alert("服务器错误");
+                        return;
+                    }
+                });
+
             }
         }
         // 查重
     })
 
-    // 密码
+    // 注册页面密码判断
     $("#pwd").blur(function () {
         // 判空
         checkNull("pwd", "pwdInfo", "密码");
@@ -101,7 +123,7 @@ $(function () {
         }
     })
 
-    // 重复密码
+    // 注册页面重复密码
     $("#pwd2").blur(function () {
         // 判空
         checkNull("pwd2", "pwd2Info", "重复密码");
@@ -112,7 +134,8 @@ $(function () {
             if (password != password2) {
                 $("#pwd2Info").html("两次密码不一致");
             } else {
-                $("#pwd2Info").html("√").attr('class', 'pass');
+                $("#pwd2Info").html("");
+                $("#pwd2Info").append("<img class='ok' src='/icon/ok.png'>");
             }
         }
     })
@@ -124,14 +147,129 @@ $(function () {
         // 对错
     })
 
-    $("#signInBtn").click(function () {
-        $("#indexForm").submit();
-    })
-    $("#signUpBtn").click(function () {
-        // 判断是否为空
 
-        $("#indexForm").action="/index/index.action";
-        $("#indexForm").submit();
+    // 登录
+    $("#signInBtn").click(function () {
+        // 对两个input进行判断
+        var userName=$("#userName").val();
+        var password=$("#password").val();
+        // 如果都非空。则判断是否正确。否则提示为空
+        if(userName!=""&&password!=""){
+            var flag=0;
+            // 先判断邮箱是否存在
+            $.ajax({
+                url:"/index/checkUser.action",    //请求的url地址
+                dataType:"json",   //返回格式为json
+                async:false,//请求是否异步，默认为异步，这也是ajax重要特性
+                data:{"userName":userName,
+                    "checkType":1},    //参数值
+                type:"POST",   //请求方式
+                success:function(data){
+                    if (data.status){
+                        // 对的
+                        $("#nameInfo").html("");
+                        $("#nameInfo").append("<img class='ok' src='/icon/ok.png'>");
+                        flag=1;
+                    }else {
+                        $("#nameInfo").html("该用户不存在").attr('class', 'info');
+                    }
+                },
+                error:function(){
+                    //请求出错处理
+                    alert("服务器错误");
+                    return;
+                }
+            });
+            if(flag==1){
+                // 再判断是否正确
+                $.ajax({
+                    url:"/index/signIn.action",    //请求的url地址
+                    dataType:"json",   //返回格式为json
+                    async:false,//请求是否异步，默认为异步，这也是ajax重要特性
+                    data:{"userName":userName,
+                        "password":password},    //参数值
+                    type:"POST",   //请求方式
+                    success:function(data){
+                        // 如果登录成功。跳转到主页面。否则提示密码错误
+                        if (data.status){
+                            // 对的
+                            $("#indexForm")[0].action="/task/list.action";
+                            $("#indexForm")[0].submit();
+                        }else {
+                            $("#passwordInfo").html("密码错误").attr('class', 'info');
+                        }
+
+                    },
+                    error:function(){
+                        //请求出错处理
+                        alert("服务器错误");
+                        return;
+                    }
+                });
+            }
+
+
+        }else {
+            if(userName==""){
+                $("#nameInfo").html("请填写用户名").attr('class', 'info');
+            }
+            if (password==""){
+                $("#passwordInfo").html("请输入密码").attr('class', 'info');
+            }
+        }
+    })
+    // 注册
+    $("#signUpBtn").click(function () {
+        var email=$("#email").val();
+        var pwd=$("#pwd").val();
+        var pwd2=$("#pwd2").val();
+        // 验证是否为空
+        if (email!=""){
+            checkNull("email", "emailInfo", "邮箱");
+            return;
+        }
+        if(pwd!=""){
+            checkNull("pwd", "pwdInfo", "密码");
+            return;
+        }
+        if(pwd2!=""){
+            checkNull("pwd2", "pwd2Info", "重复密码");
+            return;
+        }
+        // 判断邮箱是否存在
+        var flag=0;
+        $.ajax({
+            url:"/index/checkUser.action",    //请求的url地址
+            dataType:"json",   //返回格式为json
+            async:false,//请求是否异步，默认为异步，这也是ajax重要特性
+            data:{"userName":$(this).val(),
+                "checkType":2},    //参数值
+            type:"POST",   //请求方式
+            success:function(data){
+                if (data.status){
+                    // 对的
+                    $("#nameInfo").html("请勿重复注册").attr('class', 'info');
+                    flag=1;
+                }
+
+            },
+            error:function(){
+                //请求出错处理
+                alert("服务器错误");
+                return;
+            }
+        });
+        // 判断两次密码是否一致
+        if(pwd2!=pwd){
+            $("#pwd2Info").html("两次密码不一致");
+            return;
+        }
+        if (flag==1){
+            $("#indexForm")[0].action="/index/signUp.action";
+            $("#indexForm")[0].submit();
+        }
+
+
     })
 
     // 登录判断用户是否存在
@@ -140,24 +278,28 @@ $(function () {
             $.ajax({
                 url:"/index/checkUser.action",    //请求的url地址
                 dataType:"json",   //返回格式为json
-                async:true,//请求是否异步，默认为异步，这也是ajax重要特性
-                data:{"userName":$(this).val()},    //参数值
+                async:false,//请求是否异步，默认为异步，这也是ajax重要特性
+                data:{"userName":$(this).val(),
+                    "checkType":1},    //参数值
                 type:"POST",   //请求方式
                 success:function(data){
-                    if(data.status){
-                        $("#nameInfo").html("√").attr('class', 'pass');
+                    if (data.status){
+                        // 对的
+                        $("#nameInfo").html("");
+                        $("#nameInfo").append("<img class='ok' src='/icon/ok.png'>");
                     }else {
                         $("#nameInfo").html("该用户不存在").attr('class', 'info');
                     }
                 },
                 error:function(){
                     //请求出错处理
-                    $("#nameInfo").html("该用户不存在").attr('class', 'info');
+                    alert("服务器错误");
+                    return;
                 }
             });
         }
     })
 
-    // 验证登录密码是否正确
+
 
 })
