@@ -66,6 +66,7 @@
         <property name="templateLoaderPath" value="/WEB-INF/pages/"/>
         <property name="freemarkerSettings">
             <props>
+                <prop key="tag_syntax">auto_detect</prop>
                 <prop key="template_update_delay">0</prop>
                 <prop key="default_encoding">UTF-8</prop>
                 <prop key="number_format">0.##########</prop>

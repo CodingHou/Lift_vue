@@ -40,10 +40,11 @@ public class TaskController {
         User user = userService.getUserByName(userName);
         userId = user.getId();
         List<Task> taskList = taskService.getTaskList(user.getId());
-        modelMap.addAttribute("", taskList);
         Task initTask = initTask(userId);
         taskList.add(initTask);
         List<TaskDetail> detailList = initDetailList(initTask);
+        modelMap.addAttribute("task", initTask);
+        modelMap.addAttribute("taskList", taskList);
         modelMap.addAttribute("detaiList", detailList);
         return "/home";
     }
@@ -74,7 +75,7 @@ public class TaskController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
         for (int i = 0; i < 5; i++) {
             TaskDetail detail = new TaskDetail();
-            detail.setName(InitDetailEnum.getName(i));
+            detail.setName(InitDetailEnum.getName(i+1));
             detail.setDataState(1);
             detail.setLabel(initTask.getLabel());
             detail.setTaskId(initTask.getId());

@@ -72,8 +72,8 @@
     <form action="taskForm" id="taskForm">
         <!--列表-->
         <div id="list-box">
-        <div class="list addList" id="">
-        [#list taskList as item]
+[#list taskList as item]
+    <div class="list addList" id="">
 
             <!--附加信息-->
             <div class="stateBar">
@@ -113,7 +113,7 @@
             <div class="del">
             </div>
         </div>
-        [/#list]
+[/#list]
     </form>
 
 </div>
@@ -135,14 +135,15 @@
                 <span class="tag theTag">0</span>
             </div>
         </div>
-        <h2>接下来。。</h2>
+        <h2>${task.name}</h2>
+        [#list detaiList as item]
         <div id="toDoList">
             <div class="items">
                 <input type="checkbox"/>
                 <div class="checkBox"></div>
-                <span>标签对详情页的绑定</span>
+                <span>${item.name}</span>
             </div>
-
+        [/#list]
         </div>
         <!--添加新项目-->
         <div class="add" id="newItem">
