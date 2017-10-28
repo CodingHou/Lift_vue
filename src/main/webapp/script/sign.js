@@ -51,7 +51,7 @@ $(function () {
                             $("#emailInfo").html("请勿重复注册").attr('class', 'info');
                         }else {
                             $("#emailInfo").html("");
-                            $("#emailInfo").append("<img class='ok' src='/icon/ok.png'>");
+                            $("#emailInfo").append("<img class='ok' src='/lift/icon/ok.png'>");
                         }
                     },
                     error:function(){
@@ -135,7 +135,7 @@ $(function () {
                 $("#pwd2Info").html("两次密码不一致");
             } else {
                 $("#pwd2Info").html("");
-                $("#pwd2Info").append("<img class='ok' src='/icon/ok.png'>");
+                $("#pwd2Info").append("<img class='ok' src='/lift/icon/ok.png'>");
             }
         }
     })
@@ -168,7 +168,7 @@ $(function () {
                     if (data.status){
                         // 对的
                         $("#nameInfo").html("");
-                        $("#nameInfo").append("<img class='ok' src='/icon/ok.png'>");
+                        $("#nameInfo").append("<img class='ok' src='/lift/icon/ok.png'>");
                         flag=1;
                     }else {
                         $("#nameInfo").html("该用户不存在").attr('class', 'info');
@@ -286,7 +286,7 @@ $(function () {
                     if (data.status){
                         // 对的
                         $("#nameInfo").html("");
-                        $("#nameInfo").append("<img class='ok' src='/icon/ok.png'>");
+                        $("#nameInfo").append("<img class='ok' src='/lift/icon/ok.png'>");
                     }else {
                         $("#nameInfo").html("该用户不存在").attr('class', 'info');
                     }

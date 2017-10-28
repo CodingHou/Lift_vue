@@ -47,113 +47,140 @@
     <!--提醒-->
     <div id="remind">
         <img src="/icon/remind.png"/>
-        <span id="">
-
-				</span>
+        <span></span>
     </div>
     <!--测悬浮-->
     <div id="add">
         <img src="/icon/add.png" alt="添加新项目">
     </div>
 </div>
+
+<input type="hidden" id="userId" value="${userId}">
 <!--主体部分-->
 <div id="content">
     <!--标签-->
-    <div id="contentTag">
-        <div id="tag-box">
-					<span class="tag">
-						家
-					</span>
-            <span class="tag">
-						公司
-					</span>
-        </div>
-    </div>
-    <form action="taskForm" id="taskForm">
-        <!--列表-->
-        <div id="list-box">
-[#list taskList as item]
-    <div class="list addList" id="">
+    <form action="" id="labelForm">
+        <div id="contentTag">
+            <div id="tag-box">
 
-            <!--附加信息-->
-            <div class="stateBar">
-                <!--紧急程度-->
-                <div class="grade grade1">
-                </div>
-                <div class="grade grade2">
-                </div>
-                <div class="grade grade3">
-                </div>
-                <!--标签-->
-                <span class="tag theTag">${item.label}</span>
-            </div>
-            <!--标签悬浮-->
-            <div class="allTag">
-                <span class="tag">1</span>
-                <span class="tag">2</span>
-                <span class="tag">3</span>
-            </div>
-            <!--标题-->
-            <div class="title">
-                <input type="text" class="listInput" placeholder="标题">
-                <span class="listSpan">${item.name}</span>
-            </div>
-            <!--日期-->
-            <div class="day">
-                <input type="date" class="listInput">
-                <span class="listSpan">2017</span>
-            </div>
-            <!--进度条-->
-            <div class="rate">
-                <div class="ratio">
-                </div>
-            </div>
-            <span class="rateVal">${item.completedDetail}/${item.totalDetail}</span>
-            <!--删除-->
-            <div class="del">
+                <img class="tagOk" src="/icon/changeOk.png" alt="">
+                <img class="tagChange" src="/icon/change.png" alt="">
+
+                <span class="tag select">家</span>
+                <span class="tagDel">-</span>
+                <input type="hidden" value="">
+
+                <span class="tag select">公司</span>
+                <span class="tagDel">-</span>
+                <input type="hidden" value="">
+
+                <span class="addTag">添加新标签</span>
             </div>
         </div>
-[/#list]
     </form>
 
-</div>
-<form action="" id="detailForm">
-<!--内容-->
-<div id="item-box">
-    <div class="item" id="item">
+    <!--列表-->
+    <form action="/task/insertTask.action" id="taskForm">
+        <div id="list-box">
 
-        <div class="header">
-            <div class="stateBar">
-                <!--紧急程度-->
-                <div class="grade">
+        [#list taskList as item]
+            <div class="task addTask" id="">
+                <input type="hidden" id="" class="taskId">
+                <!--附加信息-->
+                <div class="stateBar">
+                    <!--紧急程度-->
+                    <div class="grade grade1">
+                    </div>
+                    <div class="grade grade2">
+                    </div>
+                    <div class="grade grade3">
+                    </div>
+                    <!--标签-->
+                    <span class="tag theTag1">${item.label}</span>
+                    <!--<span class="tag theTag2">+</span>-->
                 </div>
-                <!--修改-->
-                <div id="change">
-                    <img src="icon/change.png" alt="">
+                <!--标签悬浮-->
+                <div class="allTag">
+                    [#list tagList as tag]
+                        <span class="tag NoChoose">${tag.name}</span>
+                    [/#list]
                 </div>
-                <!--标签-->
-                <span class="tag theTag">0</span>
-            </div>
-        </div>
-        <h2>${task.name}</h2>
-        [#list detaiList as item]
-        <div id="toDoList">
-            <div class="items">
-                <input type="checkbox"/>
-                <div class="checkBox"></div>
-                <span>${item.name}</span>
+
+                <!--标题-->
+                <div class="title">
+                    <input type="text" class="listInput" placeholder="标题">
+                    <span class="listSpan">${item.name}</span>
+                </div>
+                <!--日期-->
+                <div class="day">
+                    <input type="date" class="listInput">
+                    <span class="listSpan">${item.date}</span>
+                </div>
+                <!--进度条-->
+                <div class="rate">
+                    <div class="ratio">
+                    </div>
+                </div>
+                <span class="rateVal">${item.completedDetail}/${item.totalDetail}</span>
+                <!--删除-->
+                <img src="/icon/del.png" alt="" class="del">
             </div>
         [/#list]
-        </div>
-        <!--添加新项目-->
-        <div class="add" id="newItem">
-            <img src="icon/add.png" alt="">
-        </div>
 
 
-    </div>
-</div>
-</form>
+        </div>
+    </form>
+
+    <!--内容-->
+    <form action="/taskDetail/insertTaskDetail.action" id="detailForm">
+        <div id="item-box">
+            <div class="item" id="item">
+
+                <input type="hidden" id="taskId" value="${task.id}">
+
+                <div class="header">
+                    <div class="stateBar">
+                        <!--紧急程度-->
+                        <div class="grade">
+                        </div>
+                        <!--修改-->
+                        <img class="change" src="/icon/change.png" alt="">
+                        <!--标签-->
+                        <span class="tag theTag">0</span>
+                    </div>
+                </div>
+                <h2>${task.name}</h2>
+                <div id="toDoList">
+                [#list detailList as item]
+                    <input type="hidden"  class="detailId" value="${item.id}">
+                    <div class="items">
+                        [#--<input type="hidden"  class="detailId" value="${item.id}">--]
+                        ${item.id}
+                        <input type="checkbox" [#if item.dataState==2]checked="checked"[/#if]/>
+                        <div class="checkBox [#if item.dataState==2] c [/#if]" ></div>
+                        <span class="[#if item.dataState==2]spanChecked[/#if]">${item.name}</span>
+                    </div>
+                    <div class="itemInput">
+                        ${item.id}
+                        <div class="checkBox" ></div>
+                        <input class="changeInput" type="text" value="${item.name}">
+                        <img class="changeDel" src="/icon/del.png" alt="">
+                        <!--<img class="changeAdd" src="/icon/changeAdd.png" alt="">-->
+                    </div>
+                [/#list]
+
+                </div>
+                <!--添加新项目-->
+                <div class="add" id="newItem">
+                    <img src="/icon/add.png" alt="">
+                </div>
+                <div class="changeOk" id="changeOk">
+                    <img src="/icon/changeOk.png" alt="">
+                </div>
+            </div>
+        </div>
+    </form>
+
 </div>
 </body>
 </html>

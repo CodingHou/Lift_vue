@@ -4,9 +4,6 @@
     box-sizing: border-box;
     position: relative;
 }
-div{
-    overflow: hidden;
-}
 a{
     text-decoration: none;
 }
@@ -115,6 +112,7 @@ body{
     height: 50px;
     width: 50px;
     cursor: pointer;
+    border-radius: 25px;
 }
 #add img{
     height: 20px;

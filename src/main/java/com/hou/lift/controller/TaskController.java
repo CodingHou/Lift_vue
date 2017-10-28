@@ -8,18 +8,20 @@ import com.hou.lift.model.User;
 import com.hou.lift.service.IUserService;
 import com.hou.lift.service.TaskDetailService;
 import com.hou.lift.service.TaskService;
+import com.hou.lift.util.BaseResult;
 import com.hou.lift.util.DateUtil;
-import org.apache.commons.lang3.time.DateUtils;
+import com.hou.lift.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 @RequestMapping("/task")
@@ -40,12 +42,21 @@ public class TaskController {
         User user = userService.getUserByName(userName);
         userId = user.getId();
         List<Task> taskList = taskService.getTaskList(user.getId());
-        Task initTask = initTask(userId);
-        taskList.add(initTask);
-        List<TaskDetail> detailList = initDetailList(initTask);
-        modelMap.addAttribute("task", initTask);
+        List<TaskDetail> detailList = new ArrayList<>();
+//        初始化数据
+        Task task = new Task();
+        if (taskList.size() == 0) {
+            task = initTask(userId);
+            taskList.add(task);
+            detailList = initDetailList(task);
+        } else {
+            task = taskList.get(0);
+            detailList = taskDetailService.getTaskDetailList(userId, taskList.get(0).getId());
+        }
+        modelMap.addAttribute("userId", userId);
+        modelMap.addAttribute("task", task);
         modelMap.addAttribute("taskList", taskList);
-        modelMap.addAttribute("detaiList", detailList);
+        modelMap.addAttribute("detailList", detailList);
         return "/home";
     }
 
@@ -56,6 +67,40 @@ public class TaskController {
         return "/home";
     }
 
+
+    @ResponseBody
+    @RequestMapping("/insertTask")
+    public HashMap<String, Object> insertTask(Integer userId) {
+        BaseResult baseResult = new BaseResult();
+        Task task = new Task();
+        task.setUserId(userId);
+        int c =taskService.addTask(task);
+        if (c == 1) {
+            baseResult.setStatus(true);
+            baseResult.setMsg("保存成功!");
+        } else {
+            baseResult.setStatus(false);
+            baseResult.setMsg("保存失败");
+        }
+        return JsonUtils.toHashMap(baseResult);
+    }
+
+    @ResponseBody
+    @RequestMapping("/updateTask")
+    public HashMap<String, Object> updateTask(Integer userId,Integer taskId,Task task) {
+        BaseResult baseResult = new BaseResult();
+        task.setUserId(userId);
+        task.setId(taskId);
+        int c =taskService.updateTask(task);
+        if (c == 1) {
+            baseResult.setStatus(true);
+            baseResult.setMsg("保存成功!");
+        } else {
+            baseResult.setStatus(false);
+            baseResult.setMsg("保存失败");
+        }
+        return JsonUtils.toHashMap(baseResult);
+    }
 
     private Task initTask(Integer userId) throws ParseException {
         Task initTask = new Task();
@@ -77,6 +122,9 @@ public class TaskController {
             TaskDetail detail = new TaskDetail();
             detail.setName(InitDetailEnum.getName(i+1));
             detail.setDataState(1);
+            if (i == 1) {
+                detail.setDataState(2);
+            }
             detail.setLabel(initTask.getLabel());
             detail.setTaskId(initTask.getId());
             detail.setUserId(initTask.getUserId());

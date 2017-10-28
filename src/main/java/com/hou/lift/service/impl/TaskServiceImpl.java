@@ -7,6 +7,7 @@ import com.hou.lift.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -25,13 +26,21 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public Task getTaskById(Integer taskId) {
+        Task task = taskMapper.selectByPrimaryKey(taskId);
+        return task;
+    }
+
+    @Override
     public int addTask(Task task) {
+        task.setCreateDate(Calendar.getInstance().getTime());
         int res = taskMapper.insert(task);
         return res;
     }
 
     @Override
     public int updateTask(Task task) {
+        task.setUpdateDate(Calendar.getInstance().getTime());
         int res = taskMapper.updateByPrimaryKeySelective(task);
         return res;
     }

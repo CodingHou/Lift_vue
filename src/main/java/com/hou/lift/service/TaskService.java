@@ -8,6 +8,8 @@ public interface TaskService {
 
     public List<Task> getTaskList(Integer userId);
 
+    public Task getTaskById(Integer taskId);
+
     public int addTask(Task task);
 
     public int updateTask(Task task);
