@@ -123,8 +123,8 @@
                 </div>
                 <!--日期-->
                 <div class="day">
-                    <input type="date" class="listInput">
-                    <span class="listSpan">${item.date}</span>
+                    <input type="date" class="listInput" value="${item.beginDate?datetime}">
+                    <span class="listSpan">${item.beginDate?date}</span>
                 </div>
                 <!--进度条-->
                 <div class="rate">
@@ -151,7 +151,7 @@
                 <div class="header">
                     <div class="stateBar">
                         <!--紧急程度-->
-                        <div class="grade">
+                        <div class="grade grade${task.grade}">
                         </div>
                         <!--修改-->
                         <img class="change" src="/icon/change.png" alt="">

@@ -120,8 +120,8 @@ $(function () {
             data: {
                 "grade": grade,
                 "label": tag,
-                // "name": title,
-                // "createDate": day,
+                "name": title,
+                "createTime": day,
                 "del": del,
                 "id": taskId,
                 "userId": userId
@@ -167,12 +167,14 @@ $(function () {
             $(this).siblings().animate({'opacity': '0.1'});
             $(this).animate({'opacity': '1'});
             // 返回val到后台进行更新
-            updateTask("no")
+            updateTask("no");
+            $(".item").find(".grade").attr("class", gradeClass).animate({'opacity': '1'});
 
     })
 
 
     // 修改标题。点击切换input
+    // $(".listSpan").valueOf();
     $('body').on('click', '.listSpan', function () {
         // $(".listSpan").click(function () {
         $(this).hide();

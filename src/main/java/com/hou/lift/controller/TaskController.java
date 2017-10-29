@@ -11,6 +11,7 @@ import com.hou.lift.service.TaskService;
 import com.hou.lift.util.BaseResult;
 import com.hou.lift.util.DateUtil;
 import com.hou.lift.util.JsonUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -87,8 +88,12 @@ public class TaskController {
 
     @ResponseBody
     @RequestMapping("/updateTask")
-    public HashMap<String, Object> updateTask(Task task,String del,String createDate) {
+    public HashMap<String, Object> updateTask(Task task,String del,String createTime) throws ParseException {
         BaseResult baseResult = new BaseResult();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        if (StringUtils.isNotEmpty(createTime)) {
+            task.setBeginDate(sdf.parse(createTime));
+        }
         if ("yes".equals(del)) {
             task.setDataState(2);
         }
