@@ -87,10 +87,11 @@ public class TaskController {
 
     @ResponseBody
     @RequestMapping("/updateTask")
-    public HashMap<String, Object> updateTask(Integer userId,Integer taskId,Task task) {
+    public HashMap<String, Object> updateTask(Task task,String del,String createDate) {
         BaseResult baseResult = new BaseResult();
-        task.setUserId(userId);
-        task.setId(taskId);
+        if ("yes".equals(del)) {
+            task.setDataState(2);
+        }
         int c =taskService.updateTask(task);
         if (c == 1) {
             baseResult.setStatus(true);

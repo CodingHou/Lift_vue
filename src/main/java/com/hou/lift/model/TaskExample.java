@@ -804,6 +804,66 @@ public class TaskExample {
             addCriterion("update_date not between", value1, value2, "updateDate");
             return (Criteria) this;
         }
+
+        public Criteria andDataStateIsNull() {
+            addCriterion("data_state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataStateIsNotNull() {
+            addCriterion("data_state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataStateEqualTo(Integer value) {
+            addCriterion("data_state =", value, "dataState");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataStateNotEqualTo(Integer value) {
+            addCriterion("data_state <>", value, "dataState");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataStateGreaterThan(Integer value) {
+            addCriterion("data_state >", value, "dataState");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataStateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("data_state >=", value, "dataState");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataStateLessThan(Integer value) {
+            addCriterion("data_state <", value, "dataState");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataStateLessThanOrEqualTo(Integer value) {
+            addCriterion("data_state <=", value, "dataState");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataStateIn(List<Integer> values) {
+            addCriterion("data_state in", values, "dataState");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataStateNotIn(List<Integer> values) {
+            addCriterion("data_state not in", values, "dataState");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataStateBetween(Integer value1, Integer value2) {
+            addCriterion("data_state between", value1, value2, "dataState");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataStateNotBetween(Integer value1, Integer value2) {
+            addCriterion("data_state not between", value1, value2, "dataState");
+            return (Criteria) this;
+        }
     }
 
     /**

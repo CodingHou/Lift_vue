@@ -207,6 +207,19 @@ body{
 	margin: 5px;
 	cursor: pointer;
 }
+
+.grade1{
+	border: 5px solid red;
+	opacity: 0.1;
+}
+.grade2{
+	border: 5px solid orange;
+	opacity: 0.1;
+}
+.grade3{
+	border: 5px solid green;
+	opacity: 0.1;
+}
 .stateBar .tag{
 	top: 15px;
 }
@@ -256,18 +269,7 @@ body{
 	/*display: none;*/
 	cursor: pointer;
 }
-.grade1{
-	border: 5px solid red;
-	opacity: 0.1;
-}
-.grade2{
-	border: 5px solid orange;
-	opacity: 0.1;
-}
-.grade3{
-	border: 5px solid green;
-	opacity: 0.1;
-}
+
 .addTask .ratio{
 	left: -325px;
 }

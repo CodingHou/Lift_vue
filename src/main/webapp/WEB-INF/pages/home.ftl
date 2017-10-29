@@ -85,16 +85,26 @@
 
         [#list taskList as item]
             <div class="task addTask" id="">
-                <input type="hidden" id="" class="taskId">
+                <input type="hidden" id="" class="taskId" value="${item.id}">
                 <!--附加信息-->
                 <div class="stateBar">
-                    <!--紧急程度-->
-                    <div class="grade grade1">
-                    </div>
-                    <div class="grade grade2">
-                    </div>
-                    <div class="grade grade3">
-                    </div>
+
+                        <div class="grade grade${item.grade}" >
+                            <input type="hidden" value="${item.grade}">
+                        </div>
+
+                        <div class="gradeBox" hidden>
+                            <div class="grade grade1" >
+                                <input type="hidden" name="grade1" value="1">
+                            </div>
+                            <div class="grade grade2">
+                                <input type="hidden" name="grade2" value="2">
+                            </div>
+                            <div class="grade grade3">
+                                <input type="hidden" name="grade3" value="3">
+                            </div>
+                        </div>
+
                     <!--标签-->
                     <span class="tag theTag1">${item.label}</span>
                     <!--<span class="tag theTag2">+</span>-->
@@ -162,7 +172,7 @@
                     </div>
                     <div class="itemInput">
                         ${item.id}
-                        <div class="checkBox" ></div>
+                        <div class="checkBox [#if item.dataState==2] c [/#if]"></div>
                         <input class="changeInput" type="text" value="${item.name}">
                         <img class="changeDel" src="/icon/del.png" alt="">
                         <!--<img class="changeAdd" src="/icon/changeAdd.png" alt="">-->
