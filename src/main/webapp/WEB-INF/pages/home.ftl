@@ -123,7 +123,7 @@
                 </div>
                 <!--日期-->
                 <div class="day">
-                    <input type="date" class="listInput" value="${item.beginDate?datetime}">
+                    <input type="date" class="listInput" value="${item.beginDate?date}">
                     <span class="listSpan">${item.beginDate?date}</span>
                 </div>
                 <!--进度条-->

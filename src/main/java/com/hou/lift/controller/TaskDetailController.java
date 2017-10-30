@@ -59,7 +59,7 @@ public class TaskDetailController {
 
     @ResponseBody
     @RequestMapping("/updateTaskDetail")
-    public HashMap updateTaskDetail(TaskDetail taskDetail,Boolean isChecked,String actionType) {
+    public HashMap updateTaskDetail(TaskDetail taskDetail,Boolean isChecked,String actionType,Integer checkedNo,Integer totalNo) {
         BaseResult baseResult = new BaseResult();
         int c=0;
         if ("update".equals(actionType)) {
@@ -67,6 +67,12 @@ public class TaskDetailController {
                 taskDetail.setDataState(2);
             } else {
                 taskDetail.setDataState(1);
+            }
+            if (null != checkedNo&&null!=totalNo) {
+                Task task = taskService.getTaskById(taskDetail.getTaskId());
+                task.setCompletedDetail(checkedNo);
+                task.setTotalDetail(totalNo);
+                taskService.updateTask(task);
             }
         } else if ("del".equals(actionType)) {
             taskDetail.setDataState(3);

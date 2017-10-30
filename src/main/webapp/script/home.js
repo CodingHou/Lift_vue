@@ -141,34 +141,35 @@ $(function () {
             }
         });
     }
+
     //在载入页面的时候将重要程度设为不透明
     $(".stateBar").find(":first-child").animate({'opacity': '1'});
-    $('body').on('click', '.stateBar div:first', function (){
+    $('body').on('click', '.stateBar div:first', function () {
         // 如果三个圈是隐藏的。显示三个圈。隐藏他自己。获取他自己的class。找到三个圈里class和他一样的那个改变透明度。把三个圈里的同级改为透明。
         $(this).next().show();
         $(this).hide();
-       /* 在取多个class的时候，不能有空格而且需要用"."或者","来分隔，
-        不过我们将动画效果移入到下面的function中，就不需要取这个class了*/
+        /* 在取多个class的时候，不能有空格而且需要用"."或者","来分隔，
+         不过我们将动画效果移入到下面的function中，就不需要取这个class了*/
         // var gradeClass=$(this).attr("class");
         // gradeClass="."+gradeClass.replace(" ",".");
     })
 
     $('body').on('click', '.gradeBox>div', function () {
-            // 如果点的是三个圈。显示单个的。隐藏gradeBox
-            $(this).parent().prev().show();
-            $(this).parent().hide();
-            // 获取被选中的class和val，赋值给单个的grade，透明度改为1
-            var gradeClass=$(this).attr("class");
-            var gradeVal=$(this).find("input").val();
-            $(this).parent().prev().attr("class",gradeClass);
-            $(this).parent().prev().find("input").attr("value",gradeVal);
-            $(this).parent().prev().animate({'opacity': '1'});
-            //获取选中的grade。将他的透明度设为1.其他的设为0.1
-            $(this).siblings().animate({'opacity': '0.1'});
-            $(this).animate({'opacity': '1'});
-            // 返回val到后台进行更新
-            updateTask("no");
-            $(".item").find(".grade").attr("class", gradeClass).animate({'opacity': '1'});
+        // 如果点的是三个圈。显示单个的。隐藏gradeBox
+        $(this).parent().prev().show();
+        $(this).parent().hide();
+        // 获取被选中的class和val，赋值给单个的grade，透明度改为1
+        var gradeClass = $(this).attr("class");
+        var gradeVal = $(this).find("input").val();
+        $(this).parent().prev().attr("class", gradeClass);
+        $(this).parent().prev().find("input").attr("value", gradeVal);
+        $(this).parent().prev().animate({'opacity': '1'});
+        //获取选中的grade。将他的透明度设为1.其他的设为0.1
+        $(this).siblings().animate({'opacity': '0.1'});
+        $(this).animate({'opacity': '1'});
+        // 返回val到后台进行更新
+        updateTask("no");
+        $(".item").find(".grade").attr("class", gradeClass).animate({'opacity': '1'});
 
     })
 
@@ -400,7 +401,7 @@ $(function () {
             // 他的hidden的id
             var inputId = $(this).parent().prev().prev().val();
             var check = $(this).parent().prev().find("input").is(":checked");
-            update(changeInput, inputId, "update", check);
+            update(changeInput, inputId, "update", check, null,null);
         } else {
             // 新增item
             $(".itemInput").slideUp();
@@ -434,10 +435,10 @@ $(function () {
         }
 
         // // 进度条效果
-        // // 获取小项目的个数
-        // var len = document.getElementsByClassName("items").length;
-        // // 获取小项目被选中的个数
-        // var checkLen = $("#toDoList").find("input[type='checkbox']:checked").length;
+        // 获取小项目的个数
+        var totalNo = document.getElementsByClassName("items").length;
+        // 获取小项目被选中的个数
+        var checkedNo = $("#toDoList").find("input[type='checkbox']:checked").length;
         // // 获取进度条的条
         // var ratio = $(".choose").find(".ratio");
         // // 进度条效果
@@ -454,7 +455,7 @@ $(function () {
         var detailId = $(this).prev().val();
         // var check = $(".items").find("input").is(":checked");
         var check = $(this).find("input[type='checkbox']").is(":checked");
-        update(name, detailId, 'update', check);
+        update(name, detailId, 'update', check, checkedNo, totalNo);
     })
 
 
@@ -470,7 +471,7 @@ $(function () {
     })
 
     // 修改状态下的详细列表的Ajax
-    function update(name, detailId, actionType, check) {
+    function update(name, detailId, actionType, check, checkedNo, totalNo) {
         var taskId = $("#taskId").val();
         var userId = $("#userId").val();
         $.ajax({
@@ -483,7 +484,9 @@ $(function () {
                 "actionType": actionType,
                 "isChecked": check,
                 "taskId": taskId,
-                "userId": userId
+                "userId": userId,
+                "checkedNo": checkedNo,
+                "totalNo": totalNo
             },    //参数值
             type: "POST",   //请求方式
             success: function (data) {
@@ -532,7 +535,7 @@ $(function () {
         // rateVal.html(checkLen + "/" + len);
         ratioAnimation();
 
-        update(changeInput, inputId, "del", check);
+        update(changeInput, inputId, "del", check, null,null);
     })
 
     // // 编辑状态下的添加小项目

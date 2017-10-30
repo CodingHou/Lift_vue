@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ public class TaskController {
     @RequestMapping("/updateTask")
     public HashMap<String, Object> updateTask(Task task,String del,String createTime) throws ParseException {
         BaseResult baseResult = new BaseResult();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         if (StringUtils.isNotEmpty(createTime)) {
             task.setBeginDate(sdf.parse(createTime));
         }
@@ -110,7 +111,7 @@ public class TaskController {
 
     private Task initTask(Integer userId) throws ParseException {
         Task initTask = new Task();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         initTask.setBeginDate(sdf.parse(DateUtil.getNowDate()));
         initTask.setName("新任务");
         initTask.setLabel(1);
@@ -123,7 +124,7 @@ public class TaskController {
 
     private List<TaskDetail> initDetailList(Task initTask) throws ParseException {
         List<TaskDetail> detailList = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for (int i = 0; i < 5; i++) {
             TaskDetail detail = new TaskDetail();
             detail.setName(InitDetailEnum.getName(i+1));
