@@ -195,63 +195,63 @@ public class TaskDetailExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andTaskDetailIdIsNull() {
+            addCriterion("task_detail_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andTaskDetailIdIsNotNull() {
+            addCriterion("task_detail_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
-            addCriterion("id =", value, "id");
+        public Criteria andTaskDetailIdEqualTo(Integer value) {
+            addCriterion("task_detail_id =", value, "taskDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andTaskDetailIdNotEqualTo(Integer value) {
+            addCriterion("task_detail_id <>", value, "taskDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("id >", value, "id");
+        public Criteria andTaskDetailIdGreaterThan(Integer value) {
+            addCriterion("task_detail_id >", value, "taskDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andTaskDetailIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("task_detail_id >=", value, "taskDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
-            addCriterion("id <", value, "id");
+        public Criteria andTaskDetailIdLessThan(Integer value) {
+            addCriterion("task_detail_id <", value, "taskDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andTaskDetailIdLessThanOrEqualTo(Integer value) {
+            addCriterion("task_detail_id <=", value, "taskDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andTaskDetailIdIn(List<Integer> values) {
+            addCriterion("task_detail_id in", values, "taskDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andTaskDetailIdNotIn(List<Integer> values) {
+            addCriterion("task_detail_id not in", values, "taskDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andTaskDetailIdBetween(Integer value1, Integer value2) {
+            addCriterion("task_detail_id between", value1, value2, "taskDetailId");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andTaskDetailIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("task_detail_id not between", value1, value2, "taskDetailId");
             return (Criteria) this;
         }
 
@@ -375,73 +375,73 @@ public class TaskDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNull() {
-            addCriterion("name is null");
+        public Criteria andTaskDetailNameIsNull() {
+            addCriterion("task_detail_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNotNull() {
-            addCriterion("name is not null");
+        public Criteria andTaskDetailNameIsNotNull() {
+            addCriterion("task_detail_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNameEqualTo(String value) {
-            addCriterion("name =", value, "name");
+        public Criteria andTaskDetailNameEqualTo(String value) {
+            addCriterion("task_detail_name =", value, "taskDetailName");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotEqualTo(String value) {
-            addCriterion("name <>", value, "name");
+        public Criteria andTaskDetailNameNotEqualTo(String value) {
+            addCriterion("task_detail_name <>", value, "taskDetailName");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThan(String value) {
-            addCriterion("name >", value, "name");
+        public Criteria andTaskDetailNameGreaterThan(String value) {
+            addCriterion("task_detail_name >", value, "taskDetailName");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("name >=", value, "name");
+        public Criteria andTaskDetailNameGreaterThanOrEqualTo(String value) {
+            addCriterion("task_detail_name >=", value, "taskDetailName");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThan(String value) {
-            addCriterion("name <", value, "name");
+        public Criteria andTaskDetailNameLessThan(String value) {
+            addCriterion("task_detail_name <", value, "taskDetailName");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("name <=", value, "name");
+        public Criteria andTaskDetailNameLessThanOrEqualTo(String value) {
+            addCriterion("task_detail_name <=", value, "taskDetailName");
             return (Criteria) this;
         }
 
-        public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+        public Criteria andTaskDetailNameLike(String value) {
+            addCriterion("task_detail_name like", value, "taskDetailName");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
+        public Criteria andTaskDetailNameNotLike(String value) {
+            addCriterion("task_detail_name not like", value, "taskDetailName");
             return (Criteria) this;
         }
 
-        public Criteria andNameIn(List<String> values) {
-            addCriterion("name in", values, "name");
+        public Criteria andTaskDetailNameIn(List<String> values) {
+            addCriterion("task_detail_name in", values, "taskDetailName");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotIn(List<String> values) {
-            addCriterion("name not in", values, "name");
+        public Criteria andTaskDetailNameNotIn(List<String> values) {
+            addCriterion("task_detail_name not in", values, "taskDetailName");
             return (Criteria) this;
         }
 
-        public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("name between", value1, value2, "name");
+        public Criteria andTaskDetailNameBetween(String value1, String value2) {
+            addCriterion("task_detail_name between", value1, value2, "taskDetailName");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("name not between", value1, value2, "name");
+        public Criteria andTaskDetailNameNotBetween(String value1, String value2) {
+            addCriterion("task_detail_name not between", value1, value2, "taskDetailName");
             return (Criteria) this;
         }
 

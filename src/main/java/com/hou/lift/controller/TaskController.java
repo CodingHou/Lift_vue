@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,8 +43,8 @@ public class TaskController {
     public String list(String userName,Integer userId, ModelMap modelMap, HttpServletRequest request) throws ParseException {
 //        int userId = (int) request.getAttribute("userId");
         User user = userService.getUserByName(userName);
-        userId = user.getId();
-        List<Task> taskList = taskService.getTaskList(user.getId());
+        userId = user.getUserId();
+        List<Task> taskList = taskService.getTaskList(user.getUserId());
         List<TaskDetail> detailList = new ArrayList<>();
 //        初始化数据
         Task task = new Task();
@@ -53,7 +54,7 @@ public class TaskController {
             detailList = initDetailList(task);
         } else {
             task = taskList.get(0);
-            detailList = taskDetailService.getTaskDetailList(userId, taskList.get(0).getId());
+            detailList = taskDetailService.getTaskDetailList(userId, taskList.get(0).getTaskId());
         }
         modelMap.addAttribute("userId", userId);
         modelMap.addAttribute("task", task);
@@ -76,6 +77,10 @@ public class TaskController {
         BaseResult baseResult = new BaseResult();
         Task task = new Task();
         task.setUserId(userId);
+        task.setTaskName("新任务");
+        task.setTotalDetail(0);
+        task.setCompletedDetail(0);
+        task.setBeginDate(Calendar.getInstance().getTime());
         int c =taskService.addTask(task);
         if (c == 1) {
             baseResult.setStatus(true);
@@ -113,7 +118,7 @@ public class TaskController {
         Task initTask = new Task();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         initTask.setBeginDate(sdf.parse(DateUtil.getNowDate()));
-        initTask.setName("新任务");
+        initTask.setTaskName("新任务");
         initTask.setLabel(1);
         initTask.setTotalDetail(5);
         initTask.setCompletedDetail(1);
@@ -127,13 +132,13 @@ public class TaskController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for (int i = 0; i < 5; i++) {
             TaskDetail detail = new TaskDetail();
-            detail.setName(InitDetailEnum.getName(i+1));
+            detail.setTaskDetailName(InitDetailEnum.getName(i+1));
             detail.setDataState(1);
             if (i == 1) {
                 detail.setDataState(2);
             }
             detail.setLabel(initTask.getLabel());
-            detail.setTaskId(initTask.getId());
+            detail.setTaskId(initTask.getTaskId());
             detail.setUserId(initTask.getUserId());
             detail.setCreateTime(sdf.parse(DateUtil.getNowDate()));
             taskDetailService.addTaskDetail(detail);

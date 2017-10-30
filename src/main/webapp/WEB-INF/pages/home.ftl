@@ -85,7 +85,7 @@
 
         [#list taskList as item]
             <div class="task addTask" id="">
-                <input type="hidden" id="" class="taskId" value="${item.id}">
+                <input type="hidden" id="" class="taskId" value="${item.taskId}">
                 <!--附加信息-->
                 <div class="stateBar">
 
@@ -119,7 +119,7 @@
                 <!--标题-->
                 <div class="title">
                     <input type="text" class="listInput" placeholder="标题">
-                    <span class="listSpan">${item.name}</span>
+                    <span class="listSpan">${item.taskName}</span>
                 </div>
                 <!--日期-->
                 <div class="day">
@@ -146,7 +146,7 @@
         <div id="item-box">
             <div class="item" id="item">
 
-                <input type="hidden" id="taskId" value="${task.id}">
+                <input type="hidden" id="taskId" value="${task.taskId}">
 
                 <div class="header">
                     <div class="stateBar">
@@ -159,21 +159,21 @@
                         <span class="tag theTag">0</span>
                     </div>
                 </div>
-                <h2>${task.name}</h2>
+                <h2>${task.taskName}</h2>
                 <div id="toDoList">
                 [#list detailList as item]
-                    <input type="hidden"  class="detailId" value="${item.id}">
+                    <input type="hidden"  class="detailId" value="${item.taskDetailId}">
                     <div class="items">
                         [#--<input type="hidden"  class="detailId" value="${item.id}">--]
-                        ${item.id}
+                        ${item.taskDetailId}
                         <input type="checkbox" [#if item.dataState==2]checked="checked"[/#if]/>
                         <div class="checkBox [#if item.dataState==2] c [/#if]" ></div>
-                        <span class="[#if item.dataState==2]spanChecked[/#if]">${item.name}</span>
+                        <span class="[#if item.dataState==2]spanChecked[/#if]">${item.taskDetailName}</span>
                     </div>
                     <div class="itemInput">
-                        ${item.id}
+                        ${item.taskDetailId}
                         <div class="checkBox [#if item.dataState==2] c [/#if]"></div>
-                        <input class="changeInput" type="text" value="${item.name}">
+                        <input class="changeInput" type="text" value="${item.taskDetailName}">
                         <img class="changeDel" src="/icon/del.png" alt="">
                         <!--<img class="changeAdd" src="/icon/changeAdd.png" alt="">-->
                     </div>

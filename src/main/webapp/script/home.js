@@ -120,10 +120,10 @@ $(function () {
             data: {
                 "grade": grade,
                 "label": tag,
-                "name": title,
+                "taskName": title,
                 "createTime": day,
                 "del": del,
-                "id": taskId,
+                "taskId": taskId,
                 "userId": userId
             },    //参数值
             type: "POST",   //请求方式
@@ -259,14 +259,14 @@ $(function () {
         var div = document.createElement("div");
         //设置 div 属性，如 id
         div.setAttribute("class", "task");
-        div.innerHTML = "<input type=\"hidden\" id=\"\" class=\"taskId\"><div class=\"stateBar\"><div class=\"grade grade1\"></div><div class=\"grade grade2\" ></div><div class=\"grade grade3\" ></div><span class=\"tag theTag1\">家</span></div><div class=\"allTag\"><span class=\"tag NoChoose\">1</span><span class=\"tag NoChoose\">2</span><span class=\"tag NoChoose\">3</span></div><div class=\"title\"><input type=\"text\" class=\"listInput\" placeholder=\"标题\"><span class=\"listSpan\">标题</span></div><div class=\"day\"><input type=\"date\" class=\"listInput\"><span class=\"listSpan\">2017</span></div><div class=\"rate\"><div class=\"ratio\"></div></div><span class=\"rateVal\">0/0</span><img src=\"icon/del.png\" alt=\"\" class=\"del\">";
+        div.innerHTML = "<input type=\"hidden\" id=\"\" class=\"taskId\"><div class=\"stateBar\"><div class=\"grade grade1\"></div><div class=\"grade grade2\" ></div><div class=\"grade grade3\" ></div><span class=\"tag theTag1\">家</span></div><div class=\"allTag\"><span class=\"tag NoChoose\">1</span><span class=\"tag NoChoose\">2</span><span class=\"tag NoChoose\">3</span></div><div class=\"title\"><input type=\"text\" class=\"listInput\" placeholder=\"标题\"><span class=\"listSpan\">标题</span></div><div class=\"day\"><input type=\"date\" class=\"listInput\"><span class=\"listSpan\">2017</span></div><div class=\"rate\"><div class=\"ratio\"></div></div><span class=\"rateVal\">0/0</span><img src=\"/icon/del.png\" alt=\"\" class=\"del\">";
         //在之前加
         parent.prepend(div);
         $(".newDiv").slideDown();
     }
 
     // 新增小列表
-    function addNewList() {
+    function addTask() {
         var userId = $("#userId").val();
         $.ajax({
             url: "/task/insertTask.action",    //请求的url地址
@@ -295,7 +295,7 @@ $(function () {
     $('body').on('click', '#add', function () {
         // $("#add").click(function () {
         addElementDiv('list-box');
-        addNewList();
+        addTask();
     })
 
     //新增新项目Div的方法
@@ -323,7 +323,9 @@ $(function () {
         var ratio = $(".choose").find(".ratio");
         // 进度条效果
         var leftNum = (-325) + checkLen / len * 325;
-        ratio.animate({left: leftNum + "px"});
+        if (len>0) {
+            ratio.animate({left: leftNum + "px"});
+        }
         // 获取进度条下的分数
         var rateVal = $(".choose").find(".rateVal");
         // 进度条下分数效果
@@ -351,7 +353,7 @@ $(function () {
             dataType: "json",   //返回格式为json
             async: false,//请求是否异步，默认为异步，这也是ajax重要特性
             data: {
-                "name": inputData,
+                "taskDetailName": inputData,
                 "taskId": taskId,
                 "userId": userId
             },    //参数值
@@ -401,7 +403,7 @@ $(function () {
             // 他的hidden的id
             var inputId = $(this).parent().prev().prev().val();
             var check = $(this).parent().prev().find("input").is(":checked");
-            update(changeInput, inputId, "update", check, null,null);
+            update(changeInput, inputId, "update", check, null, null);
         } else {
             // 新增item
             $(".itemInput").slideUp();
@@ -479,8 +481,8 @@ $(function () {
             dataType: "json",   //返回格式为json
             async: false,//请求是否异步，默认为异步，这也是ajax重要特性
             data: {
-                "name": name,
-                "id": detailId,
+                "taskDetailName": name,
+                "taskDetailId": detailId,
                 "actionType": actionType,
                 "isChecked": check,
                 "taskId": taskId,
@@ -521,9 +523,9 @@ $(function () {
         $(this).parent().remove();
         // // 进度条效果
         // // 获取小项目的个数
-        // var len = document.getElementsByClassName("items").length;
+        var totalNo = document.getElementsByClassName("items").length;
         // // 获取小项目被选中的个数
-        // var checkLen = $("#toDoList").find("input[type='checkbox']:checked").length;
+        var checkedNo = $("#toDoList").find("input[type='checkbox']:checked").length;
         // // 获取进度条的条
         // var ratio = $(".choose").find(".ratio");
         // // 进度条效果
@@ -535,7 +537,7 @@ $(function () {
         // rateVal.html(checkLen + "/" + len);
         ratioAnimation();
 
-        update(changeInput, inputId, "del", check, null,null);
+        update(changeInput, inputId, "del", check, checkedNo, totalNo);
     })
 
     // // 编辑状态下的添加小项目

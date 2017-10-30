@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class TaskDetailController {
         if (c == 1) {
             baseResult.setStatus(true);
             baseResult.setMsg("保存成功!");
-            baseResult.setData(taskDetail.getId());
+            baseResult.setData(taskDetail.getTaskDetailId());
         } else {
             baseResult.setStatus(false);
             baseResult.setMsg("保存失败");
@@ -68,16 +67,15 @@ public class TaskDetailController {
             } else {
                 taskDetail.setDataState(1);
             }
-            if (null != checkedNo&&null!=totalNo) {
-                Task task = taskService.getTaskById(taskDetail.getTaskId());
-                task.setCompletedDetail(checkedNo);
-                task.setTotalDetail(totalNo);
-                taskService.updateTask(task);
-            }
         } else if ("del".equals(actionType)) {
             taskDetail.setDataState(3);
         }
-        c = taskDetailService.updateTaskDetail(taskDetail);
+        if (null != checkedNo&&null!=totalNo) {
+            Task task = taskService.getTaskById(taskDetail.getTaskId());
+            task.setCompletedDetail(checkedNo);
+            task.setTotalDetail(totalNo);
+            taskService.updateTask(task);
+        }        c = taskDetailService.updateTaskDetail(taskDetail);
         if (c == 1) {
             baseResult.setStatus(true);
             baseResult.setMsg("保存成功!");
