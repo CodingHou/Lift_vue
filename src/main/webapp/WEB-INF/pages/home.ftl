@@ -84,17 +84,16 @@
         <div id="list-box">
 
         [#list taskList as item]
-            <div class="task addTask" id="">
+            <div class="task addTask" id="${item.taskId}">
                 <input type="hidden" id="" class="taskId" value="${item.taskId}">
                 <!--附加信息-->
                 <div class="stateBar">
-
-                        <div class="grade grade${item.grade}" >
+                    [#if item.grade]
+                        <div class="grade grade${item.grade}">
                             <input type="hidden" value="${item.grade}">
                         </div>
-
                         <div class="gradeBox" hidden>
-                            <div class="grade grade1" >
+                            <div class="grade grade1">
                                 <input type="hidden" name="grade1" value="1">
                             </div>
                             <div class="grade grade2">
@@ -104,7 +103,22 @@
                                 <input type="hidden" name="grade3" value="3">
                             </div>
                         </div>
-
+                    [#else ]
+                        <div class="grade grade${item.grade}" hidden>
+                            <input type="hidden" value="${item.grade}">
+                        </div>
+                        <div class="gradeBox" >
+                            <div class="grade grade1">
+                                <input type="hidden" name="grade1" value="1">
+                            </div>
+                            <div class="grade grade2">
+                                <input type="hidden" name="grade2" value="2">
+                            </div>
+                            <div class="grade grade3">
+                                <input type="hidden" name="grade3" value="3">
+                            </div>
+                        </div>
+                    [/#if]
                     <!--标签-->
                     <span class="tag theTag1">${item.label}</span>
                     <!--<span class="tag theTag2">+</span>-->
@@ -123,8 +137,8 @@
                 </div>
                 <!--日期-->
                 <div class="day">
-                    <input type="date" class="listInput" value="${item.beginDate?date}">
-                    <span class="listSpan">${item.beginDate?date}</span>
+                    <input type="date" class="listInput">
+                    <span class="listSpan">${item.beginDate?string('yyyy-MM-dd')}</span>
                 </div>
                 <!--进度条-->
                 <div class="rate">
@@ -162,16 +176,16 @@
                 <h2>${task.taskName}</h2>
                 <div id="toDoList">
                 [#list detailList as item]
-                    <input type="hidden"  class="detailId" value="${item.taskDetailId}">
+                    <input type="hidden" class="detailId" value="${item.taskDetailId}">
                     <div class="items">
-                        [#--<input type="hidden"  class="detailId" value="${item.id}">--]
-                        ${item.taskDetailId}
+                    [#--<input type="hidden"  class="detailId" value="${item.id}">--]
+                    ${item.taskDetailId}
                         <input type="checkbox" [#if item.dataState==2]checked="checked"[/#if]/>
-                        <div class="checkBox [#if item.dataState==2] c [/#if]" ></div>
+                        <div class="checkBox [#if item.dataState==2] c [/#if]"></div>
                         <span class="[#if item.dataState==2]spanChecked[/#if]">${item.taskDetailName}</span>
                     </div>
                     <div class="itemInput">
-                        ${item.taskDetailId}
+                    ${item.taskDetailId}
                         <div class="checkBox [#if item.dataState==2] c [/#if]"></div>
                         <input class="changeInput" type="text" value="${item.taskDetailName}">
                         <img class="changeDel" src="/icon/del.png" alt="">
