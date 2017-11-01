@@ -143,14 +143,17 @@ $(function () {
     }
 
     //在载入页面的时候将重要程度设为不透明
-    $(".stateBar").find(":first-child").animate({'opacity': '1'});
+    var taskNo = $(".stateBar").find(".gradeBox").prev().find("input").length;
+    for (var i=0;i<taskNo;i++) {
+        if($(".stateBar").find(".gradeBox").prev().find("input")[i].value!=="") {
+            $(".stateBar").find(".gradeBox").prev().animate({'opacity': '1'});
+        }
+    }
+
     $('body').on('click', '.choose div:first div:first', function () {
         // 如果三个圈是隐藏的。显示三个圈。隐藏他自己。获取他自己的class。找到三个圈里class和他一样的那个改变透明度。把三个圈里的同级改为透明。
         $(this).next().show();
         $(this).hide();
-
-            // $(this).find(".gradeBox").show();
-            // $(this).find(".gradeBox").prev().hide();
 
         /* 在取多个class的时候，不能有空格而且需要用"."或者","来分隔，
          不过我们将动画效果移入到下面的function中，就不需要取这个class了*/
@@ -158,7 +161,7 @@ $(function () {
         // gradeClass="."+gradeClass.replace(" ",".");
     })
 
-    $('body').on('click', '.gradeBox>div', function () {
+    $('body').on('click', '.choose .gradeBox>div', function () {
         // 如果点的是三个圈。显示单个的。隐藏gradeBox
         $(this).parent().prev().show();
         $(this).parent().hide();

@@ -80,6 +80,7 @@ public class TaskController {
         task.setTaskName("新任务");
         task.setTotalDetail(0);
         task.setCompletedDetail(0);
+        task.setDataState(1);
         task.setBeginDate(Calendar.getInstance().getTime());
         int c =taskService.addTask(task);
         if (c == 1) {
@@ -123,6 +124,7 @@ public class TaskController {
         initTask.setTotalDetail(5);
         initTask.setCompletedDetail(1);
         initTask.setUserId(userId);
+        initTask.setDataState(1);
         taskService.addTask(initTask);
         return initTask;
     }

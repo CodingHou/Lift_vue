@@ -21,6 +21,8 @@ public class TaskServiceImpl implements TaskService {
         TaskExample example = new TaskExample();
         TaskExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(userId);
+        criteria.andDataStateNotEqualTo(2);
+        example.setOrderByClause("task_id desc");
         List<Task> taskList = taskMapper.selectByExample(example);
         return taskList;
     }
