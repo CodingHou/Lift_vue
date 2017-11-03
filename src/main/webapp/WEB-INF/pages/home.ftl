@@ -84,15 +84,14 @@
         <div id="list-box">
 
         [#list taskList as item]
-            <div class="task addTask" id="${item.taskId}">
+            <div class="task " id="${item.taskId}">
                 <input type="hidden" id="" class="taskId" value="${item.taskId}">
                 <!--附加信息-->
                 <div class="stateBar">
-                    [#if item.grade]
-                        <div class="grade grade${item.grade}">
+                        <div class="grade grade${item.grade}" [#if !item.grade]hidden[/#if]>
                             <input type="hidden" value="${item.grade}">
                         </div>
-                        <div class="gradeBox" hidden>
+                        <div class="gradeBox" [#if item.grade]hidden[/#if]>
                             <div class="grade grade1">
                                 <input type="hidden" name="grade1" value="1">
                             </div>
@@ -103,25 +102,8 @@
                                 <input type="hidden" name="grade3" value="3">
                             </div>
                         </div>
-                    [#else ]
-                        <div class="grade grade${item.grade}" hidden>
-                            <input type="hidden" value="${item.grade}">
-                        </div>
-                        <div class="gradeBox" >
-                            <div class="grade grade1">
-                                <input type="hidden" name="grade1" value="1">
-                            </div>
-                            <div class="grade grade2">
-                                <input type="hidden" name="grade2" value="2">
-                            </div>
-                            <div class="grade grade3">
-                                <input type="hidden" name="grade3" value="3">
-                            </div>
-                        </div>
-                    [/#if]
                     <!--标签-->
                     <span class="tag theTag1">${item.label}</span>
-                    <!--<span class="tag theTag2">+</span>-->
                 </div>
                 <!--标签悬浮-->
                 <div class="allTag">
@@ -156,54 +138,55 @@
     </form>
 
     <!--内容-->
-    <form action="/taskDetail/insertTaskDetail.action" id="detailForm">
-        <div id="item-box">
-            <div class="item" id="item">
+    [#include "/WEB-INF/pages/details.ftl"]
+    [#--<form action="/taskDetail/insertTaskDetail.action" id="detailForm">--]
+        [#--<div id="item-box">--]
+            [#--<div class="item" id="item">--]
 
-                <input type="hidden" id="taskId" value="${task.taskId}">
+                [#--<input type="hidden" id="taskId" value="${task.taskId}">--]
 
-                <div class="header">
-                    <div class="stateBar">
-                        <!--紧急程度-->
-                        <div class="grade grade${task.grade}">
-                        </div>
-                        <!--修改-->
-                        <img class="change" src="/icon/change.png" alt="">
-                        <!--标签-->
-                        <span class="tag theTag">0</span>
-                    </div>
-                </div>
-                <h2>${task.taskName}</h2>
-                <div id="toDoList">
-                [#list detailList as item]
-                    <input type="hidden" class="detailId" value="${item.taskDetailId}">
-                    <div class="items">
+                [#--<div class="header">--]
+                    [#--<div class="stateBar">--]
+                        [#--<!--紧急程度-->--]
+                        [#--<div class="grade grade${task.grade}">--]
+                        [#--</div>--]
+                        [#--<!--修改-->--]
+                        [#--<img class="change" src="/icon/change.png" alt="">--]
+                        [#--<!--标签-->--]
+                        [#--<span class="tag theTag">0</span>--]
+                    [#--</div>--]
+                [#--</div>--]
+                [#--<h2>${task.taskName}</h2>--]
+                [#--<div id="toDoList">--]
+                [#--[#list detailList as item]--]
+                    [#--<input type="hidden" class="detailId" value="${item.taskDetailId}">--]
+                    [#--<div class="items">--]
                     [#--<input type="hidden"  class="detailId" value="${item.id}">--]
-                    ${item.taskDetailId}
-                        <input type="checkbox" [#if item.dataState==2]checked="checked"[/#if]/>
-                        <div class="checkBox [#if item.dataState==2] c [/#if]"></div>
-                        <span class="[#if item.dataState==2]spanChecked[/#if]">${item.taskDetailName}</span>
-                    </div>
-                    <div class="itemInput">
-                    ${item.taskDetailId}
-                        <div class="checkBox [#if item.dataState==2] c [/#if]"></div>
-                        <input class="changeInput" type="text" value="${item.taskDetailName}">
-                        <img class="changeDel" src="/icon/del.png" alt="">
-                        <!--<img class="changeAdd" src="/icon/changeAdd.png" alt="">-->
-                    </div>
-                [/#list]
+                    [#--${item.taskDetailId}--]
+                        [#--<input type="checkbox" [#if item.dataState==2]checked="checked"[/#if]/>--]
+                        [#--<div class="checkBox [#if item.dataState==2] c [/#if]"></div>--]
+                        [#--<span class="[#if item.dataState==2]spanChecked[/#if]">${item.taskDetailName}</span>--]
+                    [#--</div>--]
+                    [#--<div class="itemInput">--]
+                    [#--${item.taskDetailId}--]
+                        [#--<div class="checkBox [#if item.dataState==2] c [/#if]"></div>--]
+                        [#--<input class="changeInput" type="text" value="${item.taskDetailName}">--]
+                        [#--<img class="changeDel" src="/icon/del.png" alt="">--]
+                        [#--<!--<img class="changeAdd" src="/icon/changeAdd.png" alt="">-->--]
+                    [#--</div>--]
+                [#--[/#list]--]
 
-                </div>
-                <!--添加新项目-->
-                <div class="add" id="newItem">
-                    <img src="/icon/add.png" alt="">
-                </div>
-                <div class="changeOk" id="changeOk">
-                    <img src="/icon/changeOk.png" alt="">
-                </div>
-            </div>
-        </div>
-    </form>
+                [#--</div>--]
+                [#--<!--添加新项目-->--]
+                [#--<div class="add" id="newItem">--]
+                    [#--<img src="/icon/add.png" alt="">--]
+                [#--</div>--]
+                [#--<div class="changeOk" id="changeOk">--]
+                    [#--<img src="/icon/changeOk.png" alt="">--]
+                [#--</div>--]
+            [#--</div>--]
+        [#--</div>--]
+    [#--</form>--]
 
 </div>
 </body>

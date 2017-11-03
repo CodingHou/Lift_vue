@@ -23,6 +23,7 @@ public class TaskServiceImpl implements TaskService {
         criteria.andUserIdEqualTo(userId);
         criteria.andDataStateNotEqualTo(2);
         example.setOrderByClause("task_id desc");
+//        example.setOrderByClause("task_id asc");
         List<Task> taskList = taskMapper.selectByExample(example);
         return taskList;
     }

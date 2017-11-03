@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!--内容-->
 <form action="/taskDetail/insertTaskDetail.action" id="detailForm">
     <div id="item-box">

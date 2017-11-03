@@ -31,7 +31,7 @@ public class TaskDetailController {
         List<TaskDetail> detailList = new ArrayList<>();
         detailList = taskDetailService.getTaskDetailList(userId, taskId);
         modelMap.addAttribute("detailList", detailList);
-        return "/items";
+        return "details";
     }
 
     @ResponseBody

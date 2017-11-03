@@ -50,6 +50,6 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
         <!-- 指定数据库表 -->
-        <table schema="" tableName="label"></table>
+        <table schema="" tableName="null"></table>
     </context>
 </generatorConfiguration>

@@ -22,10 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @RequestMapping("/task")
 @Controller
@@ -73,7 +70,7 @@ public class TaskController {
 
     @ResponseBody
     @RequestMapping("/insertTask")
-    public HashMap<String, Object> insertTask(Integer userId) {
+    public String insertTask(Integer userId) {
         BaseResult baseResult = new BaseResult();
         Task task = new Task();
         task.setUserId(userId);
@@ -85,12 +82,21 @@ public class TaskController {
         int c =taskService.addTask(task);
         if (c == 1) {
             baseResult.setStatus(true);
+            Map<String, Object> map = new HashMap<>();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            map.put("taskId", task.getTaskId());
+            map.put("beginDate", sdf.format(task.getBeginDate()));
+            map.put("taskName", task.getTaskName());
+            baseResult.setData(task);
+//            baseResult.setData("["+JsonUtils.toHashMap(map)+"]");
             baseResult.setMsg("保存成功!");
+//            baseResult.setData(JsonUtils.toJson(map));
         } else {
             baseResult.setStatus(false);
             baseResult.setMsg("保存失败");
         }
-        return JsonUtils.toHashMap(baseResult);
+//        return JsonUtils.toHashMap(baseResult);
+        return JsonUtils.toJson(baseResult);
     }
 
     @ResponseBody
