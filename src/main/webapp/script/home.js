@@ -101,6 +101,8 @@ $(function () {
         // $(".task").click(function () {
         $(this).addClass("choose");
         $(this).siblings().removeClass("choose");
+        var taskId = $(this).find(".taskId").val();
+        $("#detailForm").load("/taskDetail/list.action?taskId=" + taskId);
     })
 
 
@@ -379,6 +381,7 @@ $(function () {
         rateVal.html(checkLen + "/" + len);
     }
 
+
     ratioAnimation();
     // 添加新项目
     $('body').on('click', '#newItem', function () {
@@ -507,9 +510,8 @@ $(function () {
         update(name, detailId, 'update', check, checkedNo, totalNo);
     })
 
-
     // 编辑按钮效果
-    $(".change").click(function () {
+    $('body').on('click', '.change', function (){
         // 原span隐藏。输入框出现
         $(".items").slideUp();
         $(".itemInput").slideDown();
@@ -518,6 +520,16 @@ $(function () {
         $(".changeOk").slideDown();
         $(".changeDel").show();
     })
+
+    // $(".change").click(function () {
+    //     // 原span隐藏。输入框出现
+    //     $(".items").slideUp();
+    //     $(".itemInput").slideDown();
+    //     // 加号隐藏。对勾出现
+    //     $(".add").slideUp();
+    //     $(".changeOk").slideDown();
+    //     $(".changeDel").show();
+    // })
 
     // 修改状态下的详细列表的Ajax
     function update(name, detailId, actionType, check, checkedNo, totalNo) {

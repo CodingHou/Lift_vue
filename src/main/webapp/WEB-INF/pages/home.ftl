@@ -138,7 +138,7 @@
     </form>
 
     <!--内容-->
-    [#include "/WEB-INF/pages/details.ftl"]
+    [#include "details.ftl"]
     [#--<form action="/taskDetail/insertTaskDetail.action" id="detailForm">--]
         [#--<div id="item-box">--]
             [#--<div class="item" id="item">--]

@@ -60,12 +60,7 @@ public class TaskController {
         return "/home";
     }
 
-    @RequestMapping("/getTaskDetail")
-    public String getTaskDetail(Integer userId,Integer taskId,ModelMap modelMap) {
-        List<TaskDetail> taskDetailList = taskDetailService.getTaskDetailList(userId,taskId);
-        modelMap.addAttribute("taskDetailList", taskDetailList);
-        return "/home";
-    }
+
 
 
     @ResponseBody

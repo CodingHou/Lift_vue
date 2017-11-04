@@ -29,9 +29,11 @@ public class TaskDetailController {
     @RequestMapping("/list")
     public String list(Integer userId,Integer taskId,ModelMap modelMap) {
         List<TaskDetail> detailList = new ArrayList<>();
+        Task task = taskService.getTaskById(taskId);
         detailList = taskDetailService.getTaskDetailList(userId, taskId);
         modelMap.addAttribute("detailList", detailList);
-        return "details";
+        modelMap.addAttribute("task", task);
+        return "/details";
     }
 
     @ResponseBody

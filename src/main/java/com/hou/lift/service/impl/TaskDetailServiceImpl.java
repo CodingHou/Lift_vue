@@ -21,8 +21,12 @@ public class TaskDetailServiceImpl implements TaskDetailService{
     public List<TaskDetail> getTaskDetailList(Integer userId, Integer taskId) {
         TaskDetailExample example = new TaskDetailExample();
         TaskDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andUserIdEqualTo(userId);
-        criteria.andTaskIdEqualTo(taskId);
+        if (null != userId) {
+            criteria.andUserIdEqualTo(userId);
+        }
+        if (null != taskId) {
+            criteria.andTaskIdEqualTo(taskId);
+        }
         criteria.andDataStateNotEqualTo(3);
         List<TaskDetail> taskDetailList = taskDetailMapper.selectByExample(example);
         return taskDetailList;
