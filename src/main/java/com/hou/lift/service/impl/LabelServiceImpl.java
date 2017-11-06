@@ -5,10 +5,12 @@ import com.hou.lift.model.Label;
 import com.hou.lift.model.LabelExample;
 import com.hou.lift.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.List;
 
+@Service
 public class LabelServiceImpl implements LabelService {
 
     @Autowired
@@ -20,7 +22,7 @@ public class LabelServiceImpl implements LabelService {
         LabelExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(userId);
         criteria.andDataStateNotEqualTo(2);
-        example.setOrderByClause("label_id desc");
+        example.setOrderByClause("label_id asc");
         List<Label> labelList = labelMapper.selectByExample(example);
         return labelList;
     }
@@ -33,6 +35,7 @@ public class LabelServiceImpl implements LabelService {
 
     @Override
     public int addLabel(Label label) {
+        label.setDataState(1);
         label.setCreateDate(Calendar.getInstance().getTime());
         int res = labelMapper.insert(label);
         return res;

@@ -63,16 +63,15 @@
         <div id="contentTag">
             <div id="tag-box">
 
-                <img class="tagOk" src="/icon/changeOk.png" alt="">
+                <img class="tagOk" src="/icon/changeOk2.png" alt="">
                 <img class="tagChange" src="/icon/change.png" alt="">
 
-                <span class="tag select">家</span>
-                <span class="tagDel">-</span>
-                <input type="hidden" value="">
 
-                <span class="tag select">公司</span>
-                <span class="tagDel">-</span>
-                <input type="hidden" value="">
+                [#list labelList as label]
+                    <span class="tag select NoChoose">${label.labelName}</span>
+                    <span class="tagDel">-</span>
+                    <input type="hidden" value="${label.labelId}">
+                [/#list]
 
                 <span class="addTag">添加新标签</span>
             </div>
@@ -84,6 +83,7 @@
         <div id="list-box">
 
         [#list taskList as item]
+
             <div class="task " id="${item.taskId}">
                 <input type="hidden" id="" class="taskId" value="${item.taskId}">
                 <!--附加信息-->
@@ -105,12 +105,13 @@
                     <!--标签-->
                     <span class="tag theTag1">${item.label}</span>
                 </div>
-                <!--标签悬浮-->
-                <div class="allTag">
-                    [#list tagList as tag]
-                        <span class="tag NoChoose">${tag.name}</span>
-                    [/#list]
-                </div>
+                [#include "labelList.ftl"]
+                [#--<!--标签悬浮-->--]
+                [#--<div class="allTag">--]
+                    [#--[#list tagList as tag]--]
+                        [#--<span class="tag NoChoose">${tag.name}</span>--]
+                    [#--[/#list]--]
+                [#--</div>--]
 
                 <!--标题-->
                 <div class="title">
@@ -124,7 +125,7 @@
                 </div>
                 <!--进度条-->
                 <div class="rate">
-                    <div class="ratio">
+                    <div class="ratio" style="left: calc(-325px + ${item.completedDetail}/${item.totalDetail} *325px)">
                     </div>
                 </div>
                 <span class="rateVal">${item.completedDetail}/${item.totalDetail}</span>

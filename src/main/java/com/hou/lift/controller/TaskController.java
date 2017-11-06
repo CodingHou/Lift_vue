@@ -2,10 +2,12 @@ package com.hou.lift.controller;
 
 
 import com.hou.lift.enums.InitDetailEnum;
+import com.hou.lift.model.Label;
 import com.hou.lift.model.Task;
 import com.hou.lift.model.TaskDetail;
 import com.hou.lift.model.User;
 import com.hou.lift.service.IUserService;
+import com.hou.lift.service.LabelService;
 import com.hou.lift.service.TaskDetailService;
 import com.hou.lift.service.TaskService;
 import com.hou.lift.util.BaseResult;
@@ -22,7 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 @RequestMapping("/task")
 @Controller
@@ -34,6 +39,8 @@ public class TaskController {
     private TaskDetailService taskDetailService;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private LabelService labelService;
 
     //展示列表的方法
     @RequestMapping("/list")
@@ -43,6 +50,7 @@ public class TaskController {
         userId = user.getUserId();
         List<Task> taskList = taskService.getTaskList(user.getUserId());
         List<TaskDetail> detailList = new ArrayList<>();
+        List<Label> labelList = labelService.getLabelList(userId);
 //        初始化数据
         Task task = new Task();
         if (taskList.size() == 0) {
@@ -55,6 +63,7 @@ public class TaskController {
         }
         modelMap.addAttribute("userId", userId);
         modelMap.addAttribute("task", task);
+        modelMap.addAttribute("labelList", labelList);
         modelMap.addAttribute("taskList", taskList);
         modelMap.addAttribute("detailList", detailList);
         return "/home";
@@ -77,20 +86,12 @@ public class TaskController {
         int c =taskService.addTask(task);
         if (c == 1) {
             baseResult.setStatus(true);
-            Map<String, Object> map = new HashMap<>();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            map.put("taskId", task.getTaskId());
-            map.put("beginDate", sdf.format(task.getBeginDate()));
-            map.put("taskName", task.getTaskName());
             baseResult.setData(task);
-//            baseResult.setData("["+JsonUtils.toHashMap(map)+"]");
             baseResult.setMsg("保存成功!");
-//            baseResult.setData(JsonUtils.toJson(map));
         } else {
             baseResult.setStatus(false);
             baseResult.setMsg("保存失败");
         }
-//        return JsonUtils.toHashMap(baseResult);
         return JsonUtils.toJson(baseResult);
     }
 
