@@ -4,7 +4,7 @@
 
 
 $(function () {
-
+    var userId = $("#userId").val();
     /*=================================================头部标签编辑开始===========================================*/
     // 点击标签筛选
     $("body").on("click", ".select", function () {
@@ -25,7 +25,7 @@ $(function () {
 
     // 点击添加新标签。添加输入框
     $("body").on("click", ".addTag", function () {
-        $(this).before("<div class=\"newTag\"><input class=\"inputTag\" type=\"text\" placeholder=\"新标签\" ><span class=\"tag select\"></span><span class=\"tagDel\">-</span><input type=\"hidden\" value=\"\"></div>");
+        $(this).before("<div class=\"newTag\"><input class=\"inputTag\" type=\"text\" placeholder=\"新标签\" ><span class=\"tag select NoChoose\"></span><span class=\"tagDel\">-</span><input type=\"hidden\" value=\"\"></div>");
     })
 
     // 鼠标离开新标签输入框。显示新标签。隐藏输入框
@@ -93,14 +93,19 @@ $(function () {
             type: "POST",   //请求方式
             success: function (data) {
                 if (data.status) {
-                    alert("label删除存成功");
+                    alert("label删除成功");
                     // 他前边的span删除
                     clickLabel.prev().remove();
                     clickLabel.next().remove();
                     // 他自己也删除
                     clickLabel.remove();
                 } else {
-                    alert("保存失败");
+                    if(data.data===1){
+                        alert("此标签正在使用，不能删除");
+                    }else {
+                        alert("保存失败");
+
+                    }
                 }
             },
             error: function () {
@@ -162,8 +167,8 @@ $(function () {
             dataType: "json",   //返回格式为json
             async: false,//请求是否异步，默认为异步，这也是ajax重要特性
             data: {
-                "grade": grade,
-                "label": tag,
+                "gradeId": grade,
+                "labelId": tag,
                 "taskName": title,
                 "createTime": day,
                 "del": del,
@@ -272,6 +277,7 @@ $(function () {
 
     // 标签悬浮窗的显示和隐藏
     $('body').on('click', '.stateBar span', function () {
+        $(".allTag").load("/label/getLabelList.action?userId=" + userId);
         // 获取他的悬浮标签
         var tag = $(this).parent().next("div");
         if (tag.is(":hidden")) {
@@ -285,7 +291,7 @@ $(function () {
             //如果点击的是悬浮窗内的标签。隐藏悬浮窗
             tag.fadeOut();
         }
-        $("#allTag").load()
+
     })
 
     // 点击悬浮窗内的标签。替换悬浮窗外的

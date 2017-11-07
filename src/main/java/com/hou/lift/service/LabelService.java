@@ -16,4 +16,6 @@ public interface LabelService {
     public int updateLabel(Label label);
 
     public int deleteLabel(Integer labelId);
+
+    boolean checkInUse(Integer userId, Integer labelId);
 }

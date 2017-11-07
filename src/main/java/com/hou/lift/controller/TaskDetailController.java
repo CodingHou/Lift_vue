@@ -41,8 +41,8 @@ public class TaskDetailController {
     public HashMap insertTaskDetail(TaskDetail taskDetail) {
         BaseResult baseResult = new BaseResult();
         Task task = taskService.getTaskById(taskDetail.getTaskId());
-        taskDetail.setLabel(task.getLabel());
-        taskDetail.setGrade(task.getGrade());
+        taskDetail.setLabelId(task.getLabelId());
+        taskDetail.setGradeId(task.getGradeId());
         taskDetail.setDataState(1);
         int c = taskDetailService.addTaskDetail(taskDetail);
         if (c == 1) {

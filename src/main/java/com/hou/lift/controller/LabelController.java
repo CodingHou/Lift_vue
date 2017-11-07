@@ -28,7 +28,14 @@ public class LabelController {
         List<Label> labelList = labelService.getLabelList(userId);
         modelMap.addAttribute("userId", userId);
         modelMap.addAttribute("labelList", labelList);
-        return "/label";
+        return "/labelList";
+    }
+
+    @ResponseBody
+    @RequestMapping("/checkInUse")
+    public Boolean checkInUse(Integer userId,Integer labelId) {
+        boolean c = labelService.checkInUse(userId, labelId);
+        return c;
     }
 
     @ResponseBody
@@ -52,8 +59,14 @@ public class LabelController {
     @RequestMapping("/updateLabel")
     public HashMap<String, Object> updateLabel(Label label,String del) throws ParseException {
         BaseResult baseResult = new BaseResult();
+        Boolean res = checkInUse(label.getUserId(), label.getLabelId());
         if ("yes".equals(del)) {
             label.setDataState(2);
+            if (res) {
+                baseResult.setData(1);
+                baseResult.setStatus(false);
+                return JsonUtils.toHashMap(baseResult);
+            }
         }
         int c =labelService.updateLabel(label);
         if (c == 1) {

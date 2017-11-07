@@ -122,7 +122,7 @@ public class TaskController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         initTask.setBeginDate(sdf.parse(DateUtil.getNowDate()));
         initTask.setTaskName("新任务");
-        initTask.setLabel(1);
+        initTask.setLabelId(1);
         initTask.setTotalDetail(5);
         initTask.setCompletedDetail(1);
         initTask.setUserId(userId);
@@ -141,7 +141,7 @@ public class TaskController {
             if (i == 1) {
                 detail.setDataState(2);
             }
-            detail.setLabel(initTask.getLabel());
+            detail.setLabelId(initTask.getLabelId());
             detail.setTaskId(initTask.getTaskId());
             detail.setUserId(initTask.getUserId());
             detail.setCreateTime(sdf.parse(DateUtil.getNowDate()));

@@ -9,7 +9,7 @@
             <div class="header">
                 <div class="stateBar">
                     <!--紧急程度-->
-                    <div class="grade grade${task.grade}">
+                    <div class="grade grade${task.gradeId}">
                     </div>
                     <!--修改-->
                     <img class="change" src="/icon/change.png" alt="">

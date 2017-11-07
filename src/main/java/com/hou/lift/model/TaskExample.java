@@ -445,123 +445,123 @@ public class TaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andLabelIsNull() {
-            addCriterion("label is null");
+        public Criteria andLabelIdIsNull() {
+            addCriterion("label_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andLabelIsNotNull() {
-            addCriterion("label is not null");
+        public Criteria andLabelIdIsNotNull() {
+            addCriterion("label_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andLabelEqualTo(Integer value) {
-            addCriterion("label =", value, "label");
+        public Criteria andLabelIdEqualTo(Integer value) {
+            addCriterion("label_id =", value, "labelId");
             return (Criteria) this;
         }
 
-        public Criteria andLabelNotEqualTo(Integer value) {
-            addCriterion("label <>", value, "label");
+        public Criteria andLabelIdNotEqualTo(Integer value) {
+            addCriterion("label_id <>", value, "labelId");
             return (Criteria) this;
         }
 
-        public Criteria andLabelGreaterThan(Integer value) {
-            addCriterion("label >", value, "label");
+        public Criteria andLabelIdGreaterThan(Integer value) {
+            addCriterion("label_id >", value, "labelId");
             return (Criteria) this;
         }
 
-        public Criteria andLabelGreaterThanOrEqualTo(Integer value) {
-            addCriterion("label >=", value, "label");
+        public Criteria andLabelIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("label_id >=", value, "labelId");
             return (Criteria) this;
         }
 
-        public Criteria andLabelLessThan(Integer value) {
-            addCriterion("label <", value, "label");
+        public Criteria andLabelIdLessThan(Integer value) {
+            addCriterion("label_id <", value, "labelId");
             return (Criteria) this;
         }
 
-        public Criteria andLabelLessThanOrEqualTo(Integer value) {
-            addCriterion("label <=", value, "label");
+        public Criteria andLabelIdLessThanOrEqualTo(Integer value) {
+            addCriterion("label_id <=", value, "labelId");
             return (Criteria) this;
         }
 
-        public Criteria andLabelIn(List<Integer> values) {
-            addCriterion("label in", values, "label");
+        public Criteria andLabelIdIn(List<Integer> values) {
+            addCriterion("label_id in", values, "labelId");
             return (Criteria) this;
         }
 
-        public Criteria andLabelNotIn(List<Integer> values) {
-            addCriterion("label not in", values, "label");
+        public Criteria andLabelIdNotIn(List<Integer> values) {
+            addCriterion("label_id not in", values, "labelId");
             return (Criteria) this;
         }
 
-        public Criteria andLabelBetween(Integer value1, Integer value2) {
-            addCriterion("label between", value1, value2, "label");
+        public Criteria andLabelIdBetween(Integer value1, Integer value2) {
+            addCriterion("label_id between", value1, value2, "labelId");
             return (Criteria) this;
         }
 
-        public Criteria andLabelNotBetween(Integer value1, Integer value2) {
-            addCriterion("label not between", value1, value2, "label");
+        public Criteria andLabelIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("label_id not between", value1, value2, "labelId");
             return (Criteria) this;
         }
 
-        public Criteria andGradeIsNull() {
-            addCriterion("grade is null");
+        public Criteria andGradeIdIsNull() {
+            addCriterion("grade_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andGradeIsNotNull() {
-            addCriterion("grade is not null");
+        public Criteria andGradeIdIsNotNull() {
+            addCriterion("grade_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGradeEqualTo(Integer value) {
-            addCriterion("grade =", value, "grade");
+        public Criteria andGradeIdEqualTo(Integer value) {
+            addCriterion("grade_id =", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andGradeNotEqualTo(Integer value) {
-            addCriterion("grade <>", value, "grade");
+        public Criteria andGradeIdNotEqualTo(Integer value) {
+            addCriterion("grade_id <>", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andGradeGreaterThan(Integer value) {
-            addCriterion("grade >", value, "grade");
+        public Criteria andGradeIdGreaterThan(Integer value) {
+            addCriterion("grade_id >", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andGradeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("grade >=", value, "grade");
+        public Criteria andGradeIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("grade_id >=", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andGradeLessThan(Integer value) {
-            addCriterion("grade <", value, "grade");
+        public Criteria andGradeIdLessThan(Integer value) {
+            addCriterion("grade_id <", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andGradeLessThanOrEqualTo(Integer value) {
-            addCriterion("grade <=", value, "grade");
+        public Criteria andGradeIdLessThanOrEqualTo(Integer value) {
+            addCriterion("grade_id <=", value, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andGradeIn(List<Integer> values) {
-            addCriterion("grade in", values, "grade");
+        public Criteria andGradeIdIn(List<Integer> values) {
+            addCriterion("grade_id in", values, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andGradeNotIn(List<Integer> values) {
-            addCriterion("grade not in", values, "grade");
+        public Criteria andGradeIdNotIn(List<Integer> values) {
+            addCriterion("grade_id not in", values, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andGradeBetween(Integer value1, Integer value2) {
-            addCriterion("grade between", value1, value2, "grade");
+        public Criteria andGradeIdBetween(Integer value1, Integer value2) {
+            addCriterion("grade_id between", value1, value2, "gradeId");
             return (Criteria) this;
         }
 
-        public Criteria andGradeNotBetween(Integer value1, Integer value2) {
-            addCriterion("grade not between", value1, value2, "grade");
+        public Criteria andGradeIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("grade_id not between", value1, value2, "gradeId");
             return (Criteria) this;
         }
 

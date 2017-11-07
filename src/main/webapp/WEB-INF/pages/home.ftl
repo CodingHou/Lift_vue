@@ -88,10 +88,10 @@
                 <input type="hidden" id="" class="taskId" value="${item.taskId}">
                 <!--附加信息-->
                 <div class="stateBar">
-                        <div class="grade grade${item.grade}" [#if !item.grade]hidden[/#if]>
-                            <input type="hidden" value="${item.grade}">
+                        <div class="grade grade${item.gradeId}" [#if !item.gradeId]hidden[/#if]>
+                            <input type="hidden" value="${item.gradeId}">
                         </div>
-                        <div class="gradeBox" [#if item.grade]hidden[/#if]>
+                        <div class="gradeBox" [#if item.gradeId]hidden[/#if]>
                             <div class="grade grade1">
                                 <input type="hidden" name="grade1" value="1">
                             </div>
@@ -103,9 +103,11 @@
                             </div>
                         </div>
                     <!--标签-->
-                    <span class="tag theTag1">${item.label}</span>
+                    <span class="tag theTag1">${item.labelId}</span>
                 </div>
+            <div class="allTag" >
                 [#include "labelList.ftl"]
+            </div>
                 [#--<!--标签悬浮-->--]
                 [#--<div class="allTag">--]
                     [#--[#list tagList as tag]--]
