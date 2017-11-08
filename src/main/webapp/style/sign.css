@@ -1,8 +1,8 @@
-*{
+﻿*{
 	margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    position: relative;
+	padding: 0;
+	box-sizing: border-box;
+	position: relative;
 }
 body{
 	height: 100vh;
@@ -24,12 +24,12 @@ a{
 	position: absolute;
 	transform: translate(-50%,-50%);
 	-webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+
 }
 /*logo*/
 #lift{
@@ -58,7 +58,7 @@ a{
 	width: 100px;
 	display: inline-block;
 	font-size: 25px;
-	
+
 	font-weight: 600;
 	line-height: 80px;
 	text-align: center;

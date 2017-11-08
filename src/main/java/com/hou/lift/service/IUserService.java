@@ -8,6 +8,6 @@ import com.hou.lift.model.User;
 
 public interface IUserService {
      User findUserById(int id);
-     void addUser(User user);
+     int addUser(User user);
      User getUserByName(String name);
 }

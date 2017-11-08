@@ -5,6 +5,10 @@
 
 $(function () {
     var userId = $("#userId").val();
+    $("#search-button").click(function () {
+        var taskName = $("#search-text").val();
+        $("#searchForm").submit();
+    })
     /*=================================================头部标签编辑开始===========================================*/
     // 点击标签筛选
     $("body").on("click", ".select", function () {

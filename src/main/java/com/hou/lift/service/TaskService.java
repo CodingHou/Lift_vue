@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TaskService {
 
-    public List<Task> getTaskList(Integer userId);
+    public List<Task> getTaskList(Integer userId,String taskName);
 
     public Task getTaskById(Integer taskId);
 

@@ -21,7 +21,7 @@ public class UserController {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         System.out.println("=========test=========");
-        return "index";
+        return "sign";
     }
 
     @RequestMapping(value = "/getUser", method = RequestMethod.GET)

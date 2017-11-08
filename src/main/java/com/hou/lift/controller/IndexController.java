@@ -24,15 +24,24 @@ public class IndexController {
 
     @RequestMapping("/index")
     public String index() {
-        return "/index";
+        return "/sign";
     }
 
     //注册
     @ResponseBody
     @RequestMapping("/signUp")
-    public String signUp(User user, ModelMap modelMap, String repPwd) {
-        userService.addUser(user);
-        return "/main";
+    public String signUp(User user) {
+        int c = userService.addUser(user);
+        BaseResult baseResult = new BaseResult();
+        if (c == 1) {
+            baseResult.setStatus(true);
+            baseResult.setData(user.getUserId());
+            baseResult.setMsg("保存成功!");
+        } else {
+            baseResult.setStatus(false);
+            baseResult.setMsg("保存失败");
+        }
+        return JsonUtils.toJson(baseResult);
     }
 
     //登录
@@ -64,23 +73,24 @@ public class IndexController {
     public HashMap<String, Object> checkUser(String userName, Integer checkType) {
         BaseResult baseResult = new BaseResult();
         User user = userService.getUserByName(userName);
-        if (user != null) {
-            if (checkType == Constants.CHECK_EXIST) {
+        //如果是登录页面，检查用户是否存在
+        if (checkType == Constants.CHECK_EXIST) {
+            if (user != null) {
                 baseResult.setMsg("用户存在");
                 baseResult.setStatus(true);
-            } else if (checkType == Constants.CHECK_REPEAT) {
+            }else {
+                baseResult.setMsg("该用户不存在");
+                baseResult.setStatus(false);
+            }
+        //如果是注册页面，检查用户名是否重复
+        } else if (checkType == Constants.CHECK_REPEAT) {
+            if (user != null) {
                 baseResult.setMsg("用户名已经存在");
-                baseResult.setStatus(false);
-            }
-        } else {
-            if (checkType == Constants.CHECK_EXIST) {
-                baseResult.setMsg("用户不存在");
-                baseResult.setStatus(false);
-            } else if (checkType == Constants.CHECK_REPEAT) {
-                baseResult.setMsg("用户名未注册");
                 baseResult.setStatus(true);
+            }else {
+                baseResult.setMsg("用户名未注册");
+                baseResult.setStatus(false);
             }
-
         }
         return JsonUtils.toHashMap(baseResult);
     }

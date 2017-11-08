@@ -64,6 +64,7 @@
 
             <!--注册-->
             <div id="signUp">
+                <input type="hidden" id="userId" name="userId" value="">
                 <!--邮箱-->
                 <input type="email" name="email" id="email" value="" class="inputText" placeholder="用于注册的email"/>
                 <span id="emailInfo" class="info"></span>

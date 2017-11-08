@@ -22,8 +22,9 @@ public class UserServiceImpl implements IUserService {
         return userMapper.selectByPrimaryKey(id);
     }
 
-    public void addUser(User user) {
-        userMapper.insert(user);
+    public int addUser(User user) {
+        int c = userMapper.insert(user);
+        return c;
     }
 
     @Override

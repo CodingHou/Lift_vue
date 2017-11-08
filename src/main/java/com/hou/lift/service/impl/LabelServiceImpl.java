@@ -1,10 +1,9 @@
 package com.hou.lift.service.impl;
 
 import com.hou.lift.dao.LabelMapper;
-import com.hou.lift.dao.LabelSqlMapper;
+import com.hou.lift.dao.TaskSqlMapper;
 import com.hou.lift.model.Label;
 import com.hou.lift.model.LabelExample;
-import com.hou.lift.model.Task;
 import com.hou.lift.model.TaskExample;
 import com.hou.lift.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class LabelServiceImpl implements LabelService {
     @Autowired
     private LabelMapper labelMapper;
     @Autowired
-    private LabelSqlMapper labelSqlMapper;
+    private TaskSqlMapper taskSqlMapper;
     @Override
     public List<Label> getLabelList(Integer userId) {
         LabelExample example = new LabelExample();
@@ -66,7 +65,7 @@ public class LabelServiceImpl implements LabelService {
         criteria.andDataStateNotEqualTo(2);
         criteria.andLabelIdIsNotNull();
         example.setOrderByClause("label_id asc");
-        List<Integer> labelList = labelSqlMapper.getLabelInUse(example);
+        List<Integer> labelList = taskSqlMapper.getLabelInUse(example);
         if (labelList.contains(labelId)) {
             return true;
         }

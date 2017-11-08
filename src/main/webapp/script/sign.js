@@ -20,11 +20,87 @@ $(function () {
         var info = $("#" + infoId);
         if (inputValue == "") {
             info.html(tip + "不能为空").attr("class", "info");
-            return;
+            return true;
         } else {
             info.html("");
         }
+        return false;
     }
+
+
+    // 点击注册按钮
+    $("#signUpBtn").click(function () {
+        var email=$("#email").val();
+        var pwd=$("#pwd").val();
+        var pwd2=$("#pwd2").val();
+        // 验证是否为空
+        if (checkNull("email", "emailInfo", "邮箱")){
+            return;
+        }
+        if(checkNull("pwd", "pwdInfo", "密码")){
+            return;
+        }
+        if(checkNull("pwd2", "pwd2Info", "重复密码")){
+            return;
+        }
+        // 判断邮箱是否存在
+        var flag=0;
+        $.ajax({
+            url:"/index/checkUser.action",    //请求的url地址
+            dataType:"json",   //返回格式为json
+            async:false,//请求是否异步，默认为异步，这也是ajax重要特性
+            data:{"userName":$(this).val(),
+                "checkType":2},    //参数值
+            type:"POST",   //请求方式
+            success:function(data){
+                if (data.status){
+                    $("#nameInfo").html("请勿重复注册").attr('class', 'info');
+                    flag=1;
+                }
+
+            },
+            error:function(){
+                //请求出错处理
+                alert("服务器错误");
+                return;
+            }
+        });
+        // 判断两次密码是否一致
+        if(pwd2!=pwd){
+            $("#pwd2Info").html("两次密码不一致");
+            return;
+        }
+        if (flag==0){
+            $.ajax({
+                url:"/index/signUp.action",    //请求的url地址
+                dataType:"json",   //返回格式为json
+                async:false,//请求是否异步，默认为异步，这也是ajax重要特性
+                data:{"userName":$("#email").val(),
+                    "password":$("#pwd").val()},    //参数值
+                type:"POST",   //请求方式
+                success:function(data){
+                    if (data.status){
+                        alert("注册成功！");
+                        $("#userId").attr("value",data.data);
+                        $("#userName").val($("#email").val());
+                        $("#indexForm")[0].action="/task/list.action";
+                        $("#indexForm")[0].submit();
+                    }else {
+                        alert("注册失败")
+                    }
+
+                },
+                error:function(){
+                    //请求出错处理
+                    alert("服务器错误");
+                    return;
+                }
+            });
+        }
+
+
+    })
+
 
     // 注册页面邮箱判断
     $("#email").blur(function () {
@@ -51,7 +127,7 @@ $(function () {
                             $("#emailInfo").html("请勿重复注册").attr('class', 'info');
                         }else {
                             $("#emailInfo").html("");
-                            $("#emailInfo").append("<img class='ok' src='/lift/icon/ok.png'>");
+                            $("#emailInfo").append("<img class='ok' src='/icon/ok.png'>");
                         }
                     },
                     error:function(){
@@ -135,7 +211,7 @@ $(function () {
                 $("#pwd2Info").html("两次密码不一致");
             } else {
                 $("#pwd2Info").html("");
-                $("#pwd2Info").append("<img class='ok' src='/lift/icon/ok.png'>");
+                $("#pwd2Info").append("<img class='ok' src='/icon/ok.png'>");
             }
         }
     })
@@ -168,7 +244,7 @@ $(function () {
                     if (data.status){
                         // 对的
                         $("#nameInfo").html("");
-                        $("#nameInfo").append("<img class='ok' src='/lift/icon/ok.png'>");
+                        $("#nameInfo").append("<img class='ok' src='/icon/ok.png'>");
                         flag=1;
                     }else {
                         $("#nameInfo").html("该用户不存在").attr('class', 'info');
@@ -218,59 +294,7 @@ $(function () {
             }
         }
     })
-    // 注册
-    $("#signUpBtn").click(function () {
-        var email=$("#email").val();
-        var pwd=$("#pwd").val();
-        var pwd2=$("#pwd2").val();
-        // 验证是否为空
-        if (email!=""){
-            checkNull("email", "emailInfo", "邮箱");
-            return;
-        }
-        if(pwd!=""){
-            checkNull("pwd", "pwdInfo", "密码");
-            return;
-        }
-        if(pwd2!=""){
-            checkNull("pwd2", "pwd2Info", "重复密码");
-            return;
-        }
-        // 判断邮箱是否存在
-        var flag=0;
-        $.ajax({
-            url:"/index/checkUser.action",    //请求的url地址
-            dataType:"json",   //返回格式为json
-            async:false,//请求是否异步，默认为异步，这也是ajax重要特性
-            data:{"userName":$(this).val(),
-                "checkType":2},    //参数值
-            type:"POST",   //请求方式
-            success:function(data){
-                if (data.status){
-                    // 对的
-                    $("#nameInfo").html("请勿重复注册").attr('class', 'info');
-                    flag=1;
-                }
 
-            },
-            error:function(){
-                //请求出错处理
-                alert("服务器错误");
-                return;
-            }
-        });
-        // 判断两次密码是否一致
-        if(pwd2!=pwd){
-            $("#pwd2Info").html("两次密码不一致");
-            return;
-        }
-        if (flag==1){
-            $("#indexForm")[0].action="/index/signUp.action";
-            $("#indexForm")[0].submit();
-        }
-
-
-    })
 
     // 登录判断用户是否存在
     $("#userName").blur(function () {
@@ -286,7 +310,7 @@ $(function () {
                     if (data.status){
                         // 对的
                         $("#nameInfo").html("");
-                        $("#nameInfo").append("<img class='ok' src='/lift/icon/ok.png'>");
+                        $("#nameInfo").append("<img class='ok' src='/icon/ok.png'>");
                     }else {
                         $("#nameInfo").html("该用户不存在").attr('class', 'info');
                     }

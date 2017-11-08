@@ -44,11 +44,13 @@ public class TaskController {
 
     //展示列表的方法
     @RequestMapping("/list")
-    public String list(String userName,Integer userId, ModelMap modelMap, HttpServletRequest request) throws ParseException {
+    public String list(String userName, Integer userId, String taskName, ModelMap modelMap, HttpServletRequest request) throws ParseException {
 //        int userId = (int) request.getAttribute("userId");
-        User user = userService.getUserByName(userName);
-        userId = user.getUserId();
-        List<Task> taskList = taskService.getTaskList(user.getUserId());
+        if (StringUtils.isNotEmpty(userName)) {
+            User user = userService.getUserByName(userName);
+            userId = user.getUserId();
+        }
+        List<Task> taskList = taskService.getTaskList(userId,taskName);
         List<TaskDetail> detailList = new ArrayList<>();
         List<Label> labelList = labelService.getLabelList(userId);
 //        初始化数据
@@ -62,6 +64,7 @@ public class TaskController {
             detailList = taskDetailService.getTaskDetailList(userId, taskList.get(0).getTaskId());
         }
         modelMap.addAttribute("userId", userId);
+        modelMap.addAttribute("taskName",taskName);
         modelMap.addAttribute("task", task);
         modelMap.addAttribute("labelList", labelList);
         modelMap.addAttribute("taskList", taskList);
