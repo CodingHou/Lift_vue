@@ -3,5 +3,5 @@
 
 [#list labelList as label]
     <input type="hidden" value="${label.labelId}">
-    <span class="tag NoChoose">${label.labelName}</span>
+    <span class="tag  [#if label.labelId!= labelId]NoChoose[/#if]">${label.labelName}</span>
 [/#list]
