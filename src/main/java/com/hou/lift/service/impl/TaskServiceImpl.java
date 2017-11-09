@@ -33,6 +33,18 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public int checkTaskIsNull(Integer userId) {
+        // 查找该user下的所有task，包括删除的。
+        TaskExample example = new TaskExample();
+        TaskExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId);
+        example.setOrderByClause("task_id desc");
+        int count = taskMapper.countByExample(example);
+        return count;
+    }
+
+
+    @Override
     public Task getTaskById(Integer taskId) {
         Task task = taskMapper.selectByPrimaryKey(taskId);
         return task;

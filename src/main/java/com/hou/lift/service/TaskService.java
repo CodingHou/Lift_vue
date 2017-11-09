@@ -8,6 +8,8 @@ public interface TaskService {
 
     public List<Task> getTaskList(Integer userId,String taskName);
 
+    public int checkTaskIsNull(Integer userId);
+
     public Task getTaskById(Integer taskId);
 
     public int addTask(Task task);
