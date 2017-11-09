@@ -161,7 +161,8 @@ $(function () {
     // 小列表的Ajax
     function updateTask(del, clickDiv) {
         var grade = clickDiv.find(".grade:visible").find("input").val();
-        var tag = clickDiv.find(".theTag1").html();
+        var labelName = clickDiv.find(".theTag1").html();
+        var labelId = clickDiv.find(".labelId").val();
         var title = clickDiv.find(".title span").html();
         var day = clickDiv.find(".day span").html();
         var taskId = clickDiv.find(".taskId").attr("value");
@@ -172,7 +173,8 @@ $(function () {
             async: false,//请求是否异步，默认为异步，这也是ajax重要特性
             data: {
                 "gradeId": grade,
-                "labelId": tag,
+                "labelName":labelName,
+                "labelId": labelId,
                 "taskName": title,
                 "createTime": day,
                 "del": del,
@@ -207,37 +209,39 @@ $(function () {
     }
 
     $('body').on('click', '.grade', function () {
-        //若是点击单个grade
-        if ($(this).parent().attr("class") != "gradeBox") {
-            $(this).hide();
-            $(this).next().show();
-            /* 在取多个class的时候，不能有空格而且需要用"."或者","来分隔，
-         不过我们将动画效果移入到下面的function中，就不需要取这个class了*/
-            var gradeClass = $(this).attr("class");
-            gradeClass = "." + gradeClass.replace(" ", ".");
-            //将gradeBox中，与该单个Grade相同颜色的grade，设置为不透明。
-            $(this).next().find(gradeClass).animate({'opacity': '1'});
-        } else {
-            // 如果点的是gradeBox。显示单个grade。隐藏gradeBox
-            $(this).parent().prev().show();
-            $(this).parent().hide();
-            // 获取被选中的class和val，赋值给单个的grade，透明度改为1
-            var gradeClass = $(this).attr("class");
-            var gradeVal = $(this).find("input").val();
-            //获取单个grade的div
-            var grade = $(this).parent().prev();
-            grade.attr("class", gradeClass);
-            grade.find("input").attr("value", gradeVal);
-            grade.animate({'opacity': '1'});
-            //获取选中的grade。将他的透明度设为1.其他的设为0.1
-            $(this).siblings().animate({'opacity': '0.1'});
-            $(this).animate({'opacity': '1'});
-            // 返回val到后台进行更新
-            var clickDiv = $(this).parent().parent().parent();
-            updateTask("no", clickDiv);
-            $(".header").children().find(".grade").attr("class", gradeClass);
+        // 如果点击的不是detail里的grade
+        if($(this).parent().parent().attr("class")!="header") {
+            //若是点击单个grade
+            if ($(this).parent().attr("class") != "gradeBox") {
+                $(this).hide();
+                $(this).next().show();
+                /* 在取多个class的时候，不能有空格而且需要用"."或者","来分隔，
+             不过我们将动画效果移入到下面的function中，就不需要取这个class了*/
+                var gradeClass = $(this).attr("class");
+                gradeClass = "." + gradeClass.replace(" ", ".");
+                //将gradeBox中，与该单个Grade相同颜色的grade，设置为不透明。
+                $(this).next().find(gradeClass).animate({'opacity': '1'});
+            } else {
+                // 如果点的是gradeBox。显示单个grade。隐藏gradeBox
+                $(this).parent().prev().show();
+                $(this).parent().hide();
+                // 获取被选中的class和val，赋值给单个的grade，透明度改为1
+                var gradeClass = $(this).attr("class");
+                var gradeVal = $(this).find("input").val();
+                //获取单个grade的div
+                var grade = $(this).parent().prev();
+                grade.attr("class", gradeClass);
+                grade.find("input").attr("value", gradeVal);
+                grade.animate({'opacity': '1'});
+                //获取选中的grade。将他的透明度设为1.其他的设为0.1
+                $(this).siblings().animate({'opacity': '0.1'});
+                $(this).animate({'opacity': '1'});
+                // 返回val到后台进行更新
+                var clickDiv = $(this).parent().parent().parent();
+                updateTask("no", clickDiv);
+                $(".header").children().find(".grade").attr("class", gradeClass);
+            }
         }
-
     })
 
     // 点击日期和标题，从span切换成input
@@ -301,13 +305,15 @@ $(function () {
     // 点击悬浮窗内的标签。替换悬浮窗外的
     $('body').on('click', '.allTag span', function () {
         // 获取悬浮窗内被点击的html
-        var newTag = $(this).html();
+        var newLabel = $(this).html();
+        var newLabelId= $(this).prev().val();
         // 获取要替换的那个tag
-        var theTag1 = $(this).parent().parent().children().find(".theTag1");
+        var labelName = $(this).parent().parent().children().find(".theTag1");
         // 替换悬浮窗外的小标签
-        theTag1.html(newTag);
+        labelName.html(newLabel);
+        $(".labelId").val(newLabelId);
         // 替换掉大列表里的标签
-        $(".item").find(".tag").html(newTag);
+        $(".item").find(".tag").html(newLabel);
         // 隐藏悬浮窗
         $(this).parent().fadeOut();
         // 颜色替换

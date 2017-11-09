@@ -106,7 +106,8 @@
                         </div>
                     </div>
                     <!--标签-->
-                    <span class="tag theTag1">${item.labelId}</span>
+                    <input type="hidden" class="labelId" value="${item.labelId}">
+                    <span class="tag theTag1">${item.labelName}</span>
                 </div>
                 <div class="allTag">
                     [#include "labelList.ftl"]
