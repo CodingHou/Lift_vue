@@ -59,7 +59,7 @@ public class TaskController {
         //如果是注册后首次登录
         if (count == 0) {
             labelList = initLabel(userId);
-            task = initTask(userId, labelList.get(0).getLabelId());
+            task = initTask(userId, labelList.get(0));
             taskList.add(task);
             detailList = initDetailList(task);
         } else {
@@ -145,12 +145,13 @@ public class TaskController {
     }
 
     //初始化task
-    private Task initTask(Integer userId, Integer labelId) throws ParseException {
+    private Task initTask(Integer userId, Label label) throws ParseException {
         Task initTask = new Task();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         initTask.setBeginDate(sdf.parse(DateUtil.getNowDate()));
         initTask.setTaskName("这是您的第一个任务");
-        initTask.setLabelId(labelId);
+        initTask.setLabelId(label.getLabelId());
+        initTask.setLabelName(label.getLabelName());
         initTask.setTotalDetail(6);
         initTask.setCompletedDetail(1);
         initTask.setUserId(userId);
