@@ -15,8 +15,8 @@ $(function () {
         // 获取选取标签的id
         var selectId = $(this).next().next().val();
         // 他自己是蓝的。别的全是灰的
-        $(this).removeClass("NoChoose");
-        $(this).siblings(".tag").addClass("NoChoose");
+        $(this).addClass("labelChoose");
+        $(this).siblings(".tag").removeClass("labelChoose");
 
     })
 
@@ -30,20 +30,20 @@ $(function () {
 
     // 点击添加新标签。添加输入框
     $("body").on("click", ".addTag", function () {
-        $(this).before("<input class=\"inputTag\" type=\"text\" placeholder=\"新标签\" ><span class=\"tag select NoChoose\"></span><span class=\"tagDel\">-</span><input type=\"hidden\" value=\"\">");
+        $(this).before("<input class=\"inputTag\" type=\"text\" placeholder=\"新标签\" ><span class=\"tag select newTag\"></span><span class=\"tagDel\">-</span><input type=\"hidden\" value=\"\">");
     })
 
     // 鼠标离开新标签输入框。显示新标签。隐藏输入框
     $("body").on("blur", ".inputTag", function () {
         var labelName = $(this).val();
+        var newLabel = $(this);
+        addLabel(labelName, newLabel);
         if (labelName != "") {
             $(this).next().html(labelName);
             $(this).next().show();
             $(this).next().next().show();
-            $(this).hide();
+            $(this).remove();
         }
-        var newLabel = $(this);
-        addLabel(labelName, newLabel);
     })
 
     // 添加新标签的Ajax
@@ -61,7 +61,7 @@ $(function () {
             success: function (data) {
                 if (data.status) {
                     var labelId = data.data;
-                    newLabel.parent().find("input:hidden").val(labelId);
+                    newLabel.next().next().next().val(labelId);
                     alert("label保存成功")
                 } else {
                     alert("保存失败");
@@ -209,7 +209,7 @@ $(function () {
         }
     }
 
-    $('body').on('click', '.grade', function () {
+    $('body').on('click', '.grade', function (e) {
         // 如果点击的不是detail里的grade
         if ($(this).parent().parent().attr("class") != "header") {
             //若是点击单个grade
@@ -222,6 +222,9 @@ $(function () {
                 gradeClass = "." + gradeClass.replace(" ", ".");
                 //将gradeBox中，与该单个Grade相同颜色的grade，设置为不透明。
                 $(this).next().find(gradeClass).animate({'opacity': '1'});
+                e.stopPropagation();
+                $(this).closest(".task").addClass("choose");
+                $(this).closest(".task").siblings().removeClass("choose");
             } else {
                 // 如果点的是gradeBox。显示单个grade。隐藏gradeBox
                 $(this).parent().prev().show();
@@ -241,21 +244,27 @@ $(function () {
                 var clickDiv = $(this).parent().parent().parent();
                 updateTask("no", clickDiv);
                 $(".header").children().find(".grade").attr("class", gradeClass);
+                e.stopPropagation();
+                $(this).closest(".task").addClass("choose");
+                $(this).closest(".task").siblings().removeClass("choose");
             }
         }
     })
 
     // 点击日期和标题，从span切换成input
-    $('body').on('click', '.listSpan', function () {
+    $('body').on('click', '.listSpan', function (e) {
         var str = $(this).html();
         $(this).prev().attr("value", str);
         // 让span隐藏，input显示
         $(this).hide();
         $(this).siblings().show();
+        e.stopPropagation();
+        $(this).closest(".task").addClass("choose");
+        $(this).closest(".task").siblings().removeClass("choose");
     });
 
     // 日期和标题的onblur事件，对修改进行保存
-    $('body').on('blur', '.listInput', function () {
+    $('body').on('blur', '.listInput', function (e) {
         // 获取输入的值
         var input = $(this).val();
         // 把input的值赋给span
@@ -267,6 +276,16 @@ $(function () {
         // 获取当前点击的taskDiv
         var clickDiv = $(this).parent().parent();
         updateTask("no", clickDiv);
+        e.stopPropagation();
+        $(this).closest(".task").addClass("choose");
+        $(this).closest(".task").siblings().removeClass("choose");
+    })
+
+    // 阻止冒泡
+    $('body').on('click', '.listInput', function (e) {
+        e.stopPropagation();
+        $(this).closest(".task").addClass("choose");
+        $(this).closest(".task").siblings().removeClass("choose");
     })
 
     // 初始化页面时，js取task标题赋值给detail标题
@@ -285,7 +304,7 @@ $(function () {
     })
 
     // 标签悬浮窗的显示和隐藏
-    $('body').on('click', '.stateBar span', function () {
+    $('body').on('click', '.stateBar span', function (e) {
         var labelId = $(this).prev().val();
         $(".allTag").load("/label/getLabelList.action?userId=" + userId + "&labelId=" + labelId);
         // 获取他的悬浮标签
@@ -301,11 +320,13 @@ $(function () {
             //如果点击的是悬浮窗内的标签。隐藏悬浮窗
             tag.fadeOut();
         }
-
+        e.stopPropagation();
+        $(this).closest(".task").addClass("choose");
+        $(this).closest(".task").siblings().removeClass("choose");
     })
 
     // 点击悬浮窗内的标签。替换悬浮窗外的
-    $('body').on('click', '.allTag span', function () {
+    $('body').on('click', '.allTag span', function (e) {
         // 获取悬浮窗内被点击的html
         var newLabel = $(this).html();
         var newLabelId = $(this).prev().val();
@@ -319,16 +340,22 @@ $(function () {
         // 隐藏悬浮窗
         $(this).parent().fadeOut();
         // 颜色替换
-        $(this).removeClass("NoChoose");
-        $(this).siblings().addClass("NoChoose");
+        $(this).addClass("labelChoose");
+        $(this).siblings().removeClass("labelChoose");
         var clickDiv = $(this).parent().parent();
         updateTask("no", clickDiv);
+        e.stopPropagation();
+        $(this).closest(".task").addClass("choose");
+        $(this).closest(".task").siblings().removeClass("choose");
     })
 
     // TaskDiv的删除事件
-    $("body").on("click", ".del", function () {
+    $("body").on("click", ".del", function (e) {
         var clickDiv = $(this).parent();
         updateTask("yes", clickDiv);
+        e.stopPropagation();
+        $(this).closest(".task").addClass("choose");
+        $(this).closest(".task").siblings().removeClass("choose");
     })
     // 添加新任务
     $('body').on('click', '#add', function () {
@@ -374,7 +401,7 @@ $(function () {
         //设置 div 属性，如 id
         div.setAttribute("class", "task newDiv");
         // div.innerHTML = "<input type=\"hidden\" id=\"\" class=\"taskId\"><div class=\"stateBar\"><div class=\"grade grade1\"></div><div class=\"grade grade2\" ></div><div class=\"grade grade3\" ></div><span class=\"tag theTag1\">家</span></div><div class=\"allTag\"><span class=\"tag NoChoose\">1</span><span class=\"tag NoChoose\">2</span><span class=\"tag NoChoose\">3</span></div><div class=\"title\"><input type=\"text\" class=\"listInput\" placeholder=\"标题\"><span class=\"listSpan\">标题</span></div><div class=\"day\"><input type=\"date\" class=\"listInput\"><span class=\"listSpan\">2017</span></div><div class=\"rate\"><div class=\"ratio\"></div></div><span class=\"rateVal\">0/0</span><img src=\"/icon/del.png\" alt=\"\" class=\"del\">";
-        div.innerHTML = "  <input type=\"hidden\" id=\"\" class=\"taskId\" value=\"\"> <div class=\"stateBar\"> <div class=\"grade \" hidden=\"hidden\"> <input type=\"hidden\" value=\"\"> </div> <div class=\"gradeBox\" > <div class=\"grade grade1\"> <input type=\"hidden\" name=\"grade1\" value=\"1\"> </div> <div class=\"grade grade2\"> <input type=\"hidden\" name=\"grade2\" value=\"2\"> </div> <div class=\"grade grade3\"> <input type=\"hidden\" name=\"grade3\" value=\"3\"> </div> </div> <span class=\"tag theTag1\"></span> </div> <div class=\"allTag\"> <span class=\"tag NoChoose\"></span> </div> <div class=\"title\"> <input type=\"text\" class=\"listInput\" placeholder=\"标题\"> <span class=\"listSpan\"></span> </div> <div class=\"day\"> <input type=\"date\" class=\"listInput\"> <span class=\"listSpan\"></span> </div> <div class=\"rate\"> <div class=\"ratio\"> </div> </div> <span class=\"rateVal\">0/0</span> <img src=\"/icon/del.png\" alt=\"\" class=\"del\"> "
+        div.innerHTML = "  <input type=\"hidden\" id=\"\" class=\"taskId\" value=\"\"> <div class=\"stateBar\"> <div class=\"grade \" hidden=\"hidden\"> <input type=\"hidden\" value=\"\"> </div> <div class=\"gradeBox\" > <div class=\"grade grade1\"> <input type=\"hidden\" name=\"grade1\" value=\"1\"> </div> <div class=\"grade grade2\"> <input type=\"hidden\" name=\"grade2\" value=\"2\"> </div> <div class=\"grade grade3\"> <input type=\"hidden\" name=\"grade3\" value=\"3\"> </div> </div> <span class=\"tag theTag1\"></span> </div> <div class=\"allTag\"> <span class=\"tag\"></span> </div> <div class=\"title\"> <input type=\"text\" class=\"listInput\" placeholder=\"标题\"> <span class=\"listSpan\"></span> </div> <div class=\"day\"> <input type=\"date\" class=\"listInput\"> <span class=\"listSpan\"></span> </div> <div class=\"rate\"> <div class=\"ratio\"> </div> </div> <span class=\"rateVal\">0/0</span> <img src=\"/icon/del.png\" alt=\"\" class=\"del\"> "
         //在之前加
         parent.prepend(div);
         $(".newDiv").slideDown();
