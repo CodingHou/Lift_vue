@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,7 +47,8 @@ public class TaskController {
     //展示列表的方法
     @RequestMapping("/list")
     public String list(String userName, Integer userId, String taskName, String signInType, ModelMap modelMap, HttpServletRequest request) throws ParseException {
-        //int userId = (int) request.getAttribute("userId");
+        HttpSession session = request.getSession();
+        userId = (Integer) session.getAttribute("userId");
         if (StringUtils.isNotEmpty(userName)) {
             User user = userService.getUserByName(userName);
             userId = user.getUserId();

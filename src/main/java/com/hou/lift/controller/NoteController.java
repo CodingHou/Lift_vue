@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +24,10 @@ public class NoteController {
     private NoteService noteService;
 
     //展示列表的方法
-    @RequestMapping("/getNoteList")
-    public String getNoteList(Integer userId, ModelMap modelMap,Integer noteId,  HttpServletRequest request) throws ParseException {
+    @RequestMapping("/noteList")
+    public String noteList(Integer userId, ModelMap modelMap,Integer noteId,  HttpServletRequest request) throws ParseException {
+        HttpSession session = request.getSession();
+        userId = (Integer) session.getAttribute("userId");
         List<Note> noteList = noteService.getNoteList(userId);
         modelMap.addAttribute("noteId", noteId);
         modelMap.addAttribute("userId", userId);

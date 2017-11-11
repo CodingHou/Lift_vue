@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 
@@ -55,6 +56,8 @@ public class IndexController {
             if (password.equals(user.getPassword())) {
                 baseResult.setStatus(true);
                 baseResult.setMsg("登录成功!");
+                HttpSession session = request.getSession();
+                session.setAttribute("userId", user.getUserId());
             } else {
                 baseResult.setStatus(false);
                 baseResult.setMsg("密码不正确！");

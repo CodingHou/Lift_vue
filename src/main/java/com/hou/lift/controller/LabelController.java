@@ -25,6 +25,7 @@ public class LabelController {
     //展示列表的方法
     @RequestMapping("/getLabelList")
     public String getLabelList(Integer userId, ModelMap modelMap,Integer labelId,  HttpServletRequest request) throws ParseException {
+        userId = (Integer) request.getSession().getAttribute("userId");
         List<Label> labelList = labelService.getLabelList(userId);
         modelMap.addAttribute("labelId", labelId);
         modelMap.addAttribute("userId", userId);

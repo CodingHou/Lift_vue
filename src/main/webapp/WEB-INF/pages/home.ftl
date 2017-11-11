@@ -11,10 +11,10 @@
 <body>
 <!--侧导航-->
 <div id="nav-left">
-    <a href="" title="任务">
+    <a href="/task/list.action" title="任务">
         <img src="/icon/renwu.png"/>
     </a>
-    <a href="" title="便笺/备忘">
+    <a href="/note/noteList.action" title="便笺/备忘">
         <img src="/icon/bianqian.png"/>
     </a>
     <a href="" title="打卡/习惯养成">
