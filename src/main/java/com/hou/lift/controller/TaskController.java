@@ -63,8 +63,10 @@ public class TaskController {
         } else {
             taskList = taskService.getTaskList(userId, taskName);
             //默认选中第一个task，并展示其Detail
-            task = taskList.get(0);
-            detailList = taskDetailService.getTaskDetailList(userId, taskList.get(0).getTaskId());
+            if (taskList.size() > 0) {
+                task = taskList.get(0);
+                detailList = taskDetailService.getTaskDetailList(userId, taskList.get(0).getTaskId());
+            }
             labelList = labelService.getLabelList(userId);
         }
 
@@ -75,6 +77,30 @@ public class TaskController {
         modelMap.addAttribute("taskList", taskList);
         modelMap.addAttribute("detailList", detailList);
         return "task";
+    }
+
+    //展示列表的方法
+    @RequestMapping("/getDelTask")
+    public String getDelTask(Integer userId, String taskName, String signInType, ModelMap modelMap, HttpServletRequest request) throws ParseException {
+        HttpSession session = request.getSession();
+        userId = (Integer) session.getAttribute("userId");
+        //默认选中第一个task，并展示其Detail
+        List<Task> taskList = taskService.getDeleteTask(userId, taskName);
+        List<TaskDetail> detailList = new ArrayList<>();
+        List<Label> labelList = labelService.getLabelList(userId);
+        Task task = new Task();
+        if (taskList.size() > 0) {
+            task = taskList.get(0);
+            detailList = taskDetailService.getTaskDetailList(userId, taskList.get(0).getTaskId());
+        }
+        modelMap.addAttribute("isDel", 1);
+        modelMap.addAttribute("userId", userId);
+        modelMap.addAttribute("taskName", taskName);
+        modelMap.addAttribute("task", task);
+        modelMap.addAttribute("labelList", labelList);
+        modelMap.addAttribute("taskList", taskList);
+        modelMap.addAttribute("detailList", detailList);
+        return "delTask";
     }
 
 
@@ -122,6 +148,25 @@ public class TaskController {
         }
         return JsonUtils.toHashMap(baseResult);
     }
+    @ResponseBody
+    @RequestMapping("/revertTask")
+    public String revertTask(Task task) throws ParseException {
+        BaseResult baseResult = new BaseResult();
+        task.setDataState(1);
+        int c = taskService.updateTask(task);
+        if (c == 1) {
+            baseResult.setStatus(true);
+            baseResult.setMsg("保存成功!");
+        } else {
+            baseResult.setStatus(false);
+            baseResult.setMsg("保存失败");
+        }
+        return JsonUtils.toJson(baseResult);
+    }
+
+
+
+
 
     //新用户首次登录时初始化label
     private List<Label> initLabel(Integer userId) {

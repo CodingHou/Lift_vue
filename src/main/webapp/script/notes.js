@@ -137,7 +137,7 @@ $(function () {
             type: "POST",
             success: function (data) {
                 if(data.status) {
-                    $(".contents").prepend("<div class=\"note newNote\"><div class=\"hour\"><span></span></div><input type=\"hidden\" class=\"noteId\"><div class=\"notes\"><div class=\"noteInput\" contenteditable=\"true\"><br/></div></div><img class=\"delNote\" src=\"icon/del.png\" alt=\"\" ></div>");
+                    $(".contents").prepend("<div class=\"note newNote\"><div class=\"hour\"><span></span></div><input type=\"hidden\" class=\"noteId\"><div class=\"notes\"><div class=\"noteInput\" contenteditable=\"true\"><br/></div></div><img class=\"delNote\" src=\"/icon/del.png\" alt=\"\" ></div>");
                     var time=""+hour+":"+minute;
                     $(".newNote").find(".hour span").html(time);
                     $(".newNote").find(".noteId").val(data.data);

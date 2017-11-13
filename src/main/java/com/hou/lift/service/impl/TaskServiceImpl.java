@@ -33,6 +33,21 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<Task> getDeleteTask(Integer userId, String taskName) {
+        TaskExample example = new TaskExample();
+        TaskExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId);
+        criteria.andDataStateEqualTo(2);
+        if (StringUtils.isNotEmpty(taskName)) {
+            criteria.andTaskNameLike("%" + taskName + "%");
+        }
+        example.setOrderByClause("update_date desc");
+//        example.setOrderByClause("task_id asc");
+        List<Task> taskList = taskMapper.selectByExample(example);
+        return taskList;
+    }
+
+    @Override
     public int checkTaskIsNull(Integer userId) {
         // 查找该user下的所有task，包括删除的。
         TaskExample example = new TaskExample();

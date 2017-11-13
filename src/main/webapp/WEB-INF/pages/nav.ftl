@@ -16,7 +16,7 @@
     <a href="" title="统计">
         <img src="/icon/tongji.png"/>
     </a>
-    <a href="" title="回收站">
+    <a href="/task/getDelTask.action" title="回收站">
         <img src="/icon/delete.png"/>
     </a>
 </div>

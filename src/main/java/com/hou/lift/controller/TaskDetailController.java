@@ -27,10 +27,11 @@ public class TaskDetailController {
     private TaskDetailService taskDetailService;
 
     @RequestMapping("/list")
-    public String list(Integer userId,Integer taskId,ModelMap modelMap) {
+    public String list(Integer userId,Integer taskId,Integer isDel,ModelMap modelMap) {
         List<TaskDetail> detailList = new ArrayList<>();
         Task task = taskService.getTaskById(taskId);
         detailList = taskDetailService.getTaskDetailList(userId, taskId);
+        modelMap.addAttribute("isDel", isDel);
         modelMap.addAttribute("detailList", detailList);
         modelMap.addAttribute("task", task);
         return "/details";

@@ -11,10 +11,12 @@
                     <!--紧急程度-->
                     <div class="grade grade${task.gradeId}">
                     </div>
+                    [#if isDel!=1]
                     <!--修改-->
                     <img class="change" src="/icon/change.png" alt="">
+                    [/#if]
                     <!--标签-->
-                    <span class="tag theTag">0</span>
+                    <span class="tag theTag">${task.labelName}</span>
                 </div>
             </div>
             <h2>${task.taskName}</h2>
