@@ -37,109 +37,79 @@
 </div>
 
 <!--主体-->
-<form action="">
-    <input type="hidden" id="userId" value="">
-    <div class="content">
-        <!--时间-->
-        <div class="time">
-            <!--年-->
-            <div class="theTime">
-                <div class="year">
-                    <span class="noThing"></span>
-                    <span class="noThing"></span>
-                    <span class="theYear">2017</span>
-                    <span class="theYear">2018</span>
-                    <span class="theYear">2019</span>
-                    <span class="noThing"></span>
-                    <span class="noThing"></span>
-                </div>
+[#--<form action="" id="contentForm">--]
+<input type="hidden" id="userId" value="">
+<div class="content">
+    <!--时间-->
+    <div class="time">
+        <!--年-->
+        <div class="theTime">
+            <div class="year">
+                <span class="theYear">2017</span>
+                <span class="theYear">2018</span>
+                <span class="theYear">2019</span>
             </div>
-            <!--月-->
-            <div class="theTime">
-                <div class="month">
-                    <span class="noThing"></span>
-                    <span class="noThing"></span>
-                    <span class="theMonth">1</span>
-                    <span class="theMonth">2</span>
-                    <span class="theMonth">3</span>
-                    <span class="theMonth">4</span>
-                    <span class="theMonth">5</span>
-                    <span class="theMonth">6</span>
-                    <span class="theMonth">7</span>
-                    <span class="theMonth">8</span>
-                    <span class="theMonth">9</span>
-                    <span class="theMonth">10</span>
-                    <span class="theMonth">11</span>
-                    <span class="theMonth">12</span>
-                    <span class="noThing"></span>
-                    <span class="noThing"></span>
-                </div>
-            </div>
-            <!--日-->
-            <div class="theTime">
-                <div class="day">
-                    <span class="noThing"></span>
-                    <span class="noThing"></span>
-                    <span class="theDay">1</span>
-                    <span class="theDay">2</span>
-                    <span class="theDay">3</span>
-                    <span class="theDay">4</span>
-                    <span class="theDay">5</span>
-                    <span class="theDay">6</span>
-                    <span class="theDay">7</span>
-                    <span class="theDay">8</span>
-                    <span class="theDay">9</span>
-                    <span class="theDay">10</span>
-                    <span class="theDay">11</span>
-                    <span class="theDay">12</span>
-                    <span class="theDay">13</span>
-                    <span class="theDay">14</span>
-                    <span class="theDay">15</span>
-                    <span class="theDay">16</span>
-                    <span class="theDay">17</span>
-                    <span class="theDay">18</span>
-                    <span class="theDay">19</span>
-                    <span class="theDay">20</span>
-                    <span class="theDay">21</span>
-                    <span class="theDay">22</span>
-                    <span class="theDay">23</span>
-                    <span class="theDay">24</span>
-                    <span class="theDay">25</span>
-                    <span class="theDay">26</span>
-                    <span class="theDay">27</span>
-                    <span class="theDay">28</span>
-                    <span class="theDay">29</span>
-                    <span class="theDay">30</span>
-                    <span class="theDay">31</span>
-                    <span class="noThing"></span>
-                    <span class="noThing"></span>
-                </div>
-            </div>
-
         </div>
-        <!--内容-->
-        <div class="contents">
-        [#list noteList as note]
-            <!--便签-->
-            <div class="note">
-                <!--时间-->
-                <div class="hour">
-                    <span class="theHour">${note.createTime?string('HH:mm')}</span>
-                </div>
-                <input type="hidden" class="noteId" value="${note.noteId}">
-                <!--便签内容-->
-                <div class="notes">
-                    <!--输入-->
-                    <div class="noteInput" contenteditable="true">${note.content}<br/></div>
-                </div>
-                <!--删除-->
-                <img class="delNote" src="/icon/del.png" alt="">
+        <!--月-->
+        <div class="theTime">
+            <div class="month">
+                <span class="theMonth">01</span>
+                <span class="theMonth">02</span>
+                <span class="theMonth">03</span>
+                <span class="theMonth">04</span>
+                <span class="theMonth">05</span>
+                <span class="theMonth">06</span>
+                <span class="theMonth">07</span>
+                <span class="theMonth">08</span>
+                <span class="theMonth">09</span>
+                <span class="theMonth">10</span>
+                <span class="theMonth">11</span>
+                <span class="theMonth">12</span>
             </div>
-        [/#list]
-
-
         </div>
+        <!--日-->
+        <div class="theTime">
+            <div class="day">
+                <span class="theDay">01</span>
+                <span class="theDay">02</span>
+                <span class="theDay">03</span>
+                <span class="theDay">04</span>
+                <span class="theDay">05</span>
+                <span class="theDay">06</span>
+                <span class="theDay">07</span>
+                <span class="theDay">08</span>
+                <span class="theDay">09</span>
+                <span class="theDay">10</span>
+                <span class="theDay">11</span>
+                <span class="theDay">12</span>
+                <span class="theDay">13</span>
+                <span class="theDay">14</span>
+                <span class="theDay">15</span>
+                <span class="theDay">16</span>
+                <span class="theDay">17</span>
+                <span class="theDay">18</span>
+                <span class="theDay">19</span>
+                <span class="theDay">20</span>
+                <span class="theDay">21</span>
+                <span class="theDay">22</span>
+                <span class="theDay">23</span>
+                <span class="theDay">24</span>
+                <span class="theDay">25</span>
+                <span class="theDay">26</span>
+                <span class="theDay">27</span>
+                <span class="theDay">28</span>
+                <span class="theDay">29</span>
+                <span class="theDay">30</span>
+                <span class="theDay">31</span>
+            </div>
+        </div>
+
     </div>
-</form>
+[#--</form>--]
+    <!--内容-->
+[#include "noteInput.ftl"]
+
+</div>
+
 </body>
 </html>

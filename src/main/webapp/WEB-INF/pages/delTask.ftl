@@ -101,7 +101,7 @@
     </form>
 
     <!--内容-->
-[#if taskList.size()>0]
+[#if taskList]
     [#include "details.ftl"]
 [/#if]
 </div>

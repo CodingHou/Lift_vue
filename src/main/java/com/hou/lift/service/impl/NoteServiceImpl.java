@@ -27,16 +27,16 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public List<Note> getNoteList(Integer userId, NoteQueryParam noteQueryParam) throws ParseException {
         NoteExample example = new NoteExample();
-        DateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         NoteExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(userId);
         if (StringUtils.isNotEmpty(noteQueryParam.getQueryContent())) {
         }
         if (StringUtils.isNotEmpty(noteQueryParam.getStartTime())) {
-            criteria.andCreateTimeGreaterThanOrEqualTo(sdf.parse(noteQueryParam.getStartTime()));
+            criteria.andCreateTimeGreaterThanOrEqualTo(sdf.parse(noteQueryParam.getStartTime()+" 00:00:00"));
         }
         if (StringUtils.isNotEmpty(noteQueryParam.getEndTime())) {
-            criteria.andCreateTimeLessThanOrEqualTo(sdf.parse(noteQueryParam.getEndTime()));
+            criteria.andCreateTimeLessThanOrEqualTo(sdf.parse(noteQueryParam.getEndTime()+" 23:59:59"));
         }
         criteria.andDataStateNotEqualTo(2);
         example.setOrderByClause("note_id desc");

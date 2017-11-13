@@ -18,7 +18,7 @@
         <div id="search">
             <input type="hidden" id="userId" name="userId" value="${userId}">
             <input type="text" name="taskName" id="search-text" value="${taskName}" placeholder="任务名/内容/标签"/>
-            <button id="search-button"><img src="/icon/search.png"/></button>
+            <div id="search-button"><img src="/icon/search.png"/></div>
         </div>
     </form>
     <!--个人中心-->
@@ -61,7 +61,7 @@
             </div>
         </div>
     </form>
-
+[#if taskList]
     <!--列表-->
     <form action="/task/insertTask.action" id="taskForm">
         <div id="list-box">
@@ -122,7 +122,7 @@
 
     <!--内容-->
 [#include "details.ftl"]
-
+[/#if]
 </div>
 </body>
 </html>

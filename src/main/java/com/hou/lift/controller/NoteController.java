@@ -35,6 +35,16 @@ public class NoteController {
         return "/noteList";
     }
 
+    //展示列表的方法
+    @RequestMapping("/noteInputList")
+    public String noteInputList(Integer userId, NoteQueryParam noteQueryParam, ModelMap modelMap, HttpServletRequest request) throws ParseException {
+        HttpSession session = request.getSession();
+        userId = (Integer) session.getAttribute("userId");
+        List<Note> noteList = noteService.getNoteList(userId,noteQueryParam);
+        modelMap.addAttribute("userId", userId);
+        modelMap.addAttribute("noteList", noteList);
+        return "/noteInput";
+    }
 
     @ResponseBody
     @RequestMapping("/insertNote")
