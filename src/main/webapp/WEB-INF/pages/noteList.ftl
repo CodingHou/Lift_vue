@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>便签</title>
     <link rel="stylesheet" type="text/css" href="/style/notes.css"/>
     <link rel="stylesheet" type="text/css" href="/style/nav.css"/>
     <script src="/script/jquery-3.2.1.js" charset="utf-8"></script>
@@ -10,26 +10,7 @@
 </head>
 <body>
 <!--侧导航-->
-<div id="nav-left">
-    <a href="/task/list.action" title="任务">
-        <img src="/icon/renwu.png"/>
-    </a>
-    <a href="/note/noteList.action" title="便笺/备忘">
-        <img src="/icon/bianqian.png"/>
-    </a>
-    <a href="" title="打卡/习惯养成">
-        <img src="/icon/daka.png"/>
-    </a>
-    <a href="" title="成就/种树">
-        <img src="/icon/chengjiu.png"/>
-    </a>
-    <a href="" title="统计">
-        <img src="/icon/tongji.png"/>
-    </a>
-    <a href="" title="回收站">
-        <img src="/icon/delete.png"/>
-    </a>
-</div>
+[#include "nav.ftl"]
 <!--上导航-->
 <div id="nav-top">
     <!--搜索-->
@@ -143,7 +124,7 @@
             <div class="note">
                 <!--时间-->
                 <div class="hour">
-                    <span class="theHour">${note.createTime}</span>
+                    <span class="theHour">${note.createTime?string('HH:mm')}</span>
                 </div>
                 <input type="hidden" class="noteId" value="${note.noteId}">
                 <!--便签内容-->

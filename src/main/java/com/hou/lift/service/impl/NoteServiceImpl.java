@@ -6,11 +6,16 @@ import com.hou.lift.model.Note;
 import com.hou.lift.model.NoteExample;
 import com.hou.lift.model.Note;
 import com.hou.lift.model.TaskExample;
+import com.hou.lift.param.NoteQueryParam;
 import com.hou.lift.service.NoteService;
 import com.hou.lift.service.NoteService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -20,13 +25,22 @@ public class NoteServiceImpl implements NoteService {
     @Autowired
     private NoteMapper noteMapper;
     @Override
-    public List<Note> getNoteList(Integer userId) {
+    public List<Note> getNoteList(Integer userId, NoteQueryParam noteQueryParam) throws ParseException {
         NoteExample example = new NoteExample();
+        DateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
         NoteExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(userId);
+        if (StringUtils.isNotEmpty(noteQueryParam.getQueryContent())) {
+        }
+        if (StringUtils.isNotEmpty(noteQueryParam.getStartTime())) {
+            criteria.andCreateTimeGreaterThanOrEqualTo(sdf.parse(noteQueryParam.getStartTime()));
+        }
+        if (StringUtils.isNotEmpty(noteQueryParam.getEndTime())) {
+            criteria.andCreateTimeLessThanOrEqualTo(sdf.parse(noteQueryParam.getEndTime()));
+        }
         criteria.andDataStateNotEqualTo(2);
-        example.setOrderByClause("note_id asc");
-        List<Note> noteList = noteMapper.selectByExample(example);
+        example.setOrderByClause("note_id desc");
+        List<Note> noteList = noteMapper.selectByExampleWithBLOBs(example);
         return noteList;
     }
 

@@ -2,14 +2,8 @@ package com.hou.lift.controller;
 
 
 import com.hou.lift.enums.InitDetailEnum;
-import com.hou.lift.model.Label;
-import com.hou.lift.model.Task;
-import com.hou.lift.model.TaskDetail;
-import com.hou.lift.model.User;
-import com.hou.lift.service.IUserService;
-import com.hou.lift.service.LabelService;
-import com.hou.lift.service.TaskDetailService;
-import com.hou.lift.service.TaskService;
+import com.hou.lift.model.*;
+import com.hou.lift.service.*;
 import com.hou.lift.util.BaseResult;
 import com.hou.lift.util.DateUtil;
 import com.hou.lift.util.JsonUtils;
@@ -42,6 +36,8 @@ public class TaskController {
     private IUserService userService;
     @Autowired
     private LabelService labelService;
+    @Autowired
+    private NoteService noteService;
 
 
     //展示列表的方法
@@ -78,7 +74,7 @@ public class TaskController {
         modelMap.addAttribute("labelList", labelList);
         modelMap.addAttribute("taskList", taskList);
         modelMap.addAttribute("detailList", detailList);
-        return "/home";
+        return "task";
     }
 
 
@@ -159,6 +155,9 @@ public class TaskController {
         initTask.setUserId(userId);
         initTask.setDataState(1);
         taskService.addTask(initTask);
+        Note note = new Note();
+        note.setContent("这是您的第一个便签。");
+        noteService.addNote(note);
         return initTask;
     }
 

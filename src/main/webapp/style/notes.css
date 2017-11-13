@@ -1,52 +1,171 @@
-﻿/*主体部分*/
+﻿
+/*主体部分*/
 .content{
     width: 1000px;
     top: 100px;
     margin: 0px auto 50px auto;
 }
-/*时间*/
+/*时间的整个div*/
 .time{
-    width: 300px;
+    width: 390px;
     height: 500px;
     float: left;
 }
-/*内容*/
+/*时间里的所有span*/
+/*.time span*/
+.theYear,.theMonth,.theDay{
+    display: block;
+    float: left;
+    clear: both;
+    height: 30px;
+    line-height: 20px;
+    min-width: 80px;
+    padding: 5px;
+    margin: 5px;
+    /*background: linear-gradient(to right,#efefef,#009cff,#efefef);*/
+    background: #009cff;
+    color: #FFFFFF;
+    text-align: center;
+    opacity: 0.3;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.theYear:hover,.theMonth:hover,.theDay:hover{
+    opacity: 0.7;
+}
+/*年月日的最外层的共同class*/
+.theTime{
+    width: 85px;
+    float: left;
+    overflow: hidden;
+    height: 200px;
+    margin: 5px;
+}
+/*年*/
+.year{
+    width: 105px;
+    overflow: scroll;
+    height: 220px;
+}
+/*月*/
+.month{
+    width: 105px;
+    overflow: scroll;
+    height: 220px;
+}
+/*日*/
+.day{
+    width: 105px;
+    overflow: scroll;
+    height: 220px;
+}
+.noThing{
+    display: block;
+    float: left;
+    clear: both;
+    height: 30px;
+    line-height: 20px;
+    min-width: 80px;
+    padding: 5px;
+    margin: 5px;
+    color: #FFFFFF;
+    text-align: center;
+    opacity: 0.3;
+    border-radius: 10px;
+}
+
+
+
+/*内容（时间轴的轴）*/
 .contents{
-    width: 650px;
+    width: 600px;
     border-left: 4px solid #c2c2c2;
-    height: 500px;
     float: left;
 }
-/*便签*/
+/*便签外框*/
 .note{
-    height: 100px;
+    min-height: 100px;
     width: 600px;
-    margin: 10px 0px;
+    margin: 20px 0px;
+    float: left;
+}
+/*新增的便签*/
+.newNote{
+    display: none;
+}
+/*时间*/
+.hour{
+    left: -70px;
+    top: 8px;
+    float: left;
+    height: 30px;
+    width: 50px;
+    color: #c2c2c2;
+}
+/*便签内框*/
+.notes{
+    min-height: 100px;
+    width: 500px;
+    background: #FFFFFF;
+    float: left;
+    left: -11px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 35px #c2c2c2;
 }
 /*点*/
-.point{
-    height: 20px;
-    width: 20px;
-    border-radius: 10px;
+.notes:after{
+    content: "";
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    border-radius: 20px;
     border: 4px solid #c2c2c2;
     float: left;
-    left: -12px;
-    top: 10px;
+    left: -52px;
+    top: 7px;
     background: #efefef;
 }
 /*箭头*/
-.arrow{
+.notes:before{
+    content: "";
+    position: absolute;
     border-width: 10px 10px 10px 0px;
-    border-color: transparent #c2c2c2 transparent transparent;
+    border-color: transparent #FFFFFF transparent transparent;
     border-style: dashed solid dashed dashed;
     float: left;
+    left: -10px;
     top: 10px;
+    z-index: 5;
 }
-/*便签内容*/
-.notes{
-    height: 100px;
+/*选中便签效果*/
+.choose:after{
+    border: 4px solid #009cff;
+}
+/*输入便签*/
+.noteInput{
     width: 500px;
-    background: #c2c2c2;
-    float: left;
+    min-height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    outline: 0;
+    font-size: 15px;
+    line-height: 28px;
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
     border-radius: 10px;
+}
+/*删除便签*/
+.delNote{
+    display: none;
+    height: 20px;
+    width: 20px;
+    opacity: 0.3;
+    left: 10px;
+    top: 40px;
+}
+.delNote:hover{
+    opacity: 0.6;
+    cursor: pointer;
 }
