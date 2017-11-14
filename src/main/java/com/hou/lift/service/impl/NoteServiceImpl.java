@@ -32,10 +32,10 @@ public class NoteServiceImpl implements NoteService {
         criteria.andUserIdEqualTo(userId);
         if (StringUtils.isNotEmpty(noteQueryParam.getQueryContent())) {
         }
-        if (StringUtils.isNotEmpty(noteQueryParam.getStartTime())) {
+        if (null!=noteQueryParam.getStartTime()&&StringUtils.isNotEmpty(noteQueryParam.getStartTime())) {
             criteria.andCreateTimeGreaterThanOrEqualTo(sdf.parse(noteQueryParam.getStartTime()+" 00:00:00"));
         }
-        if (StringUtils.isNotEmpty(noteQueryParam.getEndTime())) {
+        if (null!=noteQueryParam.getEndTime()&&StringUtils.isNotEmpty(noteQueryParam.getEndTime())) {
             criteria.andCreateTimeLessThanOrEqualTo(sdf.parse(noteQueryParam.getEndTime()+" 23:59:59"));
         }
         criteria.andDataStateNotEqualTo(2);

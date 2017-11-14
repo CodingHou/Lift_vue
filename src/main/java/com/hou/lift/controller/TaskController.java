@@ -76,6 +76,7 @@ public class TaskController {
         modelMap.addAttribute("labelList", labelList);
         modelMap.addAttribute("taskList", taskList);
         modelMap.addAttribute("detailList", detailList);
+        modelMap.addAttribute("nav", "task");
         return "task";
     }
 
@@ -100,6 +101,7 @@ public class TaskController {
         modelMap.addAttribute("labelList", labelList);
         modelMap.addAttribute("taskList", taskList);
         modelMap.addAttribute("detailList", detailList);
+        modelMap.addAttribute("nav", "delTask");
         return "delTask";
     }
 

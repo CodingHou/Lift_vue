@@ -6,7 +6,7 @@
     <div class="note">
         <!--时间-->
         <div class="hour">
-            <span class="theHour">${note.createTime?string('HH:mm')}</span>
+            <span class="theHour">${note.createTime?string('MM-dd HH:mm')}</span>
         </div>
         <input type="hidden" class="noteId" value="${note.noteId}">
         <!--便签内容-->

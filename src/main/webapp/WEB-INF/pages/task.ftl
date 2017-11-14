@@ -18,7 +18,7 @@
         <div id="search">
             <input type="hidden" id="userId" name="userId" value="${userId}">
             <input type="text" name="taskName" id="search-text" value="${taskName}" placeholder="任务名/内容/标签"/>
-            <div id="search-button"><img src="/icon/search.png"/></div>
+            <button id="search-button"><img src="/icon/search.png"/></button>
         </div>
     </form>
     <!--个人中心-->

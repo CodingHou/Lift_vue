@@ -11,23 +11,23 @@
                     <!--紧急程度-->
                     <div class="grade grade${task.gradeId}">
                     </div>
-                    [#if isDel!=1]
+                [#if isDel]
                     <!--修改-->
                     <img class="change" src="/icon/change.png" alt="">
-                    [/#if]
+                [/#if]
                     <!--标签-->
-                    <span class="tag theTag">${task.labelName}</span>
+                    <span class="tag theTag labelChoose">${task.labelName}</span>
                 </div>
             </div>
             <h2>${task.taskName}</h2>
             <div id="toDoList">
             [#list detailList as item]
-                <input type="hidden"  class="detailId" value="${item.taskDetailId}">
+                <input type="hidden" class="detailId" value="${item.taskDetailId}">
                 <div class="items">
                 [#--<input type="hidden"  class="detailId" value="${item.id}">--]
                 ${item.taskDetailId}
                     <input type="checkbox" [#if item.dataState==2]checked="checked"[/#if]/>
-                    <div class="checkBox [#if item.dataState==2] c [/#if]" ></div>
+                    <div class="checkBox [#if item.dataState==2] c [/#if]"></div>
                     <span class="[#if item.dataState==2]spanChecked[/#if]">${item.taskDetailName}</span>
                 </div>
                 <div class="itemInput">
@@ -40,6 +40,7 @@
             [/#list]
 
             </div>
+        [#if !isDel]
             <!--添加新项目-->
             <div class="add" id="newItem">
                 <img src="/icon/add.png" alt="">
@@ -47,6 +48,7 @@
             <div class="changeOk" id="changeOk">
                 <img src="/icon/changeOk.png" alt="">
             </div>
+        [/#if]
         </div>
     </div>
 </form>

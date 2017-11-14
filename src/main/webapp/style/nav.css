@@ -13,6 +13,7 @@ body{
 
 /*侧导航*/
 #nav-left{
+    overflow: hidden;
     position: fixed;
     height: 100vh;
     width: 50px;
@@ -25,13 +26,20 @@ body{
     top: 0px;
 }
 /*侧导航链接*/
-#nav-left a{
+.navLeftA{
     padding: 20px 15px;
     opacity: 0.6;
     float: left;
 }
 #nav-left a:hover{
     opacity: 1.0;
+    transform: scale(1.3, 1.3);
+    -webkit-transform: scale(1.3, 1.3);
+    -ms-transform: scale(1.3, 1.3);
+}
+.navChoose{
+    opacity: 1.0;
+    background: #46B6FD;
     transform: scale(1.3, 1.3);
     -webkit-transform: scale(1.3, 1.3);
     -ms-transform: scale(1.3, 1.3);
@@ -64,15 +72,21 @@ body{
     border-radius: 10px 0px 0px 10px;
     padding: 0px 10px;
     float: left;
+    outline: none;
 }
 #search-button{
-    height: 31px;
+    height: 32px;
     width: 50px;
     background: #C2C2C2;
     border: 1px solid #C2C2C2;
     border-radius: 0px 10px 10px 0px;
     cursor: pointer;
     float: left;
+    outline: none;
+}
+#search-button:hover{
+    background: #46B6FD;
+    border: 1px solid #46B6FD;
 }
 #search img{
     left: 10px;

@@ -7,8 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -150,5 +149,48 @@ public class DateUtil {
         calendar.setTime(sdf.parse(date));
         Date d = calendar.getTime();
         return sdf.format(d);
+    }
+    public static List<String> getDayOfMonth(Integer year,Integer month){
+        List<String> dayList = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH,month-1);
+        int day = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        calendar.get(Calendar.MONTH);
+        for (int i = 0; i < day; i++) {
+            String date="";
+            if (i<10){
+                date = "0"+(i+1);
+            }else {
+                date=i+1+"";
+            }
+            dayList.add(date);
+        }
+        return dayList;
+    }
+    public static List<String> getMonth(Integer year){
+        List<String> monthList = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        int month = calendar.getActualMaximum(Calendar.MONTH);
+        calendar.get(Calendar.MONTH);
+        for (int i = 0; i < month; i++) {
+            String date;
+            if (i < 10) {
+                date = "0"+i;
+            }else {
+                date = "" + i;
+            }
+            monthList.add(date);
+        }
+        return monthList;
+    }
+
+    public static List<String> getYearList(){
+        List<String> yearList = new ArrayList<>();
+        yearList.add("2017");
+        yearList.add("2018");
+        yearList.add("2019");
+        return yearList;
     }
 }

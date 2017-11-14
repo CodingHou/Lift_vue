@@ -16,7 +16,7 @@ $(function () {
     // 给当天的日期去掉透明度
     $(".theYear:contains("+year+")").animate({"opacity":"1"}).addClass("choose").attr("id","chooseYear");
     $(".theMonth:eq("+(month-1)+")").animate({"opacity":"1"}).addClass("choose").attr("id","chooseMonth");
-    $(".theDay:eq("+(day-1)+")").animate({"opacity":"1"}).addClass("choose").attr("id","chooseDay");
+    $(".theDay:eq("+(day-1)+")").addClass("choose").attr("id","chooseDay");
 
     // 调整到指定位置
     $(".year").animate({"scrollTop":(year-2017)*40});
