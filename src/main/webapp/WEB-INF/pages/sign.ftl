@@ -2,11 +2,11 @@
 <html>
 <head>
     <#--<meta charset="UTF-8">-->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta  content="text/html; charset=utf-8" />
     <title></title>
-    <link rel="stylesheet" type="text/css" href="/style/sign.css"/>
-    <script src="/script/jquery-3.2.1.js" type="text/javascript"  charset="UTF-8"></script>
-    <script src="/script/sign.js" type="text/javascript" charset="UTF-8"></script>
+    <link rel="stylesheet" type="text/css" href="${base}/style/sign.css"/>
+    <script src="${base}/script/jquery-3.2.1.js" type="text/javascript"  charset="UTF-8"></script>
+    <script src="${base}/script/sign.js" type="text/javascript" charset="UTF-8"></script>
 </head>
 <body>
 <div id="content">
@@ -14,7 +14,7 @@
         Lift
     </div>
     <!--登录框-->
-    <form id="indexForm" action="/index/signIn.action" method="post">
+    <form id="indexForm" action="/${base}/index/signIn.action" method="post">
         <div id="main">
             <!--选项卡-->
             <ul>

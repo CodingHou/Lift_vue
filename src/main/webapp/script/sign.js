@@ -46,7 +46,7 @@ $(function () {
         // 判断邮箱是否存在
         var flag=0;
         $.ajax({
-            url:"/index/checkUser.action",    //请求的url地址
+            url:"../index/checkUser.action",    //请求的url地址
             dataType:"json",   //返回格式为json
             async:false,//请求是否异步，默认为异步，这也是ajax重要特性
             data:{"userName":$(this).val(),
@@ -72,7 +72,7 @@ $(function () {
         }
         if (flag==0){
             $.ajax({
-                url:"/index/signUp.action",    //请求的url地址
+                url:"../index/signUp.action",    //请求的url地址
                 dataType:"json",   //返回格式为json
                 async:false,//请求是否异步，默认为异步，这也是ajax重要特性
                 data:{"userName":$("#email").val(),
@@ -83,7 +83,7 @@ $(function () {
                         alert("注册成功！");
                         $("#userId").attr("value",data.data);
                         $("#userName").val($("#email").val());
-                        $("#indexForm")[0].action="/task/list.action";
+                        $("#indexForm")[0].action="../task/list.action";
                         $("#indexForm")[0].submit();
                     }else {
                         alert("注册失败")
@@ -115,7 +115,7 @@ $(function () {
                 info.html("邮箱格式不正确").attr('class', 'info');
             } else {
                 $.ajax({
-                    url:"/index/checkUser.action",    //请求的url地址
+                    url:"../index/checkUser.action",    //请求的url地址
                     dataType:"json",   //返回格式为json
                     async:false,//请求是否异步，默认为异步，这也是ajax重要特性
                     data:{"userName":$(this).val(),
@@ -127,7 +127,7 @@ $(function () {
                             $("#emailInfo").html("请勿重复注册").attr('class', 'info');
                         }else {
                             $("#emailInfo").html("");
-                            $("#emailInfo").append("<img class='ok' src='/icon/ok.png'>");
+                            $("#emailInfo").append("<img class='ok' src='../icon/ok.png'>");
                         }
                     },
                     error:function(){
@@ -211,7 +211,7 @@ $(function () {
                 $("#pwd2Info").html("两次密码不一致");
             } else {
                 $("#pwd2Info").html("");
-                $("#pwd2Info").append("<img class='ok' src='/icon/ok.png'>");
+                $("#pwd2Info").append("<img class='ok' src='../icon/ok.png'>");
             }
         }
     })
@@ -234,7 +234,7 @@ $(function () {
             var flag=0;
             // 先判断邮箱是否存在
             $.ajax({
-                url:"/index/checkUser.action",    //请求的url地址
+                url:"../index/checkUser.action",    //请求的url地址
                 dataType:"json",   //返回格式为json
                 async:false,//请求是否异步，默认为异步，这也是ajax重要特性
                 data:{"userName":userName,
@@ -244,7 +244,7 @@ $(function () {
                     if (data.status){
                         // 对的
                         $("#nameInfo").html("");
-                        $("#nameInfo").append("<img class='ok' src='/icon/ok.png'>");
+                        $("#nameInfo").append("<img class='ok' src='../icon/ok.png'>");
                         flag=1;
                     }else {
                         $("#nameInfo").html("该用户不存在").attr('class', 'info');
@@ -259,7 +259,7 @@ $(function () {
             if(flag==1){
                 // 再判断是否正确
                 $.ajax({
-                    url:"/index/signIn.action",    //请求的url地址
+                    url:"../index/signIn.action",    //请求的url地址
                     dataType:"json",   //返回格式为json
                     async:false,//请求是否异步，默认为异步，这也是ajax重要特性
                     data:{"userName":userName,
@@ -269,7 +269,7 @@ $(function () {
                         // 如果登录成功。跳转到主页面。否则提示密码错误
                         if (data.status){
                             // 对的
-                            $("#indexForm")[0].action="/task/list.action";
+                            $("#indexForm")[0].action="../task/list.action";
                             $("#indexForm")[0].submit();
                         }else {
                             $("#passwordInfo").html("密码错误").attr('class', 'info');
@@ -300,7 +300,7 @@ $(function () {
     $("#userName").blur(function () {
         if ($(this).val()!=""){
             $.ajax({
-                url:"/index/checkUser.action",    //请求的url地址
+                url:"../index/checkUser.action",    //请求的url地址
                 dataType:"json",   //返回格式为json
                 async:false,//请求是否异步，默认为异步，这也是ajax重要特性
                 data:{"userName":$(this).val(),
@@ -310,7 +310,7 @@ $(function () {
                     if (data.status){
                         // 对的
                         $("#nameInfo").html("");
-                        $("#nameInfo").append("<img class='ok' src='/icon/ok.png'>");
+                        $("#nameInfo").append("<img class='ok' src='../icon/ok.png'>");
                     }else {
                         $("#nameInfo").html("该用户不存在").attr('class', 'info');
                     }

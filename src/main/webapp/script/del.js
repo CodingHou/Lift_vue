@@ -13,7 +13,7 @@ $(function () {
         $(this).addClass("choose");
         $(this).siblings().removeClass("choose");
         var taskId = $(this).find(".taskId").val();
-        $("#detailForm").load("/taskDetail/list.action?taskId=" + taskId+"&isDel=1");
+        $("#detailForm").load("../taskDetail/list.action?taskId=" + taskId+"&isDel=1");
     })
     // 获取进度条效果
     function ratioAnimation() {
@@ -41,7 +41,7 @@ $(function () {
         var userId=$("#userId").val();
         var taskId=$(".choose").find(".taskId").val();
         $.ajax({
-            url: "/task/revertTask.action",
+            url: "../task/revertTask.action",
             dataType: "json",
             async: false,
             data: {

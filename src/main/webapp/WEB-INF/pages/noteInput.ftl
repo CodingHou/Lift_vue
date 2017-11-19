@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<form action="/note/noteInputList.action" id="noteInputForm">
+<form action="/${base}/note/noteInputList.action" id="noteInputForm">
 <div class="contents">
 [#list noteList as note]
     <!--便签-->
@@ -15,7 +15,7 @@
             <div class="noteInput" contenteditable="true">${note.content}<br/></div>
         </div>
         <!--删除-->
-        <img class="delNote" src="/icon/del.png" alt="">
+        <img class="delNote" src="${base}/icon/del.png" alt="">
     </div>
 [/#list]
 </div>

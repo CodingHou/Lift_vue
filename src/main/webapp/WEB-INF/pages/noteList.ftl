@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>便签</title>
-    <link rel="stylesheet" type="text/css" href="/style/notes.css"/>
-    <link rel="stylesheet" type="text/css" href="/style/nav.css"/>
-    <script src="/script/jquery-3.2.1.js" charset="utf-8"></script>
-    <script src="/script/notes.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="${base}/style/notes.css"/>
+    <link rel="stylesheet" type="text/css" href="${base}/style/nav.css"/>
+    <script src="${base}/script/jquery-3.2.1.js" charset="utf-8"></script>
+    <script src="${base}/script/notes.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 <!--侧导航-->
@@ -16,23 +16,23 @@
     <!--搜索-->
     <div id="search">
         <input type="text" name="" id="search-text" value="" placeholder="任务名/内容/标签"/>
-        <button id="search-button"><img src="/icon/search.png"/></button>
+        <button id="search-button"><img src="${base}/icon/search.png"/></button>
     </div>
     <!--个人中心-->
     <div id="personal">
         <a href="">
-            <img src="/icon/personal.png"/>
-            <img src="/icon/open.png" id="open"/>
+            <img src="${base}/icon/personal.png"/>
+            <img src="${base}/icon/open.png" id="open"/>
         </a>
     </div>
     <!--提醒-->
     <div id="remind">
-        <img src="/icon/remind.png"/>
+        <img src="${base}/icon/remind.png"/>
         <span></span>
     </div>
     <!--测悬浮-->
     <div id="add">
-        <img src="/icon/add.png" alt="添加新项目">
+        <img src="${base}/icon/add.png" alt="添加新项目">
     </div>
 </div>
 

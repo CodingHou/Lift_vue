@@ -59,7 +59,7 @@ $(function () {
         var allTime=""+year+"-"+month+"-"+day+"/"+hour+":"+minute;
         // 回传一个Ajax
         $.ajax({
-            url: "/note/updateNote.action",
+            url: "../note/updateNote.action",
             dataType: "json",
             async: false,
             data: {
@@ -92,7 +92,7 @@ $(function () {
         // 回传一个Ajax
         var noteId=$(this).siblings("input").val();
         $.ajax({
-            url: "/note/updateNote.action",
+            url: "../note/updateNote.action",
             dataType: "json",
             async: false,
             data: {
@@ -128,7 +128,7 @@ $(function () {
         // 回传一个Ajax
         var noteId=$(".contents").children("input:first").val();
         $.ajax({
-            url: "/note/insertNote.action",
+            url: "../note/insertNote.action",
             dataType: "json",
             async: false,
             data: {
@@ -137,7 +137,7 @@ $(function () {
             type: "POST",
             success: function (data) {
                 if(data.status) {
-                    $(".contents").prepend("<div class=\"note newNote\"><div class=\"hour\"><span></span></div><input type=\"hidden\" class=\"noteId\"><div class=\"notes\"><div class=\"noteInput\" contenteditable=\"true\"><br/></div></div><img class=\"delNote\" src=\"/icon/del.png\" alt=\"\" ></div>");
+                    $(".contents").prepend("<div class=\"note newNote\"><div class=\"hour\"><span></span></div><input type=\"hidden\" class=\"noteId\"><div class=\"notes\"><div class=\"noteInput\" contenteditable=\"true\"><br/></div></div><img class=\"delNote\" src=\"../icon/del.png\" alt=\"\" ></div>");
                     var time=""+hour+":"+minute;
                     $(".newNote").find(".hour span").html(time);
                     $(".newNote").find(".noteId").val(data.data);
@@ -272,7 +272,7 @@ $(function () {
 
     //时间筛选的Ajax
     function time(startTime,endTime) {
-        $("#noteInputForm").load("/note/noteInputList.action?startTime=" + startTime+"&endTime="+endTime);
+        $("#noteInputForm").load("../note/noteInputList.action?startTime=" + startTime+"&endTime="+endTime);
 
     }
 

@@ -155,7 +155,7 @@ $(function () {
         $(this).addClass("choose");
         $(this).siblings().removeClass("choose");
         var taskId = $(this).find(".taskId").val();
-        $("#detailForm").load("/taskDetail/list.action?taskId=" + taskId);
+        $("#detailForm").load("../taskDetail/list.action?taskId=" + taskId);
     })
 
 
@@ -169,7 +169,7 @@ $(function () {
         var taskId = clickDiv.find(".taskId").attr("value");
         var userId = $("#userId").val();
         $.ajax({
-            url: "/task/updateTask.action",    //请求的url地址
+            url: "../task/updateTask.action",    //请求的url地址
             dataType: "json",   //返回格式为json
             async: false,//请求是否异步，默认为异步，这也是ajax重要特性
             data: {
@@ -306,7 +306,7 @@ $(function () {
     // 标签悬浮窗的显示和隐藏
     $('body').on('click', '.stateBar span', function (e) {
         var labelId = $(this).prev().val();
-        $(".allTag").load("/label/getLabelList.action?userId=" + userId + "&labelId=" + labelId);
+        $(".allTag").load("../label/getLabelList.action?userId=" + userId + "&labelId=" + labelId);
         // 获取他的悬浮标签
         var tag = $(this).parent().next("div");
         if (tag.is(":hidden")) {
@@ -366,7 +366,7 @@ $(function () {
     function addTask() {
         var userId = $("#userId").val();
         $.ajax({
-            url: "/task/insertTask.action",    //请求的url地址
+            url: "../task/insertTask.action",    //请求的url地址
             dataType: "json",   //返回格式为json
             async: false,//请求是否异步，默认为异步，这也是ajax重要特性
             data: {
@@ -400,8 +400,8 @@ $(function () {
         var div = document.createElement("div");
         //设置 div 属性，如 id
         div.setAttribute("class", "task newDiv");
-        // div.innerHTML = "<input type=\"hidden\" id=\"\" class=\"taskId\"><div class=\"stateBar\"><div class=\"grade grade1\"></div><div class=\"grade grade2\" ></div><div class=\"grade grade3\" ></div><span class=\"tag theTag1\">家</span></div><div class=\"allTag\"><span class=\"tag NoChoose\">1</span><span class=\"tag NoChoose\">2</span><span class=\"tag NoChoose\">3</span></div><div class=\"title\"><input type=\"text\" class=\"listInput\" placeholder=\"标题\"><span class=\"listSpan\">标题</span></div><div class=\"day\"><input type=\"date\" class=\"listInput\"><span class=\"listSpan\">2017</span></div><div class=\"rate\"><div class=\"ratio\"></div></div><span class=\"rateVal\">0/0</span><img src=\"/icon/del.png\" alt=\"\" class=\"del\">";
-        div.innerHTML = "  <input type=\"hidden\" id=\"\" class=\"taskId\" value=\"\"> <div class=\"stateBar\"> <div class=\"grade \" hidden=\"hidden\"> <input type=\"hidden\" value=\"\"> </div> <div class=\"gradeBox\" > <div class=\"grade grade1\"> <input type=\"hidden\" name=\"grade1\" value=\"1\"> </div> <div class=\"grade grade2\"> <input type=\"hidden\" name=\"grade2\" value=\"2\"> </div> <div class=\"grade grade3\"> <input type=\"hidden\" name=\"grade3\" value=\"3\"> </div> </div> <span class=\"tag theTag1\"></span> </div> <div class=\"allTag\"> <span class=\"tag\"></span> </div> <div class=\"title\"> <input type=\"text\" class=\"listInput\" placeholder=\"标题\"> <span class=\"listSpan\"></span> </div> <div class=\"day\"> <input type=\"date\" class=\"listInput\"> <span class=\"listSpan\"></span> </div> <div class=\"rate\"> <div class=\"ratio\"> </div> </div> <span class=\"rateVal\">0/0</span> <img src=\"/icon/del.png\" alt=\"\" class=\"del\"> "
+        // div.innerHTML = "<input type=\"hidden\" id=\"\" class=\"taskId\"><div class=\"stateBar\"><div class=\"grade grade1\"></div><div class=\"grade grade2\" ></div><div class=\"grade grade3\" ></div><span class=\"tag theTag1\">家</span></div><div class=\"allTag\"><span class=\"tag NoChoose\">1</span><span class=\"tag NoChoose\">2</span><span class=\"tag NoChoose\">3</span></div><div class=\"title\"><input type=\"text\" class=\"listInput\" placeholder=\"标题\"><span class=\"listSpan\">标题</span></div><div class=\"day\"><input type=\"date\" class=\"listInput\"><span class=\"listSpan\">2017</span></div><div class=\"rate\"><div class=\"ratio\"></div></div><span class=\"rateVal\">0/0</span><img src=\"../icon/del.png\" alt=\"\" class=\"del\">";
+        div.innerHTML = "  <input type=\"hidden\" id=\"\" class=\"taskId\" value=\"\"> <div class=\"stateBar\"> <div class=\"grade \" hidden=\"hidden\"> <input type=\"hidden\" value=\"\"> </div> <div class=\"gradeBox\" > <div class=\"grade grade1\"> <input type=\"hidden\" name=\"grade1\" value=\"1\"> </div> <div class=\"grade grade2\"> <input type=\"hidden\" name=\"grade2\" value=\"2\"> </div> <div class=\"grade grade3\"> <input type=\"hidden\" name=\"grade3\" value=\"3\"> </div> </div> <span class=\"tag theTag1\"></span> </div> <div class=\"allTag\"> <span class=\"tag\"></span> </div> <div class=\"title\"> <input type=\"text\" class=\"listInput\" placeholder=\"标题\"> <span class=\"listSpan\"></span> </div> <div class=\"day\"> <input type=\"date\" class=\"listInput\"> <span class=\"listSpan\"></span> </div> <div class=\"rate\"> <div class=\"ratio\"> </div> </div> <span class=\"rateVal\">0/0</span> <img src=\"../icon/del.png\" alt=\"\" class=\"del\"> "
         //在之前加
         parent.prepend(div);
         $(".newDiv").slideDown();
@@ -451,7 +451,7 @@ $(function () {
         var div = document.createElement("div");
         //设置 div 属性，如 id
         div.setAttribute("class", "newDiv");
-        div.innerHTML = "<input type=\"hidden\" id=\"\" class=\"detailId\"><div class=\"items\"><input type=\"checkbox\"/><div class=\"checkBox\"></div><span></span></div><div class=\"itemInput\"><div class=\"checkBox\"></div><input class=\"changeInput\" type=\"text\" ><img class=\"changeDel\" src=\"/icon/del.png\" alt=\"\"></div>";
+        div.innerHTML = "<input type=\"hidden\" id=\"\" class=\"detailId\"><div class=\"items\"><input type=\"checkbox\"/><div class=\"checkBox\"></div><span></span></div><div class=\"itemInput\"><div class=\"checkBox\"></div><input class=\"changeInput\" type=\"text\" ><img class=\"changeDel\" src=\"../icon/del.png\" alt=\"\"></div>";
         // 在之后加
         parent.append(div);
         $(".newDiv").slideDown();
@@ -463,7 +463,7 @@ $(function () {
         var taskId = $("#taskId").val();
         var userId = $("#userId").val();
         $.ajax({
-            url: "/taskDetail/insertTaskDetail.action",    //请求的url地址
+            url: "../taskDetail/insertTaskDetail.action",    //请求的url地址
             dataType: "json",   //返回格式为json
             async: false,//请求是否异步，默认为异步，这也是ajax重要特性
             data: {
@@ -587,7 +587,7 @@ $(function () {
         var taskId = $("#taskId").val();
         var userId = $("#userId").val();
         $.ajax({
-            url: "/taskDetail/updateTaskDetail.action",    //请求的url地址
+            url: "../taskDetail/updateTaskDetail.action",    //请求的url地址
             dataType: "json",   //返回格式为json
             async: false,//请求是否异步，默认为异步，这也是ajax重要特性
             data: {
@@ -610,7 +610,7 @@ $(function () {
                     }
                 } else {
                     alert("保存失败");
-                    // $("#item-box").location="/taskDetail/list.action";
+                    // $("#item-box").location="../taskDetail/list.action";
                 }
             },
             error: function () {
