@@ -35,13 +35,23 @@ $(function () {
 
     ratioAnimation();
 
-
+    if ($("#list-box").children().length > 0){
+        $("#detailForm").show();
+        $("#emptyBG").hide();
+    }else {
+        $("#detailForm").hide();
+        $("#emptyBG").show();
+    }
     // 恢复的Ajax
-    function update(clickDiv) {
+    function update(clickDiv,isDel) {
         var userId=$("#userId").val();
-        var taskId=$(".choose").find(".taskId").val();
+        var taskId=clickDiv.find(".taskId").val();
+        var url = "../task/revertTask.action";
+        if (isDel) {
+            url = "../task/deleteTask.action";
+        }
         $.ajax({
-            url: "../task/revertTask.action",
+            url: url,
             dataType: "json",
             async: false,
             data: {
@@ -50,8 +60,12 @@ $(function () {
             },    //参数值
             type: "POST",   //请求方式
             success: function (data) {
-                if (data.success()){
+                if (data.status){
                     clickDiv.remove()
+                    if ($("#list-box").children().length == 0){
+                        $("#detailForm").hide();
+                        $("#emptyBG").show();
+                    }
                 }
             },
             error: function () {
@@ -65,7 +79,13 @@ $(function () {
     $(".del").click(function () {
         var clickDiv = $(this).parent();
         update(clickDiv);
-        $(this).parent().remove();
+        // $(this).parent().remove();
+    })
+
+    $(".delExt").click(function () {
+        var clickDiv = $(this).parent();
+        update(clickDiv,"isDel");
+        // $(this).parent().remove();
     })
 
 

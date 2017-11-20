@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <form action="/${base}/note/noteInputList.action" id="noteInputForm">
-<div class="contents">
+<div class="contents" id="noteList">
 [#list noteList as note]
     <!--便签-->
     <div class="note">

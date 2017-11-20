@@ -92,7 +92,8 @@
                 </div>
                 <span class="rateVal">${item.completedDetail}/${item.totalDetail}</span>
                 <!--恢复-->
-                <img src="${base}/icon/restore.png" alt="" class="del">
+                <img src="${base}/icon/del.png" alt="删除" class="delExt">
+                <img src="${base}/icon/restore.png" alt="回复" class="del">
             </div>
         [/#list]
 
@@ -101,9 +102,10 @@
     </form>
 
     <!--内容-->
-[#if taskList]
+[#--[#if taskList]--]
     [#include "details.ftl"]
-[/#if]
+[#--[/#if]--]
+    <img src="${base}/icon/emptyBG.png" alt="点加号" id="emptyBG" hidden>
 </div>
 </body>
 </html>

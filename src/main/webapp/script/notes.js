@@ -85,11 +85,16 @@ $(function () {
         });
 
     })
-
+    if ($("#noteList").children().length > 0){
+        $("#emptyBG").hide();
+    }else {
+        $("#emptyBG").show();
+    }
     // 点击垃圾桶就删除他爸爸
     $("body").on("click",".delNote",function () {
         var flag=0;
         // 回传一个Ajax
+        var clickDiv = $(this).parent();
         var noteId=$(this).siblings("input").val();
         $.ajax({
             url: "../note/updateNote.action",
@@ -103,6 +108,11 @@ $(function () {
             type: "POST",
             success: function (data) {
                 if(data.status) {
+                    clickDiv.remove();
+                    if ($("#noteList").children().length == 0){
+                        $("#emptyBG").show();
+                    }
+
                     // alert("删除成功");
                 }else {
                     alert("删除失败")
@@ -114,9 +124,9 @@ $(function () {
                 // return;
             }
         });
-        if (flag=1){
-            $(this).parent().remove();
-        }
+        // if (flag=1){
+        //     $(this).parent().remove();
+        // }
     })
 
     // 点击加号。添加新的
@@ -145,6 +155,9 @@ $(function () {
                     $(".newNote").find(".noteId").val(data.data);
                     if($(".newNote").is(":hidden")){
                         $(".newNote").slideDown();
+                    }
+                    if ($("#noteList").children().length > 0){
+                        $("#emptyBG").hide();
                     }
                     // alert("新增note成功")
                 }else {

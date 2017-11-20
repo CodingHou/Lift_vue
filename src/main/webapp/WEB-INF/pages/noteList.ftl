@@ -71,7 +71,7 @@
 [#--</form>--]
     <!--内容-->
 [#include "noteInput.ftl"]
-
+    <img src="${base}/icon/emptyBG.png" alt="点加号" id="emptyBG" hidden>
 </div>
 
 </body>

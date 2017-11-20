@@ -120,10 +120,11 @@
     </form>
 
 
-[#if taskList]
+[#--[#if taskList]--]
     <!--内容-->
 [#include "details.ftl"]
-[/#if]
+[#--[/#if]--]
+    <img src="${base}/icon/emptyBG.png" alt="点加号" id="emptyBG" hidden>
 </div>
 </body>
 </html>
