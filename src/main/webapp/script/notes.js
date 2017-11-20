@@ -73,7 +73,7 @@ $(function () {
                 if(data.status){
 
                 }else {
-                    alert("数据过长")
+                    alert("保存失败")
                 }
 
 
@@ -103,7 +103,9 @@ $(function () {
             type: "POST",
             success: function (data) {
                 if(data.status) {
-                    alert("删除成功");
+                    // alert("删除成功");
+                }else {
+                    alert("删除失败")
                 }
                 flag=1;
             },
@@ -144,7 +146,7 @@ $(function () {
                     if($(".newNote").is(":hidden")){
                         $(".newNote").slideDown();
                     }
-                    alert("新增note成功")
+                    // alert("新增note成功")
                 }else {
                     alert("新增note失败")
                 }

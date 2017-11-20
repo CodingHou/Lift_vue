@@ -14,7 +14,7 @@
 <!--上导航-->
 <div id="nav-top">
     <!--搜索-->
-    <form action="/${base}/task/list.action" id="searchForm" method="post">
+    <form action="${base}/task/list.action" id="searchForm" method="post">
         <div id="search">
             <input type="hidden" id="userId" name="userId" value="${userId}">
             <input type="text" name="taskName" id="search-text" value="${taskName}" placeholder="任务名/内容/标签"/>

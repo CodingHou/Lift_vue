@@ -1,6 +1,7 @@
 package com.hou.lift.controller;
 
 
+import com.hou.lift.enums.DelDetailEnum;
 import com.hou.lift.enums.InitDetailEnum;
 import com.hou.lift.model.*;
 import com.hou.lift.service.*;
@@ -60,6 +61,8 @@ public class TaskController {
             task = initTask(userId, labelList.get(0));
             taskList.add(task);
             detailList = initDetailList(task);
+            Task delTask = initDelTask(userId,labelList.get(0));
+            List<TaskDetail> delDetail = initDelDetail(delTask);
         } else {
             taskList = taskService.getTaskList(userId, taskName);
             //默认选中第一个task，并展示其Detail
@@ -166,7 +169,20 @@ public class TaskController {
         return JsonUtils.toJson(baseResult);
     }
 
-
+    @ResponseBody
+    @RequestMapping("/deleteTask")
+    public String deleteTask(Task task) throws ParseException {
+        BaseResult baseResult = new BaseResult();
+        int c = taskService.deleteTask(task.getTaskId());
+        if (c == 1) {
+            baseResult.setStatus(true);
+            baseResult.setMsg("删除成功!");
+        } else {
+            baseResult.setStatus(false);
+            baseResult.setMsg("删除失败");
+        }
+        return JsonUtils.toJson(baseResult);
+    }
 
 
 
@@ -197,15 +213,32 @@ public class TaskController {
         initTask.setTaskName("这是您的第一个任务");
         initTask.setLabelId(label.getLabelId());
         initTask.setLabelName(label.getLabelName());
-        initTask.setTotalDetail(6);
+        initTask.setTotalDetail(InitDetailEnum.values().length);
         initTask.setCompletedDetail(1);
         initTask.setUserId(userId);
         initTask.setDataState(1);
         taskService.addTask(initTask);
         Note note = new Note();
-        note.setContent("这是您的第一个便签。");
+        note.setUserId(userId);
+        note.setContent("这是您的第一个便签。请在此记录您的想法吧。");
         noteService.addNote(note);
         return initTask;
+    }
+    //初始化task
+    private Task initDelTask(Integer userId, Label label) throws ParseException {
+        Task delTask = new Task();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        delTask.setBeginDate(sdf.parse(DateUtil.getNowDate()));
+        delTask.setTaskName("这是您的垃圾桶页面");
+        delTask.setLabelId(label.getLabelId());
+        delTask.setLabelName(label.getLabelName());
+        delTask.setTotalDetail(DelDetailEnum.values().length);
+        delTask.setCompletedDetail(1);
+        delTask.setUserId(userId);
+        delTask.setDataState(2);
+        delTask.setGradeId(3);
+        taskService.addTask(delTask);
+        return delTask;
     }
 
     //初始化Detail
@@ -229,6 +262,30 @@ public class TaskController {
         }
         return detailList;
     }
+
+    //初始化Detail
+    private List<TaskDetail> initDelDetail(Task delTask) throws ParseException {
+        List<TaskDetail> detailList = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        for (int i = 0; i < DelDetailEnum.values().length; i++) {
+            TaskDetail detail = new TaskDetail();
+            detail.setTaskDetailName(DelDetailEnum.getName(i + 1));
+            detail.setDataState(1);
+            //将第二个设置为选中
+            if (i == 1) {
+                detail.setDataState(2);
+            }
+            detail.setLabelId(delTask.getLabelId());
+            detail.setTaskId(delTask.getTaskId());
+            detail.setUserId(delTask.getUserId());
+            detail.setCreateTime(sdf.parse(DateUtil.getNowDate()));
+            taskDetailService.addTaskDetail(detail);
+            detailList.add(detail);
+        }
+        return detailList;
+    }
+
+
 
 
 }

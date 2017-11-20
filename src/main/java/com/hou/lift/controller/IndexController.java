@@ -31,12 +31,15 @@ public class IndexController {
     //注册
     @ResponseBody
     @RequestMapping("/signUp")
-    public String signUp(User user) {
+    public String signUp(User user,HttpServletRequest request) {
         int c = userService.addUser(user);
         BaseResult baseResult = new BaseResult();
         if (c == 1) {
             baseResult.setStatus(true);
             baseResult.setData(user.getUserId());
+            HttpSession session = request.getSession();
+            session.setAttribute("userId", user.getUserId());
+            session.setMaxInactiveInterval(-1);
             baseResult.setMsg("保存成功!");
         } else {
             baseResult.setStatus(false);
