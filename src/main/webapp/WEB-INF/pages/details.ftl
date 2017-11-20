@@ -11,7 +11,7 @@
                     <!--紧急程度-->
                     <div class="grade grade${task.gradeId}">
                     </div>
-                [#if isDel]
+                [#if !isDel]
                     <!--修改-->
                     <img class="change" src="${base}/icon/change.png" alt="">
                 [/#if]
@@ -25,7 +25,7 @@
                 <input type="hidden" class="detailId" value="${item.taskDetailId}">
                 <div class="items">
                 [#--<input type="hidden"  class="detailId" value="${item.id}">--]
-                ${item.taskDetailId}
+                [#--${item.taskDetailId}--]
                     <input type="checkbox" [#if item.dataState==2]checked="checked"[/#if]/>
                     <div class="checkBox [#if item.dataState==2] c [/#if]"></div>
                     <span class="[#if item.dataState==2]spanChecked[/#if]">${item.taskDetailName}</span>

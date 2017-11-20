@@ -146,7 +146,10 @@ $(function () {
 
     // 给页面的第一个小列表加上选中效果
     var div = $("#list-box").find("div:first");
-    div[0].classList.add("choose");
+    if(div.length>0) {
+
+        div[0].classList.add("choose");
+    }
 
     // 被选中的小列表加上效果
     //会引起冒泡事件

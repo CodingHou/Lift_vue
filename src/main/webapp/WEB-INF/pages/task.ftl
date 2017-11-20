@@ -61,7 +61,6 @@
             </div>
         </div>
     </form>
-[#if taskList]
     <!--列表-->
     <form action="/${base}/task/insertTask.action" id="taskForm">
         <div id="list-box">
@@ -120,6 +119,8 @@
         </div>
     </form>
 
+
+[#if taskList]
     <!--内容-->
 [#include "details.ftl"]
 [/#if]
