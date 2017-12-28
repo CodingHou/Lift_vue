@@ -7,6 +7,7 @@ import com.hou.lift.model.*;
 import com.hou.lift.service.*;
 import com.hou.lift.util.BaseResult;
 import com.hou.lift.util.DateUtil;
+import com.hou.lift.util.JsonUtil;
 import com.hou.lift.util.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @RequestMapping("/task")
 @Controller
@@ -39,7 +37,6 @@ public class TaskController {
     private LabelService labelService;
     @Autowired
     private NoteService noteService;
-
 
     //展示列表的方法
     @RequestMapping("/list")
@@ -82,7 +79,61 @@ public class TaskController {
         modelMap.addAttribute("nav", "task");
         return "task";
     }
-
+    @ResponseBody
+    @RequestMapping(value = "/getTaskList", produces = "application/json; charset=utf-8")
+    public String getTaskList(String userName, Integer userId, String taskName, String signInType,HttpServletRequest request) throws ParseException {
+        HttpSession session = request.getSession();
+        BaseResult result = new BaseResult();
+        userId = (Integer) session.getAttribute("userId");
+        if (null == userId) {
+            userId = 1;
+        }
+        List<Task> taskList  = taskService.getTaskList(userId, taskName);
+        result.setData(taskList);
+        for (int i = 0; i < taskList.size(); i++) {
+            Date beginDate = taskList.get(i).getBeginDate();
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            taskList.get(i).setBeginDate(sdf.parse(sdf.format(beginDate)));
+        }
+        result.setMsg("查询任务列表成功");
+        result.setStatus(true);
+        return JsonUtils.toJson(result);
+    }
+    @ResponseBody
+    @RequestMapping("/getList")
+    public String getList(String userName, Integer userId, String taskName, String signInType, ModelMap modelMap, HttpServletRequest request) throws ParseException {
+        HttpSession session = request.getSession();
+        BaseResult result = new BaseResult();
+        userId = (Integer) session.getAttribute("userId");
+        if (StringUtils.isNotEmpty(userName)) {
+            User user = userService.getUserByName(userName);
+            userId = user.getUserId();
+        }
+        Task task = new Task();
+        List<Task> taskList = new ArrayList<>();
+        List<TaskDetail> detailList = new ArrayList<>();
+        List<Label> labelList = new ArrayList<>();
+        int count = taskService.checkTaskIsNull(userId);
+        //如果是注册后首次登录
+        if (count == 0) {
+            labelList = initLabel(userId);
+            task = initTask(userId, labelList.get(0));
+            taskList.add(task);
+            detailList = initDetailList(task);
+            Task delTask = initDelTask(userId,labelList.get(0));
+            List<TaskDetail> delDetail = initDelDetail(delTask);
+        } else {
+            taskList = taskService.getTaskList(userId, taskName);
+            //默认选中第一个task，并展示其Detail
+            if (taskList.size() > 0) {
+                task = taskList.get(0);
+                detailList = taskDetailService.getTaskDetailList(userId, taskList.get(0).getTaskId());
+            }
+            labelList = labelService.getLabelList(userId);
+        }
+        result.setData(taskList);
+        return JsonUtils.toJson(result);
+    }
     //展示列表的方法
     @RequestMapping("/getDelTask")
     public String getDelTask(Integer userId, String taskName, String signInType, ModelMap modelMap, HttpServletRequest request) throws ParseException {
@@ -133,12 +184,12 @@ public class TaskController {
     }
 
     @ResponseBody
-    @RequestMapping("/updateTask")
-    public HashMap<String, Object> updateTask(Task task, String del, String createTime) throws ParseException {
+    @RequestMapping(value = "/updateTask", produces = "application/json; charset=utf-8")
+    public String updateTask(Task task, String del, String beginTime) throws ParseException {
         BaseResult baseResult = new BaseResult();
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        if (StringUtils.isNotEmpty(createTime)) {
-            task.setBeginDate(sdf.parse(createTime));
+        if (StringUtils.isNotEmpty(beginTime)) {
+            task.setBeginDate(sdf.parse(beginTime));
         }
         if ("yes".equals(del)) {
             task.setDataState(2);
@@ -151,7 +202,7 @@ public class TaskController {
             baseResult.setStatus(false);
             baseResult.setMsg("保存失败");
         }
-        return JsonUtils.toHashMap(baseResult);
+        return JsonUtils.toJson(baseResult);
     }
     @ResponseBody
     @RequestMapping("/revertTask")

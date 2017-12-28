@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +23,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/note")
 public class NoteController {
 
@@ -32,8 +33,35 @@ public class NoteController {
 
 
     //展示列表的方法
-    @RequestMapping("/noteList")
-    public String noteList(Integer userId, NoteQueryParam noteQueryParam, ModelMap modelMap, HttpServletRequest request) throws ParseException {
+//    @RequestMapping("/noteList")
+//    public String noteList(Integer userId, NoteQueryParam noteQueryParam, ModelMap modelMap, HttpServletRequest request) throws ParseException {
+//        HttpSession session = request.getSession();
+//        userId = (Integer) session.getAttribute("userId");
+//        if (StringUtils.isEmpty(noteQueryParam.getStartTime()) && StringUtils.isEmpty(noteQueryParam.getEndTime())) {
+//            Calendar first = Calendar.getInstance();
+//            first.set(Calendar.DAY_OF_MONTH, 1);
+//            noteQueryParam.setStartTime(sdf.format(first.getTime()));
+//            first.set(Calendar.DAY_OF_MONTH, first.getMaximum(Calendar.DAY_OF_MONTH)-1);
+//            noteQueryParam.setEndTime(sdf.format(first.getTime()));
+//        }
+//        String[] time = noteQueryParam.getStartTime().split("-");
+//        List<String> yearList = DateUtil.getYearList();
+//        List<String> monthList = MonthEnum.getMonthList();
+//        List<String> dayList = DateUtil.getDayOfMonth(Integer.valueOf(time[0]),Integer.valueOf(time[1]));
+//        List<Note> noteList = noteService.getNoteList(userId, noteQueryParam);
+//        modelMap.addAttribute("yearList", yearList);
+//        modelMap.addAttribute("monthList", monthList);
+//        modelMap.addAttribute("dayList",dayList);
+//        modelMap.addAttribute("noteQueryParam", noteQueryParam);
+//        modelMap.addAttribute("userId", userId);
+//        modelMap.addAttribute("noteList", noteList);
+//        modelMap.addAttribute("nav", "note");
+//        return "/noteList";
+//    }
+
+
+    @RequestMapping(value = "/noteList",produces = "application/json; charset=utf-8")
+    public String noteList(Integer userId, NoteQueryParam noteQueryParam,HttpServletRequest request) throws ParseException {
         HttpSession session = request.getSession();
         userId = (Integer) session.getAttribute("userId");
         if (StringUtils.isEmpty(noteQueryParam.getStartTime()) && StringUtils.isEmpty(noteQueryParam.getEndTime())) {
@@ -48,16 +76,12 @@ public class NoteController {
         List<String> monthList = MonthEnum.getMonthList();
         List<String> dayList = DateUtil.getDayOfMonth(Integer.valueOf(time[0]),Integer.valueOf(time[1]));
         List<Note> noteList = noteService.getNoteList(userId, noteQueryParam);
-        modelMap.addAttribute("yearList", yearList);
-        modelMap.addAttribute("monthList", monthList);
-        modelMap.addAttribute("dayList",dayList);
-        modelMap.addAttribute("noteQueryParam", noteQueryParam);
-        modelMap.addAttribute("userId", userId);
-        modelMap.addAttribute("noteList", noteList);
-        modelMap.addAttribute("nav", "note");
-        return "/noteList";
+        BaseResult baseResult = new BaseResult();
+        baseResult.setData(noteList);
+        baseResult.setStatus(true);
+        baseResult.setMsg("查询便签成功");
+        return JsonUtils.toJson(baseResult);
     }
-
     //展示列表的方法
     @RequestMapping("/noteInputList")
     public String noteInputList(Integer userId, NoteQueryParam noteQueryParam, ModelMap modelMap, HttpServletRequest request) throws ParseException {

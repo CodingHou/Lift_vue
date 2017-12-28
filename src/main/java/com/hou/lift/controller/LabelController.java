@@ -9,28 +9,41 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 
-@Controller
-@RequestMapping("/label")
+@RestController
+@RequestMapping(value = "/label",produces = "application/json; charset=utf-8")
 public class LabelController {
 
     @Autowired
     private LabelService labelService;
 
+//    //展示列表的方法
+//    @RequestMapping("/getLabelList")
+//    public String getLabelList(Integer userId, ModelMap modelMap,Integer labelId,  HttpServletRequest request) throws ParseException {
+//        userId = (Integer) request.getSession().getAttribute("userId");
+//        List<Label> labelList = labelService.getLabelList(userId);
+//        modelMap.addAttribute("labelId", labelId);
+//        modelMap.addAttribute("userId", userId);
+//        modelMap.addAttribute("labelList", labelList);
+//        return "/labelList";
+//    }
     //展示列表的方法
+    @ResponseBody
     @RequestMapping("/getLabelList")
-    public String getLabelList(Integer userId, ModelMap modelMap,Integer labelId,  HttpServletRequest request) throws ParseException {
+    public String getLabelList(Integer userId, Integer labelId,  HttpServletRequest request) throws ParseException {
         userId = (Integer) request.getSession().getAttribute("userId");
         List<Label> labelList = labelService.getLabelList(userId);
-        modelMap.addAttribute("labelId", labelId);
-        modelMap.addAttribute("userId", userId);
-        modelMap.addAttribute("labelList", labelList);
-        return "/labelList";
+        BaseResult baseResult = new BaseResult();
+        baseResult.setData(labelList);
+        baseResult.setStatus(true);
+        baseResult.setMsg("查询标签成功");
+        return JsonUtils.toJson(baseResult);
     }
 
     @ResponseBody
@@ -58,7 +71,7 @@ public class LabelController {
     }
 
     @ResponseBody
-    @RequestMapping("/updateLabel")
+    @RequestMapping(value = "/updateLabel",produces = "application/json; charset=utf-8")
     public HashMap<String, Object> updateLabel(Label label,String del) throws ParseException {
         BaseResult baseResult = new BaseResult();
         Boolean res = checkInUse(label.getUserId(), label.getLabelId());
