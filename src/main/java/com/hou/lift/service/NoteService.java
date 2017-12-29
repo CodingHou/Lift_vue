@@ -1,7 +1,6 @@
 package com.hou.lift.service;
 
 import com.hou.lift.model.Note;
-import com.hou.lift.model.Note;
 import com.hou.lift.param.NoteQueryParam;
 
 import java.text.ParseException;

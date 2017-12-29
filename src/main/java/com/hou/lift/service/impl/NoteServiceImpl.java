@@ -1,13 +1,9 @@
 package com.hou.lift.service.impl;
 
 import com.hou.lift.dao.NoteMapper;
-import com.hou.lift.dao.TaskSqlMapper;
 import com.hou.lift.model.Note;
 import com.hou.lift.model.NoteExample;
-import com.hou.lift.model.Note;
-import com.hou.lift.model.TaskExample;
 import com.hou.lift.param.NoteQueryParam;
-import com.hou.lift.service.NoteService;
 import com.hou.lift.service.NoteService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

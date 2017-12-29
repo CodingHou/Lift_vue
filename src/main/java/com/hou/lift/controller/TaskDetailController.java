@@ -5,14 +5,12 @@ import com.hou.lift.model.TaskDetail;
 import com.hou.lift.service.TaskDetailService;
 import com.hou.lift.service.TaskService;
 import com.hou.lift.util.BaseResult;
-import com.hou.lift.util.JsonUtil;
 import com.hou.lift.util.JsonUtils;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/taskDetail", produces = "application/json; charset=utf-8")
+@RequestMapping(value = "/taskDetail", produces = "application/json; charset=utf-8",method = {RequestMethod.GET})
 public class TaskDetailController {
 
 
@@ -40,8 +38,8 @@ public class TaskDetailController {
         return "/details";
     }
 
-//    @ResponseBody
-    @RequestMapping(value = "/getDetailJson", produces = "application/json; charset=utf-8")
+    @ApiOperation(value = "获取所有taskDetail", notes = "测试getDetail")
+    @RequestMapping(value = "/getDetailJson")
     public String getDetailJson(Integer userId, Integer taskId) {
         List<TaskDetail> detailList = taskDetailService.getTaskDetailList(userId, taskId);
         BaseResult baseResult = new BaseResult();
@@ -51,7 +49,6 @@ public class TaskDetailController {
         return JsonUtils.toJson(baseResult);
     }
 
-//    @ResponseBody
     @RequestMapping("/insertTaskDetail")
     public HashMap insertTaskDetail(TaskDetail taskDetail) {
         BaseResult baseResult = new BaseResult();
@@ -73,7 +70,6 @@ public class TaskDetailController {
     }
 
 
-//    @ResponseBody
     @RequestMapping("/updateTaskDetail")
     public String updateTaskDetail(TaskDetail taskDetail, Boolean isChecked, String actionType, Integer checkedNo, Integer totalNo) {
         BaseResult baseResult = new BaseResult();
@@ -104,8 +100,8 @@ public class TaskDetailController {
         return JsonUtils.toJson(baseResult);
 
     }
-//    @ResponseBody
-    @RequestMapping(value = "/updateDetail", produces = "application/json; charset=utf-8",method = {RequestMethod.GET,RequestMethod.POST})
+
+    @RequestMapping(value = "/updateDetail", produces = "application/json; charset=utf-8", method = {RequestMethod.GET, RequestMethod.POST})
     public String updateDetail(TaskDetail taskDetail, String actionType, Integer checkedNo, Integer totalNo) {
         BaseResult baseResult = new BaseResult();
         int c = 0;

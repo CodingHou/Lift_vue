@@ -7,9 +7,8 @@ import com.hou.lift.util.BaseResult;
 import com.hou.lift.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,7 +16,7 @@ import java.util.HashMap;
 
 
 @Controller
-@RequestMapping("/index")
+@RequestMapping(value = "/index",method = {RequestMethod.GET})
 public class IndexController {
 
     @Autowired
@@ -29,7 +28,7 @@ public class IndexController {
     }
 
     //注册
-    @ResponseBody
+
     @RequestMapping("/signUp")
     public String signUp(User user,HttpServletRequest request) {
         int c = userService.addUser(user);
@@ -49,7 +48,7 @@ public class IndexController {
     }
 
     //登录
-    @ResponseBody
+
     @RequestMapping("signIn")
     public HashMap<String, Object> signIn(User user, String password, HttpServletRequest request) {
         BaseResult baseResult = new BaseResult();
@@ -75,7 +74,7 @@ public class IndexController {
 
     //登录和注册判断用户名是否存在的方法，
     //根据不同的页面返回不同的提示信息
-    @ResponseBody
+
     @RequestMapping("/checkUser")
     public HashMap<String, Object> checkUser(String userName, Integer checkType) {
         BaseResult baseResult = new BaseResult();

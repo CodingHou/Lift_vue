@@ -5,10 +5,8 @@ import com.hou.lift.service.LabelService;
 import com.hou.lift.util.BaseResult;
 import com.hou.lift.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/label",produces = "application/json; charset=utf-8")
+@RequestMapping(value = "/label",produces = "application/json; charset=utf-8",method = {RequestMethod.GET})
 public class LabelController {
 
     @Autowired
@@ -34,10 +32,12 @@ public class LabelController {
 //        return "/labelList";
 //    }
     //展示列表的方法
-    @ResponseBody
+
     @RequestMapping("/getLabelList")
     public String getLabelList(Integer userId, Integer labelId,  HttpServletRequest request) throws ParseException {
-        userId = (Integer) request.getSession().getAttribute("userId");
+        if (null == userId) {
+            userId = (Integer) request.getSession().getAttribute("userId");
+        }
         List<Label> labelList = labelService.getLabelList(userId);
         BaseResult baseResult = new BaseResult();
         baseResult.setData(labelList);
@@ -46,14 +46,14 @@ public class LabelController {
         return JsonUtils.toJson(baseResult);
     }
 
-    @ResponseBody
+
     @RequestMapping("/checkInUse")
     public Boolean checkInUse(Integer userId,Integer labelId) {
         boolean c = labelService.checkInUse(userId, labelId);
         return c;
     }
 
-    @ResponseBody
+
     @RequestMapping("/insertLabel")
     public String insertTask(Integer userId,Label label) {
         BaseResult baseResult = new BaseResult();
@@ -70,7 +70,7 @@ public class LabelController {
         return JsonUtils.toJson(baseResult);
     }
 
-    @ResponseBody
+
     @RequestMapping(value = "/updateLabel",produces = "application/json; charset=utf-8")
     public HashMap<String, Object> updateLabel(Label label,String del) throws ParseException {
         BaseResult baseResult = new BaseResult();
