@@ -45,7 +45,7 @@ public class TaskController {
 
 
     @RequestMapping("/getTaskList")
-    @ApiOperation(value = "获取TaskList",notes = "测试参数和返回值")
+    @ApiOperation(value = "获取TaskList",notes = "返回该用户下的task列表")
     public String getTaskList(String userName, @ApiParam("用户id") Integer userId, String taskName, String signInType, HttpServletRequest request) throws ParseException {
         HttpSession session = request.getSession();
         BaseResult result = new BaseResult();
@@ -127,7 +127,7 @@ public class TaskController {
 
 
     @RequestMapping("/insertTask")
-    @ApiOperation(value = "新增task的方法",notes = "测试参数和返回值")
+    @ApiOperation(value = "新增task的方法")
     public String insertTask(@ApiParam("用户id") Integer userId) {
         BaseResult baseResult = new BaseResult();
         Task task = new Task();
