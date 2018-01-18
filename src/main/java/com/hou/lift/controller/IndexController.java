@@ -54,8 +54,8 @@ public class IndexController {
     public HashMap<String, Object> signIn(User user, String password, HttpServletRequest request) {
         BaseResult baseResult = new BaseResult();
         user = userService.getUserByName(user.getUserName());
-        request.setAttribute("userId", user.getUserId());
         if (user != null) {
+            request.setAttribute("userId", user.getUserId());
             if (password.equals(user.getPassword())) {
                 baseResult.setStatus(true);
                 baseResult.setMsg("登录成功!");

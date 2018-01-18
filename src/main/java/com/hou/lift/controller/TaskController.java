@@ -1,9 +1,9 @@
 package com.hou.lift.controller;
 
-
 import com.hou.lift.enums.DelDetailEnum;
 import com.hou.lift.enums.InitDetailEnum;
 import com.hou.lift.model.*;
+import com.hou.lift.param.TaskQueryParam;
 import com.hou.lift.service.*;
 import com.hou.lift.util.BaseResult;
 import com.hou.lift.util.DateUtil;
@@ -46,64 +46,44 @@ public class TaskController {
 
     @RequestMapping("/getTaskList")
     @ApiOperation(value = "获取TaskList",notes = "返回该用户下的task列表")
-    public String getTaskList(String userName, @ApiParam("用户id") Integer userId, String taskName, String signInType, HttpServletRequest request) throws ParseException {
+    public String getTaskList(TaskQueryParam taskQueryParam, String signInType, HttpServletRequest request) throws ParseException {
         HttpSession session = request.getSession();
         BaseResult result = new BaseResult();
-        userId = (Integer) session.getAttribute("userId");
+        Integer userId =taskQueryParam.getUserId();
         if (null == userId) {
-            userId = 1;
+            userId = (Integer) session.getAttribute("userId");
         }
-        List<Task> taskList  = taskService.getTaskList(userId, taskName);
+        List<Task> taskList  = taskService.getTaskList(taskQueryParam);
         result.setData(taskList);
         for (int i = 0; i < taskList.size(); i++) {
             Date beginDate = taskList.get(i).getBeginDate();
             DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             taskList.get(i).setBeginDate(sdf.parse(sdf.format(beginDate)));
         }
+        int count = taskService.checkTaskIsNull(userId);
+        //如果是注册后首次登录
+        if (count == 0) {
+            List<Label> labelList = initLabel(userId);
+            Task task = initTask(userId, labelList.get(0));
+            taskList.add(task);
+            List<TaskDetail> detailList = initDetailList(task);
+            Task delTask = initDelTask(userId,labelList.get(0));
+            List<TaskDetail> delDetail = initDelDetail(delTask);
+        }
         result.setMsg("查询任务列表成功");
         result.setStatus(true);
         return JsonUtils.toJson(result);
     }
 
-    @RequestMapping("/getList")
-    public String getList(String userName, Integer userId, String taskName, String signInType, ModelMap modelMap, HttpServletRequest request) throws ParseException {
-        HttpSession session = request.getSession();
-        BaseResult result = new BaseResult();
-        userId = (Integer) session.getAttribute("userId");
-        if (StringUtils.isNotEmpty(userName)) {
-            User user = userService.getUserByName(userName);
-            userId = user.getUserId();
-        }
-        Task task = new Task();
-        List<Task> taskList = new ArrayList<>();
-        List<TaskDetail> detailList = new ArrayList<>();
-        List<Label> labelList = new ArrayList<>();
-        int count = taskService.checkTaskIsNull(userId);
-        //如果是注册后首次登录
-        if (count == 0) {
-            labelList = initLabel(userId);
-            task = initTask(userId, labelList.get(0));
-            taskList.add(task);
-            detailList = initDetailList(task);
-            Task delTask = initDelTask(userId,labelList.get(0));
-            List<TaskDetail> delDetail = initDelDetail(delTask);
-        } else {
-            taskList = taskService.getTaskList(userId, taskName);
-            //默认选中第一个task，并展示其Detail
-            if (taskList.size() > 0) {
-                task = taskList.get(0);
-                detailList = taskDetailService.getTaskDetailList(userId, taskList.get(0).getTaskId());
-            }
-            labelList = labelService.getLabelList(userId);
-        }
-        result.setData(taskList);
-        return JsonUtils.toJson(result);
-    }
+
     //展示列表的方法
     @RequestMapping("/getDelTask")
     public String getDelTask(Integer userId, String taskName, String signInType, ModelMap modelMap, HttpServletRequest request) throws ParseException {
         HttpSession session = request.getSession();
-        userId = (Integer) session.getAttribute("userId");
+        BaseResult result = new BaseResult();
+        if (null == userId) {
+            userId = (Integer) session.getAttribute("userId");
+        }
         //默认选中第一个task，并展示其Detail
         List<Task> taskList = taskService.getDeleteTask(userId, taskName);
         List<TaskDetail> detailList = new ArrayList<>();
@@ -113,28 +93,27 @@ public class TaskController {
             task = taskList.get(0);
             detailList = taskDetailService.getTaskDetailList(userId, taskList.get(0).getTaskId());
         }
-        modelMap.addAttribute("isDel", 1);
-        modelMap.addAttribute("userId", userId);
-        modelMap.addAttribute("taskName", taskName);
-        modelMap.addAttribute("task", task);
-        modelMap.addAttribute("labelList", labelList);
-        modelMap.addAttribute("taskList", taskList);
-        modelMap.addAttribute("detailList", detailList);
-        modelMap.addAttribute("nav", "delTask");
-        return "delTask";
+
+        result.setData(taskList);
+        result.setMsg("查询任务列表成功");
+        result.setStatus(true);
+        return JsonUtils.toJson(result);
     }
-
-
 
     @RequestMapping("/insertTask")
     @ApiOperation(value = "新增task的方法")
-    public String insertTask(@ApiParam("用户id") Integer userId) {
+    public String insertTask(@ApiParam("用户id") Integer userId,HttpServletRequest request) {
         BaseResult baseResult = new BaseResult();
+        HttpSession session = request.getSession();
+        if (null == userId) {
+            userId = (Integer) session.getAttribute("userId");
+        }
         Task task = new Task();
         task.setUserId(userId);
         task.setTaskName("新任务");
         task.setTotalDetail(0);
         task.setCompletedDetail(0);
+        task.setGradeId(3);
         task.setDataState(1);
         task.setBeginDate(Calendar.getInstance().getTime());
         int c = taskService.addTask(task);

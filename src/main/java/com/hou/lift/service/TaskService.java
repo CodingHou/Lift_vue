@@ -1,12 +1,13 @@
 package com.hou.lift.service;
 
 import com.hou.lift.model.Task;
+import com.hou.lift.param.TaskQueryParam;
 
 import java.util.List;
 
 public interface TaskService {
 
-    public List<Task> getTaskList(Integer userId,String taskName);
+    public List<Task> getTaskList(TaskQueryParam taskQueryParam);
 
     public List<Task> getDeleteTask(Integer userId,String taskName);
 

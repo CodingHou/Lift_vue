@@ -3,11 +3,14 @@ package com.hou.lift.service.impl;
 import com.hou.lift.dao.TaskMapper;
 import com.hou.lift.model.Task;
 import com.hou.lift.model.TaskExample;
+import com.hou.lift.param.TaskQueryParam;
 import com.hou.lift.service.TaskService;
+import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -18,13 +21,24 @@ public class TaskServiceImpl implements TaskService {
     private TaskMapper taskMapper;
 
     @Override
-    public List<Task> getTaskList(Integer userId,String taskName) {
+    public List<Task> getTaskList(TaskQueryParam taskQueryParam) {
         TaskExample example = new TaskExample();
         TaskExample.Criteria criteria = example.createCriteria();
+        int userId = taskQueryParam.getUserId();
+        String labels = taskQueryParam.getLabels();
         criteria.andUserIdEqualTo(userId);
         criteria.andDataStateNotEqualTo(2);
-        if (StringUtils.isNotEmpty(taskName)) {
-            criteria.andTaskNameLike("%" + taskName + "%");
+        if (StringUtils.isNotEmpty(taskQueryParam.getTaskName())) {
+            criteria.andTaskNameLike("%" + taskQueryParam.getTaskName() + "%");
+        }
+        if (StringUtils.isNotEmpty(taskQueryParam.getLabels())) {
+            List<Integer> labelList = new ArrayList<>();
+            String[] labelArr = taskQueryParam.getLabels().split(",");
+            for (String labelId : labelArr) {
+                Integer label = Integer.valueOf(labelId);
+                labelList.add(label);
+            }
+            criteria.andLabelIdIn(labelList);
         }
         example.setOrderByClause("task_id desc");
 //        example.setOrderByClause("task_id asc");

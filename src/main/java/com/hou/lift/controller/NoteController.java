@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/note",method = {RequestMethod.GET})
+@RequestMapping(value = "/note" ,produces = "application/json; charset=utf-8",method = {RequestMethod.GET})
 public class NoteController {
 
     @Autowired
@@ -35,7 +35,9 @@ public class NoteController {
     @RequestMapping(value = "/noteList",produces = "application/json; charset=utf-8")
     public String noteList(Integer userId, NoteQueryParam noteQueryParam,HttpServletRequest request) throws ParseException {
         HttpSession session = request.getSession();
-        userId = (Integer) session.getAttribute("userId");
+        if (null == userId) {
+            userId = (Integer) session.getAttribute("userId");
+        }
         if (StringUtils.isEmpty(noteQueryParam.getStartTime()) && StringUtils.isEmpty(noteQueryParam.getEndTime())) {
             Calendar first = Calendar.getInstance();
             first.set(Calendar.DAY_OF_MONTH, 1);
@@ -43,6 +45,7 @@ public class NoteController {
             first.set(Calendar.DAY_OF_MONTH, first.getMaximum(Calendar.DAY_OF_MONTH)-1);
             noteQueryParam.setEndTime(sdf.format(first.getTime()));
         }
+        //获取12个月的列表和每个月的天数
         String[] time = noteQueryParam.getStartTime().split("-");
         List<String> yearList = DateUtil.getYearList();
         List<String> monthList = MonthEnum.getMonthList();

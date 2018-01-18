@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -55,8 +56,12 @@ public class LabelController {
 
 
     @RequestMapping("/insertLabel")
-    public String insertTask(Integer userId,Label label) {
+    public String insertTask(Integer userId,Label label,HttpServletRequest request) {
         BaseResult baseResult = new BaseResult();
+        HttpSession session = request.getSession();
+        if (null == userId) {
+            userId = (Integer) session.getAttribute("userId");
+        }
         label.setUserId(userId);
         int c =labelService.addLabel(label);
         if (c == 1) {

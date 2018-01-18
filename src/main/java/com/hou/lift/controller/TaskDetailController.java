@@ -8,17 +8,16 @@ import com.hou.lift.util.BaseResult;
 import com.hou.lift.util.JsonUtils;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/taskDetail", produces = "application/json; charset=utf-8",method = {RequestMethod.GET})
+@RequestMapping(value = "/taskDetail", produces = "application/json; charset=utf-8", method = {RequestMethod.GET})
 public class TaskDetailController {
 
 
@@ -27,16 +26,6 @@ public class TaskDetailController {
     @Autowired
     private TaskDetailService taskDetailService;
 
-    @RequestMapping("/list")
-    public String list(Integer userId, Integer taskId, Integer isDel, ModelMap modelMap) {
-        List<TaskDetail> detailList = new ArrayList<>();
-        Task task = taskService.getTaskById(taskId);
-        detailList = taskDetailService.getTaskDetailList(userId, taskId);
-        modelMap.addAttribute("isDel", isDel);
-        modelMap.addAttribute("detailList", detailList);
-        modelMap.addAttribute("task", task);
-        return "/details";
-    }
 
     @ApiOperation(value = "获取所有taskDetail", notes = "测试getDetail")
     @RequestMapping(value = "/getDetailJson")
@@ -50,11 +39,14 @@ public class TaskDetailController {
     }
 
     @RequestMapping("/insertTaskDetail")
-    public HashMap insertTaskDetail(TaskDetail taskDetail) {
+    public String insertTaskDetail(TaskDetail taskDetail, HttpServletRequest request) {
         BaseResult baseResult = new BaseResult();
+        HttpSession session = request.getSession();
         Task task = taskService.getTaskById(taskDetail.getTaskId());
         taskDetail.setLabelId(task.getLabelId());
         taskDetail.setGradeId(task.getGradeId());
+        int userId = (Integer) session.getAttribute("userId");
+        taskDetail.setUserId(userId);
         taskDetail.setDataState(1);
         int c = taskDetailService.addTaskDetail(taskDetail);
         if (c == 1) {
@@ -65,10 +57,10 @@ public class TaskDetailController {
             baseResult.setStatus(false);
             baseResult.setMsg("保存失败");
         }
-        return JsonUtils.toHashMap(baseResult);
+        return JsonUtils.toJson(baseResult);
 
     }
-
+ 
 
     @RequestMapping("/updateTaskDetail")
     public String updateTaskDetail(TaskDetail taskDetail, Boolean isChecked, String actionType, Integer checkedNo, Integer totalNo) {
