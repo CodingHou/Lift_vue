@@ -59,6 +59,7 @@ public class IndexController {
             if (password.equals(user.getPassword())) {
                 baseResult.setStatus(true);
                 baseResult.setMsg("登录成功!");
+                baseResult.setData(user.getUserId());
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", user.getUserId());
                 session.setMaxInactiveInterval(-1);

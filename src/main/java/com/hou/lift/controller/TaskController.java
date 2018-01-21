@@ -53,6 +53,7 @@ public class TaskController {
         if (null == userId) {
             userId = (Integer) session.getAttribute("userId");
         }
+        taskQueryParam.setUserId(userId);
         List<Task> taskList  = taskService.getTaskList(taskQueryParam);
         result.setData(taskList);
         for (int i = 0; i < taskList.size(); i++) {

@@ -77,8 +77,13 @@ public class LabelController {
 
 
     @RequestMapping(value = "/updateLabel",produces = "application/json; charset=utf-8")
-    public HashMap<String, Object> updateLabel(Label label,String del) throws ParseException {
+    public HashMap<String, Object> updateLabel(Label label,String del,HttpServletRequest request) throws ParseException {
         BaseResult baseResult = new BaseResult();
+        HttpSession session = request.getSession();
+        if (null == label.getUserId()) {
+            int userId = (Integer) session.getAttribute("userId");
+            label.setUserId(userId);
+        }
         Boolean res = checkInUse(label.getUserId(), label.getLabelId());
         if ("yes".equals(del)) {
             label.setDataState(2);

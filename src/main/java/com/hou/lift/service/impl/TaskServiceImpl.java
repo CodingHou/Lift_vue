@@ -24,9 +24,9 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> getTaskList(TaskQueryParam taskQueryParam) {
         TaskExample example = new TaskExample();
         TaskExample.Criteria criteria = example.createCriteria();
-        int userId = taskQueryParam.getUserId();
-        String labels = taskQueryParam.getLabels();
-        criteria.andUserIdEqualTo(userId);
+        if (null!=taskQueryParam.getUserId()){
+            criteria.andUserIdEqualTo(taskQueryParam.getUserId());
+        }
         criteria.andDataStateNotEqualTo(2);
         if (StringUtils.isNotEmpty(taskQueryParam.getTaskName())) {
             criteria.andTaskNameLike("%" + taskQueryParam.getTaskName() + "%");
